@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-Property 3D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142D4E'/%3E%3Cpath d='M17 16h31v8H25v5h18v7H25v5h23v8H17z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#142D4E;--teal:#087F8C;--bg:#cfdbe6;--ink:#192635;--muted:#5B6878;--line:rgba(20,45,78,.12);
+  --glass:rgba(255,255,255,.72);--ok:#0B6B45;--held:#B26A00;--sold:#8A96A3;--warn:#B42318}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:15px/1.45 "Noto Sans",system-ui,sans-serif}
+canvas{display:block;touch-action:none}
+.card,header{background:var(--glass);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4);border:1px solid rgba(255,255,255,.6);box-shadow:0 6px 24px rgba(20,45,78,.12)}
+header{position:fixed;left:16px;right:16px;top:12px;display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:14px}
+header select{font:inherit;font-weight:700;color:var(--navy);min-height:40px;padding:0 10px;border:0;border-radius:10px;background:rgba(255,255,255,.7);max-width:55vw}
+header .list{margin-left:auto;display:inline-flex;align-items:center;min-height:40px;padding:0 12px;border-radius:10px;background:rgba(255,255,255,.7);color:var(--navy);font-weight:600;text-decoration:none;white-space:nowrap}
+@media (max-width:479px){header{gap:8px}header select{max-width:50vw}.tag .long{display:none}header .list{padding:0;width:40px;justify-content:center}header .list .txt{display:none}header .list::before{content:"☰";font-size:1.125rem}}
+.tag{font-size:.75rem;font-weight:600;padding:2px 8px;border-radius:999px;background:#FFF3D6;color:#8A5A00;white-space:nowrap}
+.panel{position:fixed;left:16px;top:72px;width:min(340px,calc(100% - 32px));display:grid;gap:8px;font-size:.8125rem;pointer-events:none}
+.panel>*{pointer-events:auto;margin:0;padding:10px 12px;border-radius:14px}
+.project p{margin:0}.project .meta,.hint{color:var(--muted)}
+.project .name{font-size:1.0625rem;font-weight:700;color:var(--navy)}
+.bar{height:6px;border-radius:3px;background:rgba(20,45,78,.12);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--teal)}
+.links{display:flex;gap:6px;margin-top:8px}
+.links a{flex:1;text-align:center;font-weight:600;color:var(--teal);text-decoration:none;padding:6px 8px;border-radius:10px;background:rgba(8,127,140,.1)}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;list-style:none;margin:0;padding:0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.legend b{font-variant-numeric:tabular-nums}
+.hint{margin:4px 0 0}
+.seg{display:inline-flex;margin-left:auto;padding:2px;border-radius:10px;background:rgba(20,45,78,.08)}
+.seg button{font:inherit;font-weight:600;border:0;background:none;color:var(--muted);padding:4px 10px;min-height:32px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(20,45,78,.15)}
+.sliders{display:grid;gap:6px}
+.sliders label{display:grid;grid-template-columns:8.6em 1fr 3.2em;align-items:center;gap:8px}
+.sliders input{accent-color:var(--teal);width:100%}
+.sliders b{text-align:right;font-variant-numeric:tabular-nums}
+/* bottom bar: camera presets, the 360° tour and the galleries */
+.views{position:fixed;left:16px;bottom:16px;max-width:calc(100% - 32px);display:flex;gap:4px;padding:4px;border-radius:14px;overflow-x:auto;scrollbar-width:none}
+.views button{font:inherit;font-size:.875rem;font-weight:600;white-space:nowrap;border:0;background:none;color:var(--ink);min-height:40px;padding:0 12px;border-radius:10px;cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.views .sep{flex:none;width:1px;margin:6px 2px;background:var(--line)}
+.views .accent{color:var(--teal)}
+.views [data-stop],.tour .views [data-view],.tour .views .gal{display:none}
+.tour .views [data-stop]{display:inline-block}
+.views [hidden]{display:none!important}
+.tour .panel{display:none}
+.shot header,.shot .panel,.shot .views,.shot .sheet{display:none}
+.sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(20,45,78,.12);transform:translateY(110%);visibility:hidden;transition:transform .2s ease,visibility .2s}
+.sheet.open{transform:none;visibility:visible}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+@media (min-width:720px){.sheet{left:auto;right:16px;bottom:16px;width:340px;border-radius:14px;border:1px solid var(--line)}}
+.sheet h2{margin:0;font-size:1.25rem;color:var(--navy)}
+.sheet .facts{margin:2px 0 0;color:var(--muted)}
+.sheet .price{margin:10px 0 0;font-size:1.375rem;font-weight:700;font-variant-numeric:tabular-nums}
+.sheet .price small{display:block;font-size:.8125rem;font-weight:400;color:var(--muted)}
+.sheet dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:10px 0 0;font-size:.875rem}
+.sheet dt{color:var(--muted)}.sheet dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+.sheet .acts{display:flex;flex-wrap:wrap;gap:4px 16px;margin:6px 0 0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pill{font-size:.8125rem;font-weight:600;padding:2px 10px;border-radius:999px;color:#fff}
+.sheet a,.sheet .link{color:var(--teal);font-weight:600;display:inline-flex;align-items:center;min-height:44px}
+.sheet button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;min-width:44px;min-height:44px;cursor:pointer}
+.sheet .link{border:0;padding:0;background:none}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.warn{margin:10px 0 0;padding:8px 10px;border-radius:8px;background:#FEF3F2;color:var(--warn);font-size:.875rem}
+.credit{position:fixed;right:6px;bottom:4px;margin:0;font-size:.6875rem;color:rgba(255,255,255,.9);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.tourhint{position:fixed;left:50%;top:72px;transform:translateX(-50%);margin:0;padding:6px 12px;border-radius:999px;font-size:.8125rem;white-space:nowrap;display:none}
+.tour .tourhint{display:block}
+#error{position:fixed;inset:auto 16px 50% 16px;text-align:center;color:var(--warn)}
+/* galleries: swipe through with native scroll-snap */
+dialog{border:0;padding:0;background:#0e1622;color:#fff;width:min(1200px,100vw);max-width:100vw;max-height:100dvh;border-radius:14px}
+dialog::backdrop{background:rgba(8,14,22,.8)}
+.gtop{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 16px}
+.gtop p{margin:0;flex:1;font-weight:600}
+.gtop small{display:block;font-weight:400;color:#a9b6c4}
+dialog button{font:inherit;color:#fff;background:rgba(255,255,255,.12);border:0;border-radius:10px;min-width:44px;min-height:44px;cursor:pointer}
+.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.strip figure{flex:0 0 100%;margin:0;scroll-snap-align:center;position:relative}
+.strip img{display:block;width:100%;max-height:72dvh;object-fit:contain;background:#000}
+.strip .open360{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);padding:0 18px;background:rgba(8,127,140,.92);font-weight:700}
+.gnav{display:flex;align-items:center;justify-content:center;gap:16px;padding:10px;font-variant-numeric:tabular-nums}
+#pano{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+#pano canvas{width:100%;height:100%}
+#pano .gtop{position:absolute;left:0;right:0;top:0;background:linear-gradient(rgba(8,14,22,.75),transparent)}
+#pano .phint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);margin:0;font-size:.8125rem;color:#d5dde6;white-space:nowrap}
+@media (max-width:719px){.project .meta{display:none}.links{margin-top:6px}.panel{top:66px}.views{right:16px;bottom:22px}.hint{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" aria-label="E-Property нүүр"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#142D4E"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#fff"/></svg></a>
+  <select id="project" aria-label="Төсөл"></select>
+  <span class="tag">⚠ Жишээ<span class="long"> мэдээлэл</span></span>
+  <a class="list" id="list" href="/units/" aria-label="Нэгжүүдийн жагсаалт"><span class="txt">Жагсаалт</span></a>
+</header>
+<div class="panel">
+  <div class="project card">
+    <p class="name" id="pname"></p>
+    <p id="pdist"></p>
+    <p class="meta" id="pdev"></p>
+    <p id="pprog"></p><div class="bar"><i id="pbar"></i></div>
+    <p class="meta" id="price"></p>
+    <div class="links"><a id="gmap" target="_blank" rel="noopener">Google Maps-д харах ↗</a></div>
+  </div>
+  <div class="card">
+    <ul class="legend" aria-label="Нэгжийн төлөв"></ul>
+    <p class="hint" id="hint">Нэгж дээр дарж паспортыг нээнэ</p>
+  </div>
+  <div class="card sliders">
+    <div class="row"><span>Харагдац</span><div class="seg" role="group" aria-label="Харагдац">
+      <button data-mode="facade" aria-pressed="true">Фасад</button><button data-mode="status" aria-pressed="false">Төлөв</button>
+    </div></div>
+    <label>Давхар хүртэл <input id="cut" type="range" min="1" max="1" value="1"> <b id="cutv"></b></label>
+    <label>Нарны байрлал <input id="sun" type="range" min="7" max="20" step="0.25" value="15"> <b id="sunv"></b></label>
+  </div>
+</div>
+<nav class="views card" aria-label="Харах өнцөг">
+  <button data-view="aerial" aria-pressed="true">Агаараас</button>
+  <button data-view="close" aria-pressed="false">Ойроос</button>
+  <button data-view="top" aria-pressed="false">Дээрээс</button>
+  <button data-view="night" aria-pressed="false">Орой</button>
+  <button data-view="tour" class="accent">360° тур</button>
+  <span class="sep gal"></span>
+  <button class="gal" data-gallery="renders">Зургууд</button>
+  <button class="gal" data-gallery="panoramas">360° зураг</button>
+  <button data-stop="street" aria-pressed="false">Орц</button>
+  <button data-stop="yard" aria-pressed="false">Хашаа</button>
+  <button data-stop="roof" aria-pressed="false">Дээвэр</button>
+  <button data-stop="window" aria-pressed="false" id="stopwin" hidden>Цонхноос</button>
+  <button data-stop="exit">✕ Гарах</button>
+</nav>
+<p class="tourhint card">Чирж эргэн тойрноо харна</p>
+<p class="credit">Хиймэл дагуулын зураг © Esri, Maxar</p>
+<p id="error" hidden></p>
+<section class="sheet" id="sheet" aria-live="polite">
+  <div class="row"><h2 id="uid"></h2><button id="close" aria-label="Хаах">✕</button></div>
+  <p class="facts" id="facts"></p>
+  <p class="row" style="margin:10px 0 0"><span class="pill" id="st"></span><span id="hold" class="facts"></span></p>
+  <p class="price" id="up"></p>
+  <dl>
+    <dt>Талбай (зургаар)</dt><dd id="am"></dd>
+    <dt>Талбай (зарласан)</dt><dd id="ad"></dd>
+  </dl>
+  <p class="warn" id="warn" hidden></p>
+  <p class="acts"><a id="passport" href="/units/">Нэгжийн паспорт нээх</a><button class="link" id="winview">Цонхноос 360° харах</button></p>
+</section>
+<dialog id="gallery" aria-labelledby="gtitle">
+  <div class="gtop"><p id="gtitle"></p><button id="gclose" aria-label="Хаах">✕</button></div>
+  <div class="strip" id="strip"></div>
+  <div class="gnav"><button id="gprev" aria-label="Өмнөх">‹</button><span id="gnum"></span><button id="gnext" aria-label="Дараах">›</button></div>
+</dialog>
+<dialog id="pano" aria-labelledby="ptitle">
+  <canvas id="panoc"></canvas>
+  <div class="gtop"><p id="ptitle"></p><button id="pclose" aria-label="Хаах">✕</button></div>
+  <p class="phint">Чирж эргүүлнэ · хулганы дугуйгаар томруулна</p>
+</dialog>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { Sky } from "three/addons/objects/Sky.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+const STATUS = { available: ["Сул", "#0B6B45"], reserved: ["Захиалсан", "#B26A00"], sold: ["Зарагдсан", "#8A96A3"] };
+// 305 400 000 ₮ — non-breaking spaces between groups, sign after (Intl mn-MN puts ₮ first with commas).
+const money = (n) => `${Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₮`;
+const mln = (n) => n < 1e9 ? `${(n / 1e6).toFixed(1)} сая ₮` : `${(n / 1e9).toFixed(2)} тэрбум ₮`;
+const m2 = (n) => n == null ? "—" : `${n.toFixed(1)} м²`;
+const when = (iso) => iso.slice(0, 16).replace(/-/g, ".").replace("T", " ");
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+// ?shot=1 hides the UI for renders.sh; ?pano=<stop> draws that stop's 360° panorama instead of the view.
+const shot = params.has("shot");
+if (shot) document.body.classList.add("shot");
+// ?embed=1 is the landing-page card: no UI, a tapped unit is reported to the parent page.
+const embed = params.has("embed") && parent !== window;
+if (embed) document.body.classList.add("shot");
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.5;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog("#c9d6e2", 300, 1000);
+const sky = new Sky();
+sky.scale.setScalar(4000);
+Object.assign(sky.material.uniforms, { turbidity: { value: 3 }, rayleigh: { value: 2.4 }, mieCoefficient: { value: 0.004 }, mieDirectionalG: { value: 0.8 } });
+scene.add(sky);
+const hemi = new THREE.HemisphereLight("#dfeaf5", "#5b5a4c", 1.2);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight("#fff4e0", 3);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.bias = -0.0004;
+scene.add(sun, sun.target);
+const pmrem = new THREE.PMREMGenerator(renderer);
+let envRT = null;
+const envScene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(40, 1, 0.3, 6000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.maxPolarAngle = Math.PI / 2 - 0.04; // stay above ground
+controls.autoRotate = !shot;
+controls.autoRotateSpeed = 0.5;
+controls.addEventListener("start", () => { controls.autoRotate = false; fly = null; });
+
+// Ambient occlusion darkens corners and contact lines; skipped on phones to keep the frame rate.
+const composer = innerWidth >= 720 || shot ? new EffectComposer(renderer) : null;
+if (composer) {
+  composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  composer.addPass(new RenderPass(scene, camera));
+  const gtao = new GTAOPass(scene, camera, innerWidth, innerHeight);
+  gtao.updateGtaoMaterial({ radius: 2.5, distanceExponent: 1.5, scale: 1.2 });
+  composer.addPass(gtao);
+  composer.addPass(new OutputPass());
+}
+
+function resize() {
+  renderer.setSize(innerWidth, innerHeight);
+  composer?.setSize(innerWidth, innerHeight);
+  camera.aspect = innerWidth / innerHeight;
+  // On phones the panel covers the top of the screen: shift the picture into the free area below it.
+  const top = innerWidth < 720 && !tour ? document.querySelector(".panel").getBoundingClientRect().bottom : 0;
+  camera.setViewOffset(innerWidth, innerHeight, 0, -top / 2, innerWidth, innerHeight);
+  camera.updateProjectionMatrix();
+  return top;
+}
+let sphere = new THREE.Sphere(new THREE.Vector3(), 30), fitD = 100, fly = null, tour = null, view = "aerial";
+// Fit the model into the part of the screen the panel leaves free.
+function frame() {
+  const top = resize();
+  sphere = new THREE.Box3().setFromObject(model).getBoundingSphere(new THREE.Sphere());
+  const free = (innerHeight - top) / innerHeight;
+  const fit = Math.min(Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * free, Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect);
+  fitD = (sphere.radius / fit) * 1.3; // headroom for perspective
+  controls.minDistance = sphere.radius * 1.1;
+  controls.maxDistance = sphere.radius * 8;
+  const s = sun.shadow.camera;
+  s.left = s.bottom = -sphere.radius * 3.5; s.right = s.top = sphere.radius * 3.5; s.far = sphere.radius * 10;
+  s.updateProjectionMatrix();
+}
+addEventListener("resize", resize);
+
+// Orbit presets: direction from the building centre and distance as a share of the fitted distance.
+const VIEWS = { aerial: [0.62, 0.42, 0.72, 1], close: [0.4, 0.1, 0.9, 0.62], top: [0.02, 1, 0.02, 1.05], night: [-0.55, 0.3, 0.78, 0.95] };
+function setView(name, instant) {
+  leaveTour();
+  view = name;
+  const [x, y, z, k] = VIEWS[name];
+  const night = name === "night";
+  if (night !== +$("sun").value >= 19) { $("sun").value = night ? 19.5 : 15; setSun(); }
+  const pos = sphere.center.clone().add(new THREE.Vector3(x, y, z).normalize().multiplyScalar(fitD * k));
+  if (instant) { camera.position.copy(pos); controls.target.copy(sphere.center); }
+  else fly = { pos, target: sphere.center.clone() };
+  if (!instant) controls.autoRotate = false;
+  document.querySelectorAll("[data-view]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.view === name));
+}
+
+// 360° tour: the camera stands at a stop and turns in place.
+function stopEye(stop, unitId) {
+  const bb = new THREE.Box3().setFromObject(model), c = bb.getCenter(new THREE.Vector3()), size = bb.getSize(new THREE.Vector3());
+  if (stop === "street") return [new THREE.Vector3(c.x + size.x * 0.3, 1.7, bb.max.z + 24), new THREE.Vector3(c.x, size.y * 0.45, c.z)];
+  if (stop === "yard") return [new THREE.Vector3(bb.min.x - 4, 1.7, bb.max.z + 4), new THREE.Vector3(c.x, size.y * 0.35, c.z)];
+  if (stop === "roof") return [new THREE.Vector3(c.x, bb.max.y + 1.7, c.z), new THREE.Vector3(c.x, bb.max.y + 1, bb.max.z + 60)];
+  const m = meshes.find((x) => x.userData.unit_id === unitId);
+  const ub = new THREE.Box3().setFromObject(m), uc = ub.getCenter(new THREE.Vector3()), us = ub.getSize(new THREE.Vector3());
+  const dir = new THREE.Vector3(uc.x - c.x, 0, uc.z - c.z);
+  if (dir.lengthSq() < 1) dir.set(0, 0, 1);
+  dir.normalize();
+  const eye = uc.clone().addScaledVector(dir, Math.abs(dir.x) * us.x / 2 + Math.abs(dir.z) * us.z / 2 + 0.3);
+  eye.y = ub.min.y + 1.5;
+  return [eye, eye.clone().addScaledVector(dir, 10)];
+}
+function enterTour(stop) {
+  if (stop === "exit") return setView(view, false);
+  const [eye, look] = stopEye(stop, selected?.userData.unit_id);
+  if (!tour) {
+    document.body.classList.add("tour");
+    Object.assign(controls, { enableZoom: false, enablePan: false, rotateSpeed: -0.35, minDistance: 0, maxDistance: Infinity, maxPolarAngle: Math.PI, autoRotate: false });
+    camera.fov = 70;
+  }
+  tour = stop;
+  fly = null;
+  camera.position.copy(eye);
+  controls.target.copy(eye).add(look.sub(eye).normalize().multiplyScalar(0.01));
+  resize();
+  document.querySelectorAll("[data-stop]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.stop === stop));
+}
+function leaveTour() {
+  if (!tour) return;
+  tour = null;
+  document.body.classList.remove("tour");
+  Object.assign(controls, { enableZoom: true, enablePan: true, rotateSpeed: 1, maxPolarAngle: Math.PI / 2 - 0.04 });
+  camera.fov = 40;
+  frame();
+}
+document.querySelectorAll("[data-view]").forEach((b) => b.onclick = () => b.dataset.view === "tour" ? enterTour(selected ? "window" : "street") : setView(b.dataset.view));
+document.querySelectorAll("[data-stop]").forEach((b) => b.onclick = () => enterTour(b.dataset.stop));
+
+// Sun over Ulaanbaatar for today at the chosen local hour (UTC+8). Simple declination/hour-angle model, ±1°.
+function sunDir(hour, lat) {
+  const doy = Math.floor((Date.now() - Date.UTC(new Date().getUTCFullYear(), 0, 0)) / 864e5);
+  const r = Math.PI / 180, decl = -23.44 * Math.cos((2 * Math.PI / 365) * (doy + 10)) * r;
+  const H = (hour - 12 - (120 - 106.9) / 15) * 15 * r, phi = lat * r;
+  const el = Math.asin(Math.sin(phi) * Math.sin(decl) + Math.cos(phi) * Math.cos(decl) * Math.cos(H));
+  const az = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(phi) - Math.tan(decl) * Math.cos(phi)); // from south, west positive
+  return new THREE.Vector3(-Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)); // north is -Z
+}
+let lat = 47.92, litWindows = 0;
+function setSun() {
+  const h = +$("sun").value;
+  $("sunv").textContent = `${Math.floor(h)}:${String((h % 1) * 60).padStart(2, "0")}`;
+  const dir = sunDir(h, lat), day = THREE.MathUtils.clamp(dir.y * 5, 0, 1);
+  sky.material.uniforms.sunPosition.value.copy(dir);
+  sun.position.copy(sphere.center).addScaledVector(dir, sphere.radius * 5);
+  sun.target.position.copy(sphere.center);
+  sun.intensity = 4.5 * day;
+  sun.color.set(dir.y < 0.25 ? "#ffc58a" : "#fff4e0");
+  hemi.intensity = 0.15 + 0.45 * day;
+  litWindows = 1 - day;
+  scene.fog.color.set(day > 0.2 ? "#c9d6e2" : "#4a5566");
+  envRT?.dispose();
+  envScene.add(sky); // the sky alone lights the reflections
+  envRT = pmrem.fromScene(envScene, 0, 1, 5000);
+  scene.add(sky);
+  scene.environment = envRT.texture;
+  for (const m of meshes) if (m.userData.lit) m.material.emissiveIntensity = litWindows * 0.9;
+}
+$("sun").oninput = setSun;
+
+// Satellite tiles (Esri World Imagery, z18 ≈ 0.4 m/px) stitched into a ground texture centred on the site.
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshStandardMaterial({ color: "#8b8a7c", roughness: 1, envMapIntensity: 0.25 }));
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+const apron = new THREE.Mesh(new THREE.PlaneGeometry(8000, 8000), new THREE.MeshStandardMaterial({ color: "#8a8573", roughness: 1, envMapIntensity: 0.25 }));
+apron.rotation.x = -Math.PI / 2;
+apron.position.y = -1; // well below the satellite plane so distant views do not z-fight
+scene.add(ground, apron);
+async function loadGround(p) {
+  const Z = 18, N = 9, worldPx = 256 * 2 ** Z;
+  const px = ((p.lon + 180) / 360) * worldPx;
+  const s = Math.sin((p.lat * Math.PI) / 180);
+  const py = (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * worldPx;
+  const tx0 = Math.floor(px / 256) - (N >> 1), ty0 = Math.floor(py / 256) - (N >> 1);
+  const canvas = Object.assign(document.createElement("canvas"), { width: N * 256, height: N * 256 });
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#8b8a7c"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+  await Promise.all(Array.from({ length: N * N }, (_, i) => new Promise((done) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => { ctx.drawImage(img, (i % N) * 256, Math.floor(i / N) * 256); done(); };
+    img.onerror = done; // a missing tile stays plain ground
+    img.src = `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${Z}/${ty0 + Math.floor(i / N)}/${tx0 + (i % N)}`;
+  })));
+  const mpp = (156543.034 * Math.cos((p.lat * Math.PI) / 180)) / 2 ** Z;
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  ground.material.map?.dispose();
+  Object.assign(ground.material, { map: tex, color: new THREE.Color("#ffffff") });
+  ground.material.needsUpdate = true;
+  ground.scale.set(canvas.width * mpp, canvas.height * mpp, 1);
+  // put the site's lat/lon under the building centre
+  ground.position.set(sphere.center.x + (canvas.width / 2 - (px - tx0 * 256)) * mpp, 0, sphere.center.z + (canvas.height / 2 - (py - ty0 * 256)) * mpp);
+}
+
+// Facade module, 1.6 m wide and one storey tall: glass with mullions over a stone spandrel band.
+// Albedo, PBR (G = roughness, B = metalness, as three.js reads them) and window glow share one layout.
+function moduleTexture(glass, frame, band) {
+  const c = Object.assign(document.createElement("canvas"), { width: 128, height: 128 }), g = c.getContext("2d");
+  g.fillStyle = glass; g.fillRect(0, 0, 128, 128);
+  g.fillStyle = frame; g.fillRect(0, 0, 4, 112); g.fillRect(124, 0, 4, 112); g.fillRect(62, 0, 4, 112); g.fillRect(0, 108, 128, 4);
+  g.fillStyle = band; g.fillRect(0, 112, 128, 16);
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = THREE.RepeatWrapping;
+  t.anisotropy = 8;
+  return t;
+}
+const facadeMap = moduleTexture("#4a6578", "#2e3338", "#cbbda3");
+facadeMap.colorSpace = THREE.SRGBColorSpace;
+const facadePbr = moduleTexture("rgb(0,25,255)", "rgb(0,110,200)", "rgb(0,200,0)");
+const glowMap = moduleTexture("#ffffff", "#000000", "#000000");
+// Wall UVs: u runs along the wall in modules, v up the storey; tops sample the stone band.
+function facadeUV(geo) {
+  const p = geo.attributes.position, n = geo.attributes.normal, uv = new Float32Array(p.count * 2);
+  const { min, max } = geo.boundingBox, h = max.y - min.y;
+  for (let i = 0; i < p.count; i++) {
+    if (Math.abs(n.getY(i)) > 0.5) { uv[2 * i] = 0.5; uv[2 * i + 1] = 0.05; continue; }
+    uv[2 * i] = (p.getZ(i) * n.getX(i) - p.getX(i) * n.getZ(i)) / 1.6;
+    uv[2 * i + 1] = (p.getY(i) - min.y) / h;
+  }
+  geo.setAttribute("uv", new THREE.BufferAttribute(uv, 2));
+}
+
+// Landscaping: a paved plot with a lawn and a row of trees inside it. Illustrative only.
+let site = null;
+function landscape(bb) {
+  if (site) { scene.remove(site); site.traverse((o) => { o.geometry?.dispose(); o.material?.dispose(); }); }
+  site = new THREE.Group();
+  const c = bb.getCenter(new THREE.Vector3()), w = bb.max.x - bb.min.x, d = bb.max.z - bb.min.z;
+  const plate = (sx, sz, color, y) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(sx, sz), new THREE.MeshStandardMaterial({ color, roughness: 0.95, envMapIntensity: 0.3 }));
+    m.rotation.x = -Math.PI / 2; m.position.set(c.x, y, c.z); m.receiveShadow = true; site.add(m);
+  };
+  plate(w + 34, d + 34, "#cfc6b4", 0.1);
+  plate(w + 26, d + 26, "#5a7a3e", 0.2);
+  plate(w + 6, d + 6, "#d8d1c2", 0.3);
+  const spots = [], rnd = (a, b) => a + Math.random() * (b - a);
+  // a row along the lawn edge
+  for (const [x0, z0, x1, z1] of [[-1, -1, 1, -1], [1, -1, 1, 1], [1, 1, -1, 1], [-1, 1, -1, -1]]) {
+    const len = Math.hypot((x1 - x0) * (w + 20) / 2, (z1 - z0) * (d + 20) / 2);
+    for (let t = 0; t < 1; t += 7 / len) spots.push([c.x + (x0 + (x1 - x0) * t) * (w + 20) / 2, c.z + (z0 + (z1 - z0) * t) * (d + 20) / 2, rnd(0.8, 1.1)]);
+  }
+  const crown = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(2.4, 1), new THREE.MeshStandardMaterial({ roughness: 0.9, flatShading: true }), spots.length);
+  const trunk = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.15, 0.22, 3), new THREE.MeshStandardMaterial({ color: "#5a4632", roughness: 1 }), spots.length);
+  const mtx = new THREE.Matrix4(), greens = ["#3d5e2f", "#4a6b36", "#34562b", "#56743c"];
+  spots.forEach(([x, z, s], i) => {
+    mtx.compose(new THREE.Vector3(x, 3.4 * s + 1.6, z), new THREE.Quaternion(), new THREE.Vector3(s, s * 1.15, s));
+    crown.setMatrixAt(i, mtx);
+    crown.setColorAt(i, new THREE.Color(greens[i % 4]));
+    mtx.compose(new THREE.Vector3(x, 1.5 * s, z), new THREE.Quaternion(), new THREE.Vector3(s, s, s));
+    trunk.setMatrixAt(i, mtx);
+  });
+  crown.castShadow = trunk.castShadow = crown.receiveShadow = true;
+  site.add(crown, trunk);
+  scene.add(site);
+}
+
+const glassColor = new THREE.Color("#ffffff");
+let projects = [], current = null, units = {}, meshes = [], model = null, selected = null, mode = "facade";
+const concrete = new THREE.MeshStandardMaterial({ color: "#d9d0bf", roughness: 0.7 });
+const coreMat = new THREE.MeshStandardMaterial({ color: "#cfc8ba", roughness: 0.8 });
+const lobby = new THREE.MeshPhysicalMaterial({ color: "#1d2a33", metalness: 0.8, roughness: 0.1, emissive: "#ffcf8a", emissiveIntensity: 0.08 });
+const rail = new THREE.MeshPhysicalMaterial({ color: "#c4dbe3", metalness: 0.2, roughness: 0.05, transparent: true, opacity: 0.3, depthWrite: false });
+const shared = [concrete, coreMat, lobby, rail];
+
+// Facade: glass-and-stone modules with a few warm-lit rooms. Status: colours carry sales state.
+function paint() {
+  for (const m of meshes) {
+    const mat = m.material, id = m.userData.unit_id;
+    if (mode === "status") {
+      mat.color.set(STATUS[units[id].status][1]);
+      Object.assign(mat, { map: null, metalnessMap: null, roughnessMap: null, emissiveMap: null, metalness: 0.1, roughness: 0.45, clearcoat: 0.6 });
+    } else {
+      mat.color.copy(glassColor).offsetHSL(0, 0, m.userData.shade);
+      Object.assign(mat, { map: facadeMap, metalnessMap: facadePbr, roughnessMap: facadePbr, emissiveMap: glowMap, metalness: 1, roughness: 1, clearcoat: 0 });
+    }
+    mat.needsUpdate = true;
+    m.children[0].material.opacity = mode === "status" ? 0.6 : 0.15;
+  }
+  if (selected) highlight(selected, true);
+  document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.mode === mode));
+}
+document.querySelectorAll(".seg button").forEach((b) => b.onclick = () => { mode = b.dataset.mode; paint(); });
+function highlight(m, on) {
+  m.material.emissive.set(on ? "#22c3d4" : "#ffcf8a");
+  m.material.emissiveIntensity = on ? 1.5 : m.userData.lit ? litWindows * 0.9 : 0;
+}
+
+async function showProject(slug, unitId) {
+  const p = projects.find((x) => x.slug === slug) ?? projects[0];
+  current = p;
+  $("project").value = p.slug;
+  closeSheet();
+  leaveTour();
+  if (model) {
+    scene.remove(model);
+    model.traverse((o) => { o.geometry?.dispose(); if (!shared.includes(o.material)) o.material?.dispose(); });
+  }
+  const [gltf, list] = await Promise.all([
+    new GLTFLoader().loadAsync(`data/${p.slug}/building.glb`),
+    fetch(`data/${p.slug}/units.json`).then((r) => r.json()),
+  ]);
+  units = Object.fromEntries(list.map((u) => [u.unit_id, u]));
+  meshes = [];
+  const parts = [];
+  gltf.scene.traverse((o) => o.isMesh && parts.push(o));
+  const lowest = Math.min(...parts.map((o) => o.userData.floor));
+  for (const o of parts) {
+    o.castShadow = o.receiveShadow = true;
+    // the GLB carries no normals: split faces so each gets a flat normal
+    o.geometry = o.geometry.toNonIndexed();
+    o.geometry.computeVertexNormals();
+    o.geometry.computeBoundingBox();
+    const bb = o.geometry.boundingBox, h = bb.max.y - bb.min.y, c = bb.getCenter(new THREE.Vector3());
+    // stone floor slab in the gap above each unit, proud of the facade like a balcony edge
+    const slab = new THREE.Mesh(o.geometry, concrete);
+    slab.scale.set(1.06, 0.3 / h, 1.06);
+    slab.position.set(c.x * -0.06, bb.max.y - 0.3 / h * bb.min.y, c.z * -0.06);
+    slab.castShadow = slab.receiveShadow = true;
+    // the plan starts above the ground: fill the empty lower floors with a glass lobby
+    if (o.userData.floor === lowest && bb.min.y > 0.5) {
+      const base = new THREE.Mesh(o.geometry, lobby);
+      base.scale.y = bb.min.y / h;
+      base.position.y = -base.scale.y * bb.min.y;
+      base.castShadow = true;
+      gltf.scene.add(base);
+    }
+    if (!o.userData.unit_id) { o.material = coreMat; o.add(slab); continue; }
+    facadeUV(o.geometry);
+    o.material = new THREE.MeshPhysicalMaterial({ envMapIntensity: 1, emissive: "#ffcf8a", emissiveIntensity: 0 });
+    o.userData.shade = (Math.random() - 0.5) * 0.08;
+    o.userData.lit = Math.random() < 0.25;
+    o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry), new THREE.LineBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.15 })));
+    // glass balustrade along the slab edge
+    const guard = new THREE.Mesh(o.geometry, rail);
+    guard.scale.set(1.055, 1.05 / h, 1.055);
+    guard.position.set(c.x * -0.055, bb.min.y - 1.05 / h * bb.min.y, c.z * -0.055);
+    guard.renderOrder = 1;
+    o.add(slab, guard);
+    meshes.push(o);
+  }
+  model = gltf.scene;
+  scene.add(model);
+
+  frame();
+  lat = p.lat;
+  landscape(new THREE.Box3().setFromObject(model));
+  paint();
+  setSun();
+  const groundReady = loadGround(p);
+
+  $("pname").textContent = `${p.name}, ${p.block} блок`;
+  $("pdist").textContent = p.district;
+  $("pdev").textContent = `${p.developer} · шинэчилсэн ${p.updated.replace(/-/g, ".")}`;
+  $("pprog").textContent = `Барилгын явц ${p.progress}% · ашиглалтад ${p.completion}`;
+  $("pbar").style.width = `${p.progress}%`;
+  $("price").textContent = `Үнэ ${mln(p.price_from)} – ${mln(p.price_to)} · нийт ${p.units} нэгж`;
+  $("gmap").href = `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lon}`;
+  document.querySelector(".legend").innerHTML = Object.entries(STATUS)
+    .map(([k, [label, color]]) => `<li><i style="background:${color}"></i>${label} <b>${p[k]}</b></li>`).join("");
+  document.querySelectorAll("[data-gallery]").forEach((b) => b.hidden = !p[b.dataset.gallery]?.length);
+
+  const floors = list.map((u) => u.floor);
+  const cut = $("cut");
+  cut.min = Math.min(...floors); cut.max = Math.max(...floors); cut.value = cut.max;
+  cut.oninput = () => {
+    $("cutv").textContent = `${cut.value}-р`;
+    model.traverse((m) => { if (m.userData.floor) m.visible = m.userData.floor <= +cut.value; });
+  };
+  cut.oninput();
+  history.replaceState(null, "", `?project=${p.slug}${unitId ? `&unit=${unitId}` : ""}`);
+  $("list").href = `/units/?project=${encodeURIComponent(p.slug)}`;
+  setView(VIEWS[params.get("view")] ? params.get("view") : "aerial", true);
+  if (units[unitId]) openUnit(unitId);
+  return groundReady;
+}
+
+function openUnit(id) {
+  const u = units[id];
+  if (selected) highlight(selected, false);
+  selected = meshes.find((m) => m.userData.unit_id === id);
+  highlight(selected, true);
+  controls.autoRotate = false;
+  $("uid").textContent = id;
+  $("facts").textContent = `${u.rooms} өрөө · ${m2(u.area_declared ?? u.area_measured)} · ${u.floor}-р давхар`;
+  $("st").textContent = STATUS[u.status][0];
+  $("st").style.background = STATUS[u.status][1];
+  $("hold").textContent = u.hold_until ? `Хүлээлт дуусах ${when(u.hold_until)}` : "";
+  $("up").innerHTML = u.status === "sold" ? "" : `${money(u.price)}<small>1 м² ${money(u.price_per_m2)}</small>`;
+  $("am").textContent = m2(u.area_measured);
+  $("ad").textContent = m2(u.area_declared);
+  $("warn").hidden = !u.area_flag;
+  $("warn").textContent = u.area_flag ? `Зарласан талбай зургаас ${u.area_diff_pct > 0 ? "+" : ""}${u.area_diff_pct}% зөрүүтэй. Гэрээний өмнө тодруулна.` : "";
+  $("passport").href = `/units/?project=${encodeURIComponent($("project").value)}&unit=${encodeURIComponent(id)}`;
+  $("stopwin").hidden = false;
+  $("sheet").classList.add("open");
+  $("hint").hidden = true;
+  history.replaceState(null, "", `?project=${$("project").value}&unit=${id}`);
+}
+function closeSheet() {
+  $("sheet").classList.remove("open");
+  if (selected) highlight(selected, false);
+  selected = null;
+  $("stopwin").hidden = true;
+}
+$("close").onclick = () => {
+  closeSheet();
+  if (tour === "window") enterTour("street");
+  history.replaceState(null, "", `?project=${$("project").value}`);
+};
+$("winview").onclick = () => { $("sheet").classList.remove("open"); enterTour("window"); };
+$("project").onchange = (e) => showProject(e.target.value);
+
+// A tap opens a unit; a drag only turns the camera.
+const ray = new THREE.Raycaster(), down = new THREE.Vector2();
+renderer.domElement.addEventListener("pointerdown", (e) => down.set(e.clientX, e.clientY));
+renderer.domElement.addEventListener("pointerup", (e) => {
+  if (tour || down.distanceTo(new THREE.Vector2(e.clientX, e.clientY)) > 6) return;
+  ray.setFromCamera(new THREE.Vector2((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), camera);
+  const hit = ray.intersectObjects(meshes.filter((m) => m.visible), false).find((h) => h.object.userData.unit_id);
+  if (!hit) return;
+  openUnit(hit.object.userData.unit_id);
+  if (embed) parent.postMessage({ type: "ep-unit", project: current.slug, unit: hit.object.userData.unit_id }, location.origin);
+});
+
+// Galleries. Every image so far is made from this 3D model; developer renders and interior
+// panoramas go in the same lists in projects.json with "by": "developer".
+const strip = $("strip");
+let galleryKind = "renders";
+function openGallery(kind) {
+  galleryKind = kind;
+  const items = current[kind];
+  $("gtitle").innerHTML = `${kind === "renders" ? "Зургууд" : "360° зураг"}<small>${esc(current.name)} · 3D загвараас үүсгэсэн, бодит барилга биш</small>`;
+  strip.innerHTML = items.map((r, i) => `<figure>
+    <img src="data/${current.slug}/${esc(r.file)}" alt="${esc(r.title)}" loading="lazy">
+    ${kind === "panoramas" ? `<button class="open360" data-i="${i}">360° эргүүлж харах</button>` : ""}
+  </figure>`).join("");
+  $("gallery").showModal();
+  strip.scrollLeft = 0;
+  counter();
+}
+const counter = () => {
+  const i = Math.round(strip.scrollLeft / strip.clientWidth), items = current[galleryKind];
+  $("gnum").textContent = `${items[i].title} · ${i + 1} / ${items.length}`;
+};
+strip.addEventListener("scroll", counter, { passive: true });
+strip.addEventListener("click", (e) => {
+  const b = e.target.closest(".open360");
+  if (b) openPano(current.panoramas[+b.dataset.i]);
+});
+$("gprev").onclick = () => strip.scrollBy({ left: -strip.clientWidth, behavior: "smooth" });
+$("gnext").onclick = () => strip.scrollBy({ left: strip.clientWidth, behavior: "smooth" });
+$("gclose").onclick = () => $("gallery").close();
+$("gallery").addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") $("gnext").click();
+  if (e.key === "ArrowLeft") $("gprev").click();
+});
+document.querySelectorAll("[data-gallery]").forEach((b) => b.onclick = () => openGallery(b.dataset.gallery));
+
+// Panorama viewer: an equirectangular image on the inside of a sphere.
+let pv = null;
+function openPano(item) {
+  $("pano").showModal();
+  $("ptitle").innerHTML = `${esc(item.title)}<small>${esc(current.name)} · 3D загвараас үүсгэсэн 360° зураг</small>`;
+  if (!pv) {
+    const r = new THREE.WebGLRenderer({ canvas: $("panoc"), antialias: true });
+    r.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const cam = new THREE.PerspectiveCamera(75, 1, 0.1, 100);
+    cam.position.set(0.01, 0, 0); // look at the image centre, which SphereGeometry puts on -X
+    const ctl = new OrbitControls(cam, r.domElement);
+    Object.assign(ctl, { enableZoom: false, enablePan: false, enableDamping: true, rotateSpeed: -0.3, autoRotate: true, autoRotateSpeed: -0.3 });
+    ctl.addEventListener("start", () => { ctl.autoRotate = false; });
+    const geo = new THREE.SphereGeometry(50, 64, 32);
+    geo.scale(-1, 1, 1);
+    const ball = new THREE.Mesh(geo, new THREE.MeshBasicMaterial());
+    const s = new THREE.Scene();
+    s.add(ball);
+    r.domElement.addEventListener("wheel", (e) => {
+      cam.fov = THREE.MathUtils.clamp(cam.fov + e.deltaY * 0.04, 30, 95);
+      cam.updateProjectionMatrix();
+    }, { passive: true });
+    pv = { r, cam, ctl, ball, s };
+  }
+  new THREE.TextureLoader().load(`data/${current.slug}/${item.file}`, (t) => {
+    t.colorSpace = THREE.SRGBColorSpace;
+    pv.ball.material.map?.dispose();
+    pv.ball.material.map = t;
+    pv.ball.material.needsUpdate = true;
+  });
+  const fit = () => {
+    pv.r.setSize(innerWidth, innerHeight, false);
+    pv.cam.aspect = innerWidth / innerHeight;
+    pv.cam.updateProjectionMatrix();
+  };
+  fit();
+  addEventListener("resize", fit);
+  pv.r.setAnimationLoop(() => { pv.ctl.update(); pv.r.render(pv.s, pv.cam); });
+  $("pano").addEventListener("close", () => { pv.r.setAnimationLoop(null); removeEventListener("resize", fit); }, { once: true });
+}
+$("pclose").onclick = () => $("pano").close();
+
+// renders.sh: draw a stop's view as an equirectangular panorama filling the window (2:1).
+async function panoShot(stop, unitId) {
+  closeSheet();
+  const [eye, look] = stopEye(stop, unitId);
+  const cubeRT = new THREE.WebGLCubeRenderTarget(1536, { type: THREE.HalfFloatType });
+  const cube = new THREE.CubeCamera(0.3, 6000, cubeRT);
+  cube.position.copy(eye);
+  scene.add(cube);
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), new THREE.ShaderMaterial({
+    // centre the image (u = 0.5) on the stop's look direction
+    uniforms: { env: { value: cubeRT.texture }, yaw: { value: Math.atan2(look.x - eye.x, eye.z - look.z) } },
+    vertexShader: "varying vec2 v; void main() { v = uv; gl_Position = vec4(position.xy, 0., 1.); }",
+    fragmentShader: `uniform samplerCube env; uniform float yaw; varying vec2 v;
+      void main() {
+        float lon = (v.x - .5) * 6.2831853 + yaw, lat = (v.y - .5) * 3.1415927;
+        gl_FragColor = textureCube(env, vec3(sin(lon) * cos(lat), sin(lat), -cos(lon) * cos(lat)));
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }`,
+  }));
+  const flat = new THREE.Scene();
+  flat.add(quad);
+  return () => { cube.update(renderer, scene); renderer.render(flat, camera); };
+}
+
+let draw = null;
+try {
+  projects = await fetch("data/projects.json").then((r) => r.json());
+  $("project").innerHTML = projects.map((p) => `<option value="${p.slug}">${p.name}</option>`).join("");
+  // ?project=central-tower&unit=A-1202 links straight to a unit's passport.
+  const ready = showProject(params.get("project"), params.get("unit"));
+  await ready;
+  if (params.get("pano")) draw = await panoShot(params.get("pano"), params.get("unit"));
+} catch (e) {
+  $("error").hidden = false;
+  $("error").textContent = "Загвар ачаалж чадсангүй. `python demo_projects.py` ажиллуулж out/ хавтсыг үүсгэнэ үү.";
+  console.error(e);
+}
+renderer.setAnimationLoop(() => {
+  if (fly) {
+    camera.position.lerp(fly.pos, 0.08);
+    controls.target.lerp(fly.target, 0.08);
+    if (camera.position.distanceTo(fly.pos) < 0.1) fly = null;
+  }
+  controls.update();
+  if (draw) return draw();
+  composer ? composer.render() : renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Property нэгжүүд</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142D4E'/%3E%3Cpath d='M17 16h31v8H25v5h18v7H25v5h23v8H17z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // Inside the native app (docs/mobile-app-prompt.mn.md) the shell owns the header and navigation;
+  // the bridge is injected at document start, so this runs before first paint.
+  if (window.GeregeShell) document.documentElement.dataset.shell = "";
+  try { const t = localStorage.getItem("ep-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+/* Warm neutral surfaces with the brand navy/teal (docs/brand-and-landing.mn.md); teal marks
+   selection and interface highlights only. Status colours keep texture/labels, never colour alone. */
+:root{
+  --bg:#F6F4F0; --surface:#FFFFFF; --sunk:#EFEBE5; --ink:#1B2130; --navy:#142D4E; --muted:#5F646C; --line:#E3DED6; --line-2:#CFC8BD;
+  --accent:#087F8C; --accent-ink:#FFFFFF; --accent-soft:#E2F0F1;
+  --ok:#0B6B45; --held:#9A5B00; --sold:#6B7280; --warn-bg:#FFF2D9; --warn-ink:#7A4F00; --err-bg:#FDECEA; --err:#B42318;
+  --viewer-bg:#ECE8E2; --paper:#FFFFFF; --wall:#23262B; --room:#F4F1EC; --room-hi:#D9EDEE;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --shadow:0 1px 2px rgba(27,33,48,.06),0 8px 24px -12px rgba(27,33,48,.18);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1114; --surface:#161A1F; --sunk:#1D2228; --ink:#E7E9EC; --navy:#F1F3F5; --muted:#9AA1AA; --line:#272D35; --line-2:#363E48;
+  --accent:#4CC3CF; --accent-ink:#071618; --accent-soft:#12333A; --ok:#4FC28C; --held:#E2A84A; --sold:#9AA1AA; --warn-bg:#3A2A0A; --warn-ink:#F2C979; --err-bg:#3B1714; --err:#F59E94;
+  --viewer-bg:#171B20; --paper:#F7F5F1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1114; --surface:#161A1F; --sunk:#1D2228; --ink:#E7E9EC; --navy:#F1F3F5; --muted:#9AA1AA; --line:#272D35; --line-2:#363E48;
+  --accent:#4CC3CF; --accent-ink:#071618; --accent-soft:#12333A; --ok:#4FC28C; --held:#E2A84A; --sold:#9AA1AA; --warn-bg:#3A2A0A; --warn-ink:#F2C979; --err-bg:#3B1714; --err:#F59E94;
+  --viewer-bg:#171B20; --paper:#F7F5F1; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-padding-top:76px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Manrope","Noto Sans",system-ui,sans-serif}
+a{color:var(--accent)}
+h1,h2,h3{text-wrap:balance}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;align-items:center;gap:12px;padding:10px max(16px,calc((100vw - 1280px)/2));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .brand{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:800;text-decoration:none}
+header.top nav{display:flex;gap:4px;margin-left:auto}
+header.top nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:.9375rem;padding:8px 12px;border-radius:8px}
+header.top nav a:hover{background:var(--sunk)}
+.tag{display:inline-flex;align-items:center;gap:6px;font:500 .75rem/1 var(--mono);padding:5px 9px;border-radius:999px;background:var(--warn-bg);color:var(--warn-ink);white-space:nowrap}
+@media (max-width:560px){header.top .tag{display:none}header.top nav a{padding:8px 7px}}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+[data-shell] header.top{position:static;padding:8px 16px 0;background:none;border:0}
+[data-shell] header.top .brand,[data-shell] header.top nav{display:none}
+main{max-width:720px;margin:0 auto;padding:16px 16px calc(32px + env(safe-area-inset-bottom))}
+main.wide{max-width:1280px}
+.muted{color:var(--muted)}
+
+/* list */
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.filters label{display:grid;gap:4px;font-size:.8125rem;color:var(--muted);font-weight:600}
+select{min-height:44px;padding:0 10px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);width:100%}
+ul.units{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+ul.units li+li{border-top:1px solid var(--line)}
+ul.units a{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:2px 12px;padding:12px 14px;color:inherit;text-decoration:none;min-height:60px}
+ul.units a:hover{background:var(--sunk)}
+ul.units b{color:var(--navy);margin-right:6px}
+ul.units .wide{grid-column:1/-1}
+.planbadge{font:500 .6875rem/1 var(--mono);padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+.st{font-size:.8125rem;font-weight:700;white-space:nowrap}
+.st::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:currentColor;vertical-align:1px}
+.available{color:var(--ok)}.reserved{color:var(--held)}.sold{color:var(--sold)}
+.reserved::before{border-radius:1px;transform:rotate(45deg)}.sold::before{background:none;border:1.5px solid currentColor}
+.count{margin:0 0 8px;font-size:.8125rem}
+.applinks{display:flex;gap:8px;margin:0 0 10px}
+.applinks a{flex:1;display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--navy);font-weight:600;text-decoration:none}
+
+/* passport */
+#passport{display:grid;gap:20px}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:.875rem}
+.crumbs a{text-decoration:none;font-weight:600}
+.unit-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 32px;align-items:end}
+.unit-head .uid{font:500 .8125rem var(--mono);color:var(--muted)}
+.unit-head h1{margin:4px 0 0;font-size:clamp(1.6rem,1.1rem + 2vw,2.4rem);line-height:1.15;letter-spacing:-.02em;color:var(--navy)}
+.unit-head p{margin:6px 0 0;color:var(--muted)}
+.headprice{text-align:right}
+.headprice .price{font-size:clamp(1.4rem,1.1rem + 1vw,1.85rem);font-weight:800;color:var(--navy)}
+.headprice small{display:block;color:var(--muted);font-size:.8125rem}
+.verif{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-radius:12px;background:var(--warn-bg);color:var(--warn-ink);font-size:.9375rem}
+.verif.verified{background:var(--accent-soft);color:var(--accent)}
+.verif.error{background:var(--err-bg);color:var(--err)}
+.verif b{display:block}
+.verif svg{flex:none;margin-top:3px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+.stage{display:grid;gap:10px;min-width:0}
+.tabs{display:inline-flex;gap:4px;padding:4px;border-radius:12px;background:var(--sunk);justify-self:start}
+.tabs button{border:0;background:none;padding:9px 18px;border-radius:9px;font-weight:700;color:var(--muted);cursor:pointer;min-height:40px}
+.tabs button[aria-selected=true]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.viewer{position:relative;height:clamp(380px,62vh,680px);border-radius:16px;overflow:hidden;background:var(--viewer-bg);border:1px solid var(--line)}
+.viewer canvas.v3d{display:block;width:100%;height:100%;touch-action:pan-y}
+#plan{position:absolute;inset:0;width:100%;height:100%;background:var(--paper);touch-action:manipulation}
+.overlay{position:absolute;left:12px;right:12px;top:12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;pointer-events:none}
+.overlay>*{pointer-events:auto}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:.8125rem;font-weight:600;padding:6px 10px;border-radius:8px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);color:var(--ink);backdrop-filter:blur(6px)}
+.chip.warn{background:var(--warn-bg);color:var(--warn-ink);border-color:transparent}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px}
+.tb{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 94%,transparent);padding:7px 11px;border-radius:9px;font-size:.8125rem;font-weight:700;cursor:pointer;min-height:36px;backdrop-filter:blur(6px)}
+.tb:hover{border-color:var(--line-2)}
+.tb[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tb:disabled{opacity:.45;cursor:not-allowed}
+.hint{position:absolute;left:12px;bottom:12px;font-size:.75rem;color:var(--muted);background:color-mix(in srgb,var(--surface) 88%,transparent);padding:5px 9px;border-radius:7px;pointer-events:none}
+.loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-weight:600;background:var(--viewer-bg)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.ctl{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--muted);font-weight:600}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:var(--sunk)}
+.seg button{border:0;background:none;padding:7px 12px;border-radius:8px;font-size:.8125rem;font-weight:700;color:var(--muted);cursor:pointer;min-height:34px}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.editbar{display:grid;gap:10px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line)}
+.editbar .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.editbar h3{margin:0;font-size:1rem}
+.editbar select{width:auto;min-height:36px}
+.tag.licensed{background:var(--accent-soft);color:var(--accent)}.tag.parametric{background:var(--sunk);color:var(--ink)}
+.roominfo{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;width:100%;padding:10px 14px;border-radius:10px;background:var(--surface);border:1px solid var(--line);font-size:.875rem}.roominfo b{font-size:1rem}.roominfo span{color:var(--muted)}
+.diag{margin:0;padding:0;list-style:none;display:grid;gap:4px;font-size:.8125rem}
+.diag li{padding:6px 10px;border-radius:8px;background:var(--warn-bg);color:var(--warn-ink)}
+.diag li.error{background:var(--err-bg);color:var(--err)}
+.diag li.ok{background:var(--accent-soft);color:var(--accent)}
+.side{display:grid;gap:14px;min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h2{margin:0 0 10px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:var(--mono);font-weight:500}
+.rooms{list-style:none;margin:0;padding:0}
+.rooms button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;width:100%;padding:9px 10px;border:0;border-radius:9px;background:none;text-align:left;cursor:pointer;font-size:.9375rem}
+.rooms button:hover{background:var(--sunk)}
+.rooms button[aria-pressed=true]{background:var(--accent-soft);color:var(--ink)}
+.rooms .a{font-family:var(--mono);color:var(--muted)}
+.rooms .sum{display:grid;grid-template-columns:minmax(0,1fr) auto;padding:10px 10px 0;border-top:1px solid var(--line);margin-top:6px;font-weight:700}
+dl.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:.9375rem}
+dl.facts dt{color:var(--muted)}dl.facts dd{margin:0;font-weight:600;text-align:right}
+.areas{display:grid;gap:10px}
+.areas .ar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px}
+.areas .ar b{font-weight:700}.areas .ar .v{font-family:var(--mono);font-weight:500}
+.areas .ar p{grid-column:1/-1;margin:0;font-size:.8125rem;color:var(--muted)}
+.areas .ar.sale{padding:10px 12px;border-radius:10px;background:var(--sunk)}
+.bar{height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.actions{display:grid;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--navy);background:var(--navy);color:var(--surface);font-weight:700;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn[aria-disabled=true],.btn:disabled{background:var(--sunk);border-color:var(--line);color:var(--muted);cursor:not-allowed}
+.note{font-size:.8125rem;color:var(--muted);margin:0}
+details.prov{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:0 18px}
+details.prov summary{cursor:pointer;padding:16px 0;font-weight:700}
+details.prov .kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;font-size:.8125rem;padding-bottom:16px}
+details.prov .kv dt{color:var(--muted)}details.prov .kv dd{margin:0;font-family:var(--mono);overflow-wrap:anywhere}
+#error{color:var(--err)}
+/* 2D plan */
+.rm{fill:var(--room);stroke:none;cursor:pointer;transition:fill .15s}.rm:hover{fill:#ECE7DF}.rm.on{fill:var(--room-hi)}
+.rm-bathroom,.rm-wc{fill:#EEF1F2}.rm-hall,.rm-storage{fill:#F1EEE9}
+.zone{fill:none;stroke:#B9B2A7;stroke-width:.012;stroke-dasharray:.08 .05}
+.wall{fill:var(--wall)}
+.win-o{fill:#fff;stroke:var(--wall);stroke-width:.02}.win-l{stroke:var(--wall);stroke-width:.016}
+.door{stroke:var(--wall);stroke-width:.025}.door.main{stroke-width:.04}.door-arc{fill:none;stroke:#7A7F87;stroke-width:.012;stroke-dasharray:.06 .05}
+.pass{stroke:#7A7F87;stroke-width:.012;stroke-dasharray:.1 .06}
+.fp{fill:rgba(35,38,43,.05);stroke:#8C8F95;stroke-width:.012}.fp.on{stroke:var(--accent);stroke-width:.03}
+.rn{fill:#23262B;font:600 .26px "Manrope",sans-serif;pointer-events:none}.rn.sm{font-size:.2px}
+.ra{fill:#5F646C;font:500 .22px var(--mono);pointer-events:none}
+.dl{stroke:#7A7F87;stroke-width:.012}.dt{fill:#5F646C;font:500 .22px var(--mono)}.north{fill:#23262B}
+.ms{stroke:var(--accent);stroke-width:.03}.mp{fill:var(--accent)}.mt{fill:var(--accent);font:600 .28px var(--mono);paint-order:stroke;stroke:#fff;stroke-width:.08px}
+@media (max-width:1000px){.layout{grid-template-columns:minmax(0,1fr)}.unit-head{grid-template-columns:minmax(0,1fr)}.headprice{text-align:left}}
+@media (max-width:640px){.viewer{height:min(96vw,520px)}.tabs{justify-self:stretch}.tabs button{flex:1;padding:9px 8px}.filters{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/" aria-label="E-Property нүүр"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#142D4E"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#fff"/><path d="M48 29h5v20h-5z" fill="#087F8C"/></svg>E-Property</a>
+  <span class="tag">Жишээ мэдээлэл</span>
+  <nav aria-label="Үндсэн цэс"><a href="/">Нүүр</a><a href="./" id="nav-units">Нэгжүүд</a><a href="/3d/">3D</a></nav>
+</header>
+<main>
+  <section id="list" hidden>
+    <nav class="applinks" id="applinks" hidden>
+      <a href="/saved">Хадгалсан нэгжүүд</a>
+      <a href="/scan/" id="scanlink" hidden>Баримт скан</a>
+    </nav>
+    <div class="filters">
+      <label>Төсөл<select id="project"></select></label>
+      <label>Төлөв<select id="status">
+        <option value="">Бүгд</option><option value="available">Сул</option>
+        <option value="reserved">Захиалсан</option><option value="sold">Зарагдсан</option>
+      </select></label>
+    </div>
+    <p class="count muted" id="count" aria-live="polite"></p>
+    <ul class="units" id="units"></ul>
+  </section>
+
+  <article id="passport" hidden></article>
+  <p id="error" hidden></p>
+</main>
+
+<script type="module">
+// Demo data is the 3D viewer's (landing/3d/data); a real unit registry replaces these fetches.
+const DATA = "/3d/data";
+const STATUS = { available: "Сул", reserved: "Захиалсан", sold: "Зарагдсан" };
+const money = (n) => `${Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₮`;
+const m2 = (n) => n == null ? "—" : `${n.toFixed(1)} м²`;
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+const $ = (id) => document.getElementById(id);
+const params = new URLSearchParams(location.search);
+const facts = (u) => `${u.rooms} өрөө · ${m2(u.area_declared ?? u.area_measured)} · ${u.floor}-р давхар`;
+
+let projects = [];
+const unitsOf = (slug) => fetch(`${DATA}/${encodeURIComponent(slug)}/units.json`).then((r) => r.json());
+const planIndex = (slug) => fetch(`${DATA}/${encodeURIComponent(slug)}/plans/index.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+
+try {
+  projects = await fetch(`${DATA}/projects.json`).then((r) => r.json());
+  const p = projects.find((x) => x.slug === params.get("project")) ?? projects[0];
+  const list = await unitsOf(p.slug);
+  const u = list.find((x) => x.unit_id === params.get("unit"));
+  if (u) {
+    const { mountPassport } = await import("./passport.js");
+    await mountPassport({ project: p, unit: u, $, params, dataUrl: (f) => `${DATA}/${encodeURIComponent(p.slug)}/${f}`, STATUS, money, m2 });
+    saveButton(p, u);
+  } else showList(p, list);
+} catch (e) {
+  $("error").hidden = false;
+  $("error").textContent = "Мэдээлэл ачаалж чадсангүй. Хуудсаа дахин ачаална уу.";
+  console.error(e);
+}
+
+async function showList(p, list) {
+  $("list").hidden = false;
+  const shell = window.GeregeShell;
+  if (shell) { $("applinks").hidden = false; $("scanlink").hidden = !shell.capabilities?.includes("document.scan"); }
+  $("project").innerHTML = projects.map((x) => `<option value="${esc(x.slug)}">${esc(x.name)}, ${esc(x.block)} блок</option>`).join("");
+  $("project").value = p.slug;
+  $("status").value = params.get("status") ?? "";
+  let index = await planIndex(p.slug);
+  const hasPlan = (u) => index?.plans?.some((e) => e.match?.suffix ? u.unit_id.endsWith(e.match.suffix) : e.match?.units?.includes(u.unit_id));
+  const render = () => {
+    const status = $("status").value;
+    const rows = list.filter((u) => !status || u.status === status);
+    $("count").textContent = `${rows.length} нэгж · ${p.district}`;
+    $("units").innerHTML = rows.map((u) => `<li><a href="?project=${esc(p.slug)}&unit=${esc(u.unit_id)}">
+      <span><b>${esc(u.unit_id)}</b><span class="st ${u.status}">${STATUS[u.status]}</span>${hasPlan(u) ? `<span class="planbadge">дотор зурагтай</span>` : ""}</span><span class="num">${u.status === "sold" ? "" : money(u.price)}</span>
+      <span class="muted wide">${facts(u)}</span></a></li>`).join("");
+    history.replaceState(null, "", `?project=${p.slug}${status ? `&status=${status}` : ""}`);
+  };
+  $("status").onchange = render;
+  $("project").onchange = async (e) => { p = projects.find((x) => x.slug === e.target.value); [list, index] = await Promise.all([unitsOf(p.slug), planIndex(p.slug)]); render(); };
+  render();
+}
+
+// Inside the app (bridge v1.5 `saved`) the unit can be kept on the phone and read offline.
+async function saveButton(p, u) {
+  const shell = window.GeregeShell, btn = $("save");
+  if (!btn || !shell?.capabilities?.includes("saved")) return;
+  const id = `${p.slug}/${u.unit_id}`;
+  const item = {
+    id, path: `/units/?project=${encodeURIComponent(p.slug)}&unit=${encodeURIComponent(u.unit_id)}`,
+    title: `${u.unit_id} · ${p.name}`, subtitle: facts(u),
+    rows: [
+      { label: "Барилга", value: `${p.progress}% · ${p.completion}` },
+      { label: "Борлуулалт", value: STATUS[u.status] },
+      { label: "Төлбөр", value: "Мэдээлэл холбогдоогүй" },
+      { label: "Эрхийн бүртгэл", value: "Мэдээлэл холбогдоогүй" },
+      ...(u.status === "sold" ? [] : [{ label: "Үнэ", value: money(u.price) }]),
+    ],
+  };
+  const show = (on) => { btn.setAttribute("aria-pressed", on); btn.textContent = on ? "✓ Утсанд хадгалсан" : "Утсанд хадгалах"; };
+  let kept = false;
+  try { kept = (await shell.invoke("saved.list")).some((x) => x.id === id); if (kept) await shell.invoke("saved.put", item); } catch { return; }
+  show(kept); btn.hidden = false;
+  btn.onclick = async () => { try { await shell.invoke(kept ? "saved.remove" : "saved.put", kept ? { id } : item); kept = !kept; show(kept); } catch (e) { console.error(e); } };
+}
+</script>
+</body>
+</html>

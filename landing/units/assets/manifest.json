@@ -1,0 +1,753 @@
+{
+ "schema": "e-property.furniture-manifest",
+ "version": 2,
+ "note": "Asset бүрийн status: licensed = лицензтэй бодит загвар (assets/models, эх сурвалж CREDITS.json-д), parametric = өрөөнд тааруулж үүсгэдэг суурилуулсан тавилга (гал тогоо, шүүгээ, хөшиг) лицензтэй PBR материалтай, substitute = бодит загвар хараахан олдоогүй procedural орлуулагч. Viewer нь substitute-ийг «орлуулагч» гэж шошгоно.",
+ "conventions": {
+  "units": "m",
+  "pivot": "footprint centre at floor level",
+  "forward": "+y in asset space (the side a person uses); the back faces -y and goes against a wall",
+  "dims": "w along x, d along y, h up; the GLB must already have these dimensions at scale 1 — the loader reports a mismatch above 3% instead of stretching",
+  "model": "model.file нь glTF (+Y дээш, урд тал +Z). model.rotY нь урд талыг −Z (manifest-ийн front) болгох эргэлт; pivot-ийг loader footprint-ийн төвд, шалан дээр байрлуулна. Хэмжээ manifest-ийн dims-ээс 3%-иас илүү зөрвөл сунгахгүй, орлуулагч ашиглана."
+ },
+ "rules": {
+  "note": "Дизайны тохируулж болох дүрэм — барилгын норм, стандартад нийцсэн гэсэн баталгаа биш.",
+  "walkway": 0.7,
+  "doorApproach": 0.6,
+  "windowZoneDepth": 0.45,
+  "wallGap": 0.01,
+  "gridStep": 0.05
+ },
+ "assets": [
+  {
+   "id": "bed-double-160",
+   "category": "bed",
+   "name": "Хоёр хүний ор 160×200",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.72,
+    "d": 2.16,
+    "h": 1.05
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "left",
+     "depth": 0.6
+    },
+    {
+     "side": "right",
+     "depth": 0.6
+    },
+    {
+     "side": "front",
+     "depth": 0.7
+    }
+   ],
+   "variants": [
+    "linen-warm",
+    "linen-cool"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "bed-single-90",
+   "category": "bed",
+   "name": "Нэг хүний ор 90×200",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1,
+    "d": 2.1,
+    "h": 0.95
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "left",
+     "depth": 0.6
+    },
+    {
+     "side": "front",
+     "depth": 0.6
+    }
+   ],
+   "variants": [
+    "linen-warm",
+    "linen-cool"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "nightstand",
+   "category": "nightstand",
+   "name": "Орны дэргэдэх ширээ (царс)",
+   "lod": null,
+   "dims": {
+    "w": 0.55,
+    "d": 0.45,
+    "h": 0.55
+   },
+   "anchor": "wall-back",
+   "clearance": [],
+   "variants": [],
+   "source": "Poly Haven — side_table_01",
+   "license": "CC0-1.0",
+   "status": "licensed",
+   "model": {
+    "file": "assets/models/side-table-oak.glb",
+    "rotY": 3.141592653589793
+   },
+   "credit": "side-table-oak"
+  },
+  {
+   "id": "wardrobe-180",
+   "category": "wardrobe",
+   "name": "Хувцасны шүүгээ 180",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.8,
+    "d": 0.62,
+    "h": 2.3
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.8
+    }
+   ],
+   "variants": [
+    "oak",
+    "white"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "wardrobe-120",
+   "category": "wardrobe",
+   "name": "Хувцасны шүүгээ 120",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.2,
+    "d": 0.62,
+    "h": 2.3
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.8
+    }
+   ],
+   "variants": [
+    "oak",
+    "white"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "sofa-3",
+   "category": "sofa",
+   "name": "Хилэн буйдан (GlamVelvetSofa)",
+   "lod": null,
+   "dims": {
+    "w": 2.19,
+    "d": 1.02,
+    "h": 0.79
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 1.3
+    }
+   ],
+   "variants": [
+    "Gray",
+    "Champagne",
+    "Navy"
+   ],
+   "source": "Khronos glTF Sample Assets — Wayfair, LLC / Eric Chadwick",
+   "license": "CC-BY-4.0",
+   "status": "licensed",
+   "model": {
+    "file": "assets/models/sofa-velvet.glb",
+    "rotY": 3.141592653589793,
+    "variants": {
+     "modern": "Gray",
+     "scandi": "Champagne"
+    }
+   },
+   "credit": "sofa-velvet"
+  },
+  {
+   "id": "coffee-table",
+   "category": "coffee-table",
+   "name": "Кофены ширээ (бетон, царс)",
+   "lod": null,
+   "dims": {
+    "w": 1.2,
+    "d": 0.6,
+    "h": 0.39
+   },
+   "anchor": "relative:sofa:0.42",
+   "clearance": [],
+   "variants": [],
+   "source": "Poly Haven — modern_coffee_table_01",
+   "license": "CC0-1.0",
+   "status": "licensed",
+   "model": {
+    "file": "assets/models/coffee-table-modern.glb",
+    "rotY": 1.5707963267948966
+   },
+   "credit": "coffee-table-modern"
+  },
+  {
+   "id": "tv-unit",
+   "category": "media",
+   "name": "Медиа шүүгээ, ТВ",
+   "lod": null,
+   "dims": {
+    "w": 2.44,
+    "d": 0.52,
+    "h": 0.68
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.5
+    }
+   ],
+   "variants": [],
+   "source": "Poly Haven — modern_wooden_cabinet (ТВ дэлгэц нь энгийн параметрт загвар)",
+   "license": "CC0-1.0",
+   "status": "licensed",
+   "model": {
+    "file": "assets/models/media-cabinet-oak.glb",
+    "rotY": 3.141592653589793,
+    "addTV": true
+   },
+   "credit": "media-cabinet-oak"
+  },
+  {
+   "id": "dining-set-4",
+   "category": "dining",
+   "name": "Хоолны ширээ 120×80, 4 сандал",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.2,
+    "d": 1.85,
+    "h": 0.97
+   },
+   "anchor": "free",
+   "clearance": [
+    {
+     "side": "all",
+     "depth": 0.3
+    }
+   ],
+   "variants": [],
+   "source": "Сандал: Poly Haven — dining_chair_02 (CC0). Ширээ: параметрт, oak_veneer_01 PBR",
+   "license": "CC0-1.0",
+   "status": "licensed",
+   "composite": {
+    "table": {
+     "w": 1.2,
+     "d": 0.8,
+     "h": 0.75,
+     "material": "oak-veneer"
+    },
+    "chairs": {
+     "model": "assets/models/dining-chair.glb",
+     "rotY": 3.141592653589793,
+     "dims": {
+      "w": 0.43,
+      "d": 0.58,
+      "h": 0.97
+     },
+     "at": [
+      [
+       -0.3,
+       0.57,
+       0
+      ],
+      [
+       0.3,
+       0.57,
+       0
+      ],
+      [
+       -0.3,
+       -0.57,
+       1
+      ],
+      [
+       0.3,
+       -0.57,
+       1
+      ]
+     ]
+    }
+   },
+   "credit": "dining-chair"
+  },
+  {
+   "id": "kitchen-fridge",
+   "category": "kitchen",
+   "name": "Хөргөгч (суурилуулсан)",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.6,
+    "d": 0.62,
+    "h": 2.2
+   },
+   "anchor": "zone:kitchen",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.9
+    }
+   ],
+   "variants": [
+    "white",
+    "oak"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "kitchen-base-60",
+   "category": "kitchen",
+   "name": "Доод шүүгээ 60",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.6,
+    "d": 0.62,
+    "h": 0.9
+   },
+   "anchor": "zone:kitchen",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.9
+    }
+   ],
+   "variants": [
+    "white",
+    "oak"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "kitchen-sink-80",
+   "category": "kitchen",
+   "name": "Угаалтуур 80",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.8,
+    "d": 0.62,
+    "h": 0.9
+   },
+   "anchor": "zone:kitchen",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.9
+    }
+   ],
+   "variants": [
+    "white",
+    "oak"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "kitchen-hob-60",
+   "category": "kitchen",
+   "name": "Плита 60",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.6,
+    "d": 0.62,
+    "h": 0.9
+   },
+   "anchor": "zone:kitchen",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.9
+    }
+   ],
+   "variants": [
+    "white",
+    "oak"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "toilet",
+   "category": "toilet",
+   "name": "Суултуур",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.4,
+    "d": 0.66,
+    "h": 0.8
+   },
+   "anchor": "zone:plumbing",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.6
+    }
+   ],
+   "variants": [
+    "white"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "vanity-80",
+   "category": "vanity",
+   "name": "Угаалтуур, шүүгээ 80",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.8,
+    "d": 0.48,
+    "h": 0.86
+   },
+   "anchor": "zone:plumbing",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.7
+    }
+   ],
+   "variants": [
+    "oak",
+    "white"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "bathtub-170",
+   "category": "bath",
+   "name": "Ванн 170×75",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.7,
+    "d": 0.75,
+    "h": 0.58
+   },
+   "anchor": "zone:plumbing",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.6
+    }
+   ],
+   "variants": [
+    "white"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "shower-90",
+   "category": "bath",
+   "name": "Шүршүүр 90×90",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.9,
+    "d": 0.9,
+    "h": 2
+   },
+   "anchor": "zone:plumbing",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.6
+    }
+   ],
+   "variants": [
+    "white"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "hall-cabinet-120",
+   "category": "hall-storage",
+   "name": "Үүдний шүүгээ 120",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1.2,
+    "d": 0.42,
+    "h": 2.2
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.8
+    }
+   ],
+   "variants": [
+    "oak",
+    "white"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "shelving-100",
+   "category": "storage",
+   "name": "Тавиур 100",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1,
+    "d": 0.4,
+    "h": 2
+   },
+   "anchor": "wall-back",
+   "clearance": [
+    {
+     "side": "front",
+     "depth": 0.6
+    }
+   ],
+   "variants": [
+    "white"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "rug-230x160",
+   "category": "rug",
+   "name": "Хивс 230×160",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 2.3,
+    "d": 1.6,
+    "h": 0.01
+   },
+   "anchor": "relative:coffee-table:0",
+   "layer": "floor",
+   "clearance": [],
+   "variants": [
+    "wool-oat",
+    "wool-grey"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "ceiling-light",
+   "category": "light",
+   "name": "Таазны гэрэл",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 0.45,
+    "d": 0.45,
+    "h": 0.12
+   },
+   "anchor": "ceiling",
+   "layer": "ceiling",
+   "clearance": [],
+   "variants": [
+    "linen"
+   ],
+   "source": "development substitute (procedural)",
+   "license": "project-internal",
+   "status": "substitute"
+  },
+  {
+   "id": "curtain",
+   "category": "curtain",
+   "name": "Хөшиг",
+   "glb": null,
+   "lod": null,
+   "dims": {
+    "w": 1,
+    "d": 0.12,
+    "h": 2.5
+   },
+   "anchor": "window",
+   "layer": "window",
+   "clearance": [],
+   "variants": [
+    "linen-warm",
+    "linen-cool"
+   ],
+   "source": "Параметрт загвар, лицензтэй PBR материал (CREDITS.json → materials)",
+   "license": "project-internal geometry; CC0 textures",
+   "status": "parametric"
+  },
+  {
+   "id": "pendant-light",
+   "category": "pendant",
+   "name": "Унжлагатай гэрэл (хоолны ширээний дээр)",
+   "lod": null,
+   "dims": {
+    "w": 0.43,
+    "d": 0.43,
+    "h": 0.95
+   },
+   "model": {
+    "file": "assets/models/pendant-light.glb",
+    "rotY": 0,
+    "hang": true
+   },
+   "anchor": "relative:dining:0",
+   "layer": "ceiling",
+   "clearance": [],
+   "variants": [],
+   "source": "Poly Haven — modern_ceiling_lamp_01",
+   "license": "CC0-1.0",
+   "credit": "pendant-light",
+   "status": "licensed"
+  },
+  {
+   "id": "plant-floor",
+   "category": "plant",
+   "name": "Шалны ургамал",
+   "lod": null,
+   "dims": {
+    "w": 0.7,
+    "d": 0.66,
+    "h": 0.84
+   },
+   "model": {
+    "file": "assets/models/plant-floor.glb",
+    "rotY": 0
+   },
+   "anchor": "wall-back",
+   "clearance": [],
+   "variants": [],
+   "source": "Poly Haven — potted_plant_02",
+   "license": "CC0-1.0",
+   "credit": "plant-floor",
+   "status": "licensed"
+  }
+ ],
+ "programs": {
+  "bedroom": [
+   [
+    "bed-double-160",
+    "bed-single-90"
+   ],
+   "nightstand",
+   "nightstand",
+   [
+    "wardrobe-180",
+    "wardrobe-120"
+   ]
+  ],
+  "living": [
+   "sofa-3",
+   "coffee-table",
+   "rug-230x160",
+   "dining-set-4",
+   "pendant-light",
+   "tv-unit",
+   "plant-floor"
+  ],
+  "kitchen": [
+   "dining-set-4"
+  ],
+  "bathroom": [
+   [
+    "bathtub-170",
+    "shower-90"
+   ],
+   "toilet",
+   "vanity-80"
+  ],
+  "wc": [
+   "toilet"
+  ],
+  "hall": [
+   [
+    "hall-cabinet-120"
+   ]
+  ],
+  "storage": [
+   "shelving-100"
+  ]
+ },
+ "kitchenRun": [
+  "kitchen-fridge",
+  "kitchen-base-60",
+  "kitchen-sink-80",
+  "kitchen-base-60",
+  "kitchen-hob-60",
+  "kitchen-base-60",
+  "kitchen-base-60"
+ ],
+ "materials": {
+  "note": "PBR материалын багцууд (assets/materials/<id>/diff|nor|rough|ao.webp), хэмжээ нь бодит метрээр.",
+  "oak-floor": {
+   "size": 1.7
+  },
+  "plaster-warm": {
+   "size": 3
+  },
+  "stone-tile": {
+   "size": 1.5
+  },
+  "wall-tile": {
+   "size": 1.27
+  },
+  "oak-veneer": {
+   "size": 1
+  },
+  "linen": {
+   "size": 0.27
+  },
+  "wool": {
+   "size": 0.27
+  }
+ }
+}

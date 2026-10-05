@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Property баримт скан</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142D4E'/%3E%3Cpath d='M17 16h31v8H25v5h18v7H25v5h23v8H17z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script>if (window.GeregeShell) document.documentElement.dataset.shell = "";</script>
+<style>
+/* Brand tokens as on /units/ (docs/brand-and-landing.mn.md). */
+:root{--navy:#142D4E;--teal:#087F8C;--bg:#F5F7FA;--ink:#192635;--muted:#5B6878;--line:#DDE3EA;--ok:#0B6B45;--warn:#B42318}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Noto Sans",system-ui,sans-serif}
+header{display:flex;align-items:center;gap:10px;padding:8px 16px;border-bottom:1px solid var(--line)}
+header h1{margin:0;font-size:1rem;color:var(--navy)}
+[data-shell] header{display:none}
+main{max-width:560px;margin:0 auto;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
+h2{margin:0;font-size:clamp(1.25rem,5.5vw,1.5rem);color:var(--navy)}
+p{margin:8px 0 0}.muted{color:var(--muted)}
+button{font:inherit;font-weight:600;width:100%;min-height:52px;margin:16px 0 0;border-radius:12px;border:1px solid var(--teal);cursor:pointer}
+.primary{background:var(--teal);color:#fff}.secondary{background:#fff;color:var(--teal)}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.card{margin:16px 0 0;padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px}
+.ok{color:var(--ok);font-weight:600}.err{color:var(--warn)}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" aria-label="E-Property нүүр"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#142D4E"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#fff"/><path d="M48 29h5v20h-5z" fill="#087F8C"/></svg></a>
+  <h1>Баримт скан</h1>
+</header>
+<main>
+  <h2>Баримт скан</h2>
+  <p class="muted">Гэрээ, баримт, иргэний үнэмлэхийн хуулбарыг камераар скан хийж PDF болгоно. Файл зөвхөн таны утсанд хадгалагдана — E-Property руу илгээгдэхгүй.</p>
+  <div id="app" hidden>
+    <button class="primary" id="scan" type="button">Скан хийх</button>
+    <div class="card" id="result" hidden aria-live="polite">
+      <p class="ok" id="summary"></p>
+      <button class="secondary" id="save" type="button">PDF-ийг утсанд хадгалах</button>
+      <p id="saved" class="muted"></p>
+    </div>
+    <p class="err" id="error" aria-live="assertive"></p>
+  </div>
+  <p class="card" id="noapp" hidden>Скан нь E-Property аппын дотор ажиллана.</p>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const shell = window.GeregeShell;
+let pdf = null;
+if (!shell?.capabilities?.includes("document.scan")) {
+  $("noapp").hidden = false;
+} else {
+  $("app").hidden = false;
+  $("save").hidden = !shell.capabilities.includes("fs.save");
+  const mb = (b64) => (b64.length * 3 / 4 / 1048576).toFixed(1).replace(".", ",");
+  $("scan").onclick = async () => {
+    $("error").textContent = ""; $("saved").textContent = "";
+    $("scan").disabled = true;
+    try {
+      pdf = await shell.invoke("document.scan", { maxPages: 20 });
+      $("summary").textContent = `${pdf.pages} хуудас · ${mb(pdf.base64)} МБ`;
+      $("result").hidden = false;
+    } catch (e) {
+      if (String(e?.message ?? e) !== "Cancelled") $("error").textContent = "Скан хийж чадсангүй. Дахин оролдоно уу.";
+    } finally { $("scan").disabled = false; }
+  };
+  $("save").onclick = async () => {
+    const d = new Date(), pad = (n) => String(n).padStart(2, "0");
+    const name = `E-Property-баримт-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}.pdf`;
+    try {
+      const r = await shell.invoke("fs.saveAs", { filename: name, base64: pdf.base64 });
+      $("saved").textContent = `Хадгалсан: ${r.path}`;
+    } catch (e) {
+      if (String(e?.message ?? e) !== "Cancelled") $("error").textContent = "Хадгалж чадсангүй.";
+    }
+  };
+}
+</script>
+</body>
+</html>

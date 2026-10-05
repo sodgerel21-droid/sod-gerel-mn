@@ -1,0 +1,71 @@
+name: Deploy e-property.mn
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  packages: read
+concurrency:
+  group: e-property-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: >-
+      vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'))
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      REVISION: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - name: Require successful CI for current main
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$(gh api repos/$REPO/commits/main --jq .sha)" = "$REVISION"
+          count=$(gh api "repos/$REPO/actions/workflows/ci.yml/runs?head_sha=$REVISION&status=success" --jq '[.workflow_runs[] | select(.event == "push" and .head_branch == "main")] | length')
+          test "$count" -gt 0
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.REVISION }}
+      - name: Configure pinned SSH connection
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          set -euo pipefail
+          test -n "$SSH_KEY" && test -n "$KNOWN_HOSTS"
+          [[ "$DEPLOY_HOST" =~ ^[a-zA-Z0-9.-]+$ ]]
+          [[ "$DEPLOY_USER" =~ ^[a-z_][a-z0-9_-]*$ ]]
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+          printf 'Host production\n HostName %s\n User %s\n IdentityFile ~/.ssh/id_ed25519\n IdentitiesOnly yes\n StrictHostKeyChecking yes\n BatchMode yes\n' "$DEPLOY_HOST" "$DEPLOY_USER" > ~/.ssh/config
+      - name: Transfer release
+        run: |
+          ssh production "install -d -m 700 /opt/e-property-mn/releases/$REVISION"
+          tar czf - compose.yml brand landing deploy/rollout.sh | ssh production "tar xzf - -C /opt/e-property-mn/releases/$REVISION"
+      - name: Pull images and roll out
+        env:
+          REGISTRY_TOKEN: ${{ github.token }}
+          REGISTRY_USER: ${{ github.actor }}
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | ssh production "bash /opt/e-property-mn/releases/$REVISION/deploy/rollout.sh '$REVISION' '$REGISTRY_USER'"
+      - name: Verify public HTTPS and brand
+        run: |
+          curl --fail --retry 5 --retry-delay 5 https://e-property.mn/health
+          curl --fail --retry 5 --retry-delay 5 https://e-property.mn/ | grep -q 'E-Property'
+          test "$(curl -s -o /dev/null -w '%{http_code}' https://e-property.mn/ready)" = 403
+      - name: Remove SSH credentials
+        if: always()
+        run: rm -f ~/.ssh/id_ed25519

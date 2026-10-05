@@ -1,0 +1,2802 @@
+[
+ {
+  "unit_id": "B-0301",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 445400000.0,
+  "price_per_m2": 4640000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-03T07:00+08:00"
+ },
+ {
+  "unit_id": "B-0302",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 371200000.0,
+  "price_per_m2": 4640000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-01T20:00+08:00"
+ },
+ {
+  "unit_id": "B-0303",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 371200000.0,
+  "price_per_m2": 4640000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0304",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 371200000.0,
+  "price_per_m2": 4640000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0305",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 361900000.0,
+  "price_per_m2": 4640000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0306",
+  "floor": 3,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 392100000.0,
+  "price_per_m2": 4640000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0401",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 448100000.0,
+  "price_per_m2": 4670000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0402",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 373400000.0,
+  "price_per_m2": 4670000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0403",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 373400000.0,
+  "price_per_m2": 4670000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0404",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 373400000.0,
+  "price_per_m2": 4670000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0405",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 364100000.0,
+  "price_per_m2": 4670000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0406",
+  "floor": 4,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 394400000.0,
+  "price_per_m2": 4670000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0501",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 450800000.0,
+  "price_per_m2": 4700000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0502",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 375700000.0,
+  "price_per_m2": 4700000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0503",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 375700000.0,
+  "price_per_m2": 4700000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0504",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 375700000.0,
+  "price_per_m2": 4700000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0505",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 366300000.0,
+  "price_per_m2": 4700000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0506",
+  "floor": 5,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 396800000.0,
+  "price_per_m2": 4700000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0601",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 453500000.0,
+  "price_per_m2": 4720000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0602",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 377900000.0,
+  "price_per_m2": 4720000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0603",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 377900000.0,
+  "price_per_m2": 4720000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0604",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 377900000.0,
+  "price_per_m2": 4720000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0605",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 368400000.0,
+  "price_per_m2": 4720000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0606",
+  "floor": 6,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 399100000.0,
+  "price_per_m2": 4720000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-03T04:00+08:00"
+ },
+ {
+  "unit_id": "B-0701",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 456100000.0,
+  "price_per_m2": 4750000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0702",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 380100000.0,
+  "price_per_m2": 4750000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0703",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 380100000.0,
+  "price_per_m2": 4750000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0704",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 380100000.0,
+  "price_per_m2": 4750000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0705",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 370600000.0,
+  "price_per_m2": 4750000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0706",
+  "floor": 7,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 401500000.0,
+  "price_per_m2": 4750000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0801",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 458800000.0,
+  "price_per_m2": 4780000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0802",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 382300000.0,
+  "price_per_m2": 4780000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-01T06:00+08:00"
+ },
+ {
+  "unit_id": "B-0803",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 382300000.0,
+  "price_per_m2": 4780000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0804",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 382300000.0,
+  "price_per_m2": 4780000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0805",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 372800000.0,
+  "price_per_m2": 4780000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0806",
+  "floor": 8,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 403800000.0,
+  "price_per_m2": 4780000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0901",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 461500000.0,
+  "price_per_m2": 4810000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0902",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 384600000.0,
+  "price_per_m2": 4810000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0903",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 384600000.0,
+  "price_per_m2": 4810000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-02T09:00+08:00"
+ },
+ {
+  "unit_id": "B-0904",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 384600000.0,
+  "price_per_m2": 4810000.0,
+  "status": "reserved",
+  "hold_until": "2026-09-30T22:00+08:00"
+ },
+ {
+  "unit_id": "B-0905",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 374900000.0,
+  "price_per_m2": 4810000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-0906",
+  "floor": 9,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 406200000.0,
+  "price_per_m2": 4810000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1001",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 464100000.0,
+  "price_per_m2": 4830000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1002",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 386800000.0,
+  "price_per_m2": 4830000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1003",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 386800000.0,
+  "price_per_m2": 4830000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-02T22:00+08:00"
+ },
+ {
+  "unit_id": "B-1004",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 386800000.0,
+  "price_per_m2": 4830000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-01T21:00+08:00"
+ },
+ {
+  "unit_id": "B-1005",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 377100000.0,
+  "price_per_m2": 4830000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1006",
+  "floor": 10,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 408500000.0,
+  "price_per_m2": 4830000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1101",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 466800000.0,
+  "price_per_m2": 4860000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1102",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 389000000.0,
+  "price_per_m2": 4860000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1103",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 389000000.0,
+  "price_per_m2": 4860000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1104",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 389000000.0,
+  "price_per_m2": 4860000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1105",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 379300000.0,
+  "price_per_m2": 4860000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1106",
+  "floor": 11,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 410900000.0,
+  "price_per_m2": 4860000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1201",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 469500000.0,
+  "price_per_m2": 4890000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1202",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 391200000.0,
+  "price_per_m2": 4890000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1203",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 391200000.0,
+  "price_per_m2": 4890000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1204",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 391200000.0,
+  "price_per_m2": 4890000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1205",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 381500000.0,
+  "price_per_m2": 4890000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1206",
+  "floor": 12,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 413300000.0,
+  "price_per_m2": 4890000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-01T20:00+08:00"
+ },
+ {
+  "unit_id": "B-1301",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 472200000.0,
+  "price_per_m2": 4920000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1302",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 393500000.0,
+  "price_per_m2": 4920000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1303",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 393500000.0,
+  "price_per_m2": 4920000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-02T21:00+08:00"
+ },
+ {
+  "unit_id": "B-1304",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 393500000.0,
+  "price_per_m2": 4920000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1305",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 383600000.0,
+  "price_per_m2": 4920000.0,
+  "status": "reserved",
+  "hold_until": "2026-10-01T23:00+08:00"
+ },
+ {
+  "unit_id": "B-1306",
+  "floor": 13,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 415600000.0,
+  "price_per_m2": 4920000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1401",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 474800000.0,
+  "price_per_m2": 4950000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1402",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 395700000.0,
+  "price_per_m2": 4950000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1403",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 395700000.0,
+  "price_per_m2": 4950000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1404",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 395700000.0,
+  "price_per_m2": 4950000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1405",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 385800000.0,
+  "price_per_m2": 4950000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1406",
+  "floor": 14,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 418000000.0,
+  "price_per_m2": 4950000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1501",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 477500000.0,
+  "price_per_m2": 4970000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1502",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 397900000.0,
+  "price_per_m2": 4970000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1503",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 397900000.0,
+  "price_per_m2": 4970000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1504",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 397900000.0,
+  "price_per_m2": 4970000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1505",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 388000000.0,
+  "price_per_m2": 4970000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1506",
+  "floor": 15,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 420300000.0,
+  "price_per_m2": 4970000.0,
+  "status": "reserved",
+  "hold_until": "2026-09-30T21:00+08:00"
+ },
+ {
+  "unit_id": "B-1601",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    0.0,
+    10.0
+   ],
+   [
+    12.0,
+    10.0
+   ],
+   [
+    12.0,
+    18.0
+   ],
+   [
+    0.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 96.0,
+  "area_declared": 96.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 480200000.0,
+  "price_per_m2": 5000000.0,
+  "status": "available",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1602",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    12.0,
+    10.0
+   ],
+   [
+    22.0,
+    10.0
+   ],
+   [
+    22.0,
+    18.0
+   ],
+   [
+    12.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 400200000.0,
+  "price_per_m2": 5000000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1603",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    26.0,
+    10.0
+   ],
+   [
+    36.0,
+    10.0
+   ],
+   [
+    36.0,
+    18.0
+   ],
+   [
+    26.0,
+    18.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 400200000.0,
+  "price_per_m2": 5000000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1604",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    0.0,
+    0.0
+   ],
+   [
+    10.0,
+    0.0
+   ],
+   [
+    10.0,
+    8.0
+   ],
+   [
+    0.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 80.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 400200000.0,
+  "price_per_m2": 5000000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1605",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    10.0,
+    0.0
+   ],
+   [
+    22.0,
+    0.0
+   ],
+   [
+    22.0,
+    8.0
+   ],
+   [
+    16.0,
+    8.0
+   ],
+   [
+    16.0,
+    5.0
+   ],
+   [
+    10.0,
+    5.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 78.0,
+  "area_declared": 78.0,
+  "area_diff_pct": 0.0,
+  "area_flag": false,
+  "rooms": 3,
+  "price": 390100000.0,
+  "price_per_m2": 5000000.0,
+  "status": "sold",
+  "hold_until": null
+ },
+ {
+  "unit_id": "B-1606",
+  "floor": 16,
+  "floor_polygon": [
+   [
+    26.0,
+    0.0
+   ],
+   [
+    36.0,
+    0.0
+   ],
+   [
+    36.0,
+    8.0
+   ],
+   [
+    26.0,
+    8.0
+   ]
+  ],
+  "height": 3.0,
+  "area_measured": 80.0,
+  "area_declared": 84.5,
+  "area_diff_pct": 5.62,
+  "area_flag": true,
+  "rooms": 3,
+  "price": 422700000.0,
+  "price_per_m2": 5000000.0,
+  "status": "available",
+  "hold_until": null
+ }
+]

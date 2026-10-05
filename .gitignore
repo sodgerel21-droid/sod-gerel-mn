@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+!deploy/.env.example
+.build/
+*.tar.gz
+/bin/
+
+/e-property-mn
+.venv/
+/tools/cad/out/
+__pycache__/
+tools/assets/node_modules/
+landing/units/assets/.tmp/

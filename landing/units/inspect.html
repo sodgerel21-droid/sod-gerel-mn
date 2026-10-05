@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Property загвар шалгах</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<style>
+/* Operator tool: inspect an existing apartment GLB, map its materials to roles by hand, preview the
+   improved materials and lighting. The source file is never modified; the mapping is a separate JSON. */
+:root{--bg:#F6F4F0;--surface:#fff;--sunk:#EFEBE5;--ink:#1B2130;--muted:#5F646C;--line:#E3DED6;--accent:#087F8C;--warn-bg:#FFF2D9;--warn-ink:#7A4F00;--err-bg:#FDECEA;--err:#B42318;--mono:"IBM Plex Mono",ui-monospace,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1114;--surface:#161A1F;--sunk:#1D2228;--ink:#E7E9EC;--muted:#9AA1AA;--line:#272D35;--accent:#4CC3CF;--warn-bg:#3A2A0A;--warn-ink:#F2C979;--err-bg:#3B1714;--err:#F59E94;color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Manrope",system-ui,sans-serif}
+main{max-width:1280px;margin:0 auto;padding:24px 16px 48px;display:grid;gap:16px}
+h1{margin:0;font-size:1.6rem}
+.grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:960px){.grid{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:10px;min-width:0}
+.card h2{margin:0;font:500 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.viewer{position:relative;height:min(64vh,620px);border-radius:14px;overflow:hidden;background:#ECE8E2;border:1px solid var(--line)}
+.viewer canvas{display:block;width:100%;height:100%;touch-action:pan-y}
+.empty{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);text-align:center;padding:24px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,select,input{font:inherit;color:inherit}
+.btn{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:700;cursor:pointer}
+.btn[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+table{width:100%;border-collapse:collapse;font-size:.8125rem}
+td,th{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{color:var(--muted);font-weight:600}
+td.m{font-family:var(--mono);overflow-wrap:anywhere}
+.issues{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:.8125rem}
+.issues li{padding:6px 10px;border-radius:8px;background:var(--warn-bg);color:var(--warn-ink)}
+.issues li.error{background:var(--err-bg);color:var(--err)}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:.875rem;margin:0}.kv dt{color:var(--muted)}.kv dd{margin:0;font-family:var(--mono)}
+.note{font-size:.8125rem;color:var(--muted);margin:0}
+.ctl{display:inline-flex;align-items:center;gap:6px;font-size:.875rem;font-weight:600}.ctl select{min-height:40px;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:0 8px}
+.scroll{max-height:360px;overflow:auto}
+</style>
+</head>
+<body>
+<main>
+  <div class="row" style="justify-content:space-between"><h1>Орон сууцны загвар шалгах (GLB)</h1><a href="./">← Нэгжүүд</a></div>
+  <p class="note">Бэлэн загварыг хэмжээ, тэнхлэг, UV, материалын хувьд шалгаж, материалыг гараар үүрэгт (хана, шал, шил…) оноогоод сайжруулсан материал, гэрэлтүүлгээр урьдчилан харна. Эх файл өөрчлөгдөхгүй, файл таны хөтчөөс гарахгүй. Mapping-ийг тусдаа JSON болгон татаж авна. Хана, цонхыг автоматаар таамаглахгүй.</p>
+  <div class="row">
+    <label class="btn" style="display:inline-flex;align-items:center">GLB сонгох<input id="file" type="file" accept=".glb,.gltf,model/gltf-binary" hidden></label>
+    <button class="btn" type="button" id="sample">Туршилтын загвар (B-0301, см, Z-up)</button>
+    <label class="ctl">Масштаб <select id="scale"><option value="auto">Авто</option><option value="m">м</option><option value="cm">см</option><option value="mm">мм</option><option value="in">инч</option></select></label>
+    <label class="ctl">Дээд тэнхлэг <select id="up"><option value="auto">Авто</option><option value="y">Y</option><option value="z">Z</option></select></label>
+    <label class="btn" style="display:inline-flex;align-items:center">Тохиргоо ачаалах<input id="mapfile" type="file" accept=".json,application/json" hidden></label>
+    <button class="btn" type="button" id="enhance" aria-pressed="false" disabled>Сайжруулсан харагдац</button>
+    <button class="btn" type="button" id="download" disabled>Тохиргоо хадгалах (JSON)</button>
+  </div>
+  <div class="grid">
+    <div class="viewer" id="viewer"><div class="empty" id="empty">GLB файл сонгоно уу</div></div>
+    <div style="display:grid;gap:16px;min-width:0">
+      <section class="card"><h2>Тайлан</h2><p class="note" id="normsize"></p><dl class="kv" id="summary"></dl><ul class="issues" id="issues"></ul></section>
+      <section class="card"><h2>Материал → үүрэг (гараар)</h2><div class="scroll"><table><thead><tr><th>Материал</th><th>Mesh</th><th>Үүрэг</th></tr></thead><tbody id="maps"></tbody></table></div>
+        <p class="note" id="mapnote">Оноосон үүрэг бүр «гараар, баталгаажаагүй» төлөвтэй үлдэнэ.</p></section>
+    </div>
+  </div>
+</main>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { analyze, applyMapping, mappingTemplate, ROLES, PRESETS } from "./lib/model-inspect.js";
+import { createTextureCache, createMaterials } from "./lib/materials.js";
+const $ = (id) => document.getElementById(id), esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); $("viewer").prepend(renderer.domElement);
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(40, 1, 0.05, 2000), controls = new OrbitControls(camera, renderer.domElement);
+controls.touches = { ONE: null, TWO: THREE.TOUCH.DOLLY_ROTATE };
+const pmrem = new THREE.PMREMGenerator(renderer), env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xfff1e0, 2.4); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.bias = -0.0003; sun.shadow.normalBias = 0.02;
+const hemi = new THREE.HemisphereLight(0xffffff, 0xbbb5ab, 0.9);
+scene.add(hemi, sun, sun.target);
+// curated materials: the same licensed PBR sets as the apartment viewer
+const textures = createTextureCache(THREE, new URL("assets/materials/", location.href).href, renderer.capabilities.getMaxAnisotropy());
+const curated = await createMaterials(THREE, "modern", textures);
+const ROLE_MAT = { wall: curated.wall, floor: curated.floor.wood, ceiling: curated.ceiling, "window-glass": curated.glass, "window-frame": curated.frame, door: curated.door, fixture: curated.ceramic };
+
+let source = null, wrapper = null, model = null, meshes = [], report = null, mapping = null, enhanced = false, original = new Map(), sourceName = "", sourceHash = "";
+const settings = { scale: "auto", up: "auto" };
+const render = () => renderer.render(scene, camera);
+controls.addEventListener("change", render);
+new ResizeObserver(() => { const w = $("viewer").clientWidth, h = $("viewer").clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); render(); }).observe($("viewer"));
+const SCALE = { m: 1, cm: 0.01, mm: 0.001, in: 0.0254 };
+
+async function load(url, name) {
+  $("empty").hidden = false; $("empty").textContent = "Ачаалж байна…";
+  let buf;
+  try { buf = await fetch(url).then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }); source = await new GLTFLoader().parseAsync(buf, ""); }
+  catch (e) { $("empty").textContent = `Уншиж чадсангүй: ${e.message}`; return; }
+  try { sourceHash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buf))].map((b) => b.toString(16).padStart(2, "0")).join(""); } catch { sourceHash = "—"; }
+  sourceName = name;
+  if (wrapper) scene.remove(wrapper);
+  model = source.scene.clone(true); original.clear(); meshes = [];
+  model.updateMatrixWorld(true);
+  model.traverse((o) => {
+    if (!o.isMesh) return;
+    original.set(o, o.material);
+    const b = new THREE.Box3().setFromObject(o), g = o.geometry;
+    meshes.push({ ref: o, name: o.name, material: [].concat(o.material)[0]?.name || "(нэргүй материал)", triangles: (g.index ? g.index.count : g.attributes.position.count) / 3, hasUV: !!g.attributes.uv, hasNormals: !!g.attributes.normal, min: b.min.toArray(), max: b.max.toArray() });
+  });
+  report = analyze(meshes);
+  wrapper = new THREE.Group(); wrapper.add(model); scene.add(wrapper);
+  mapping = mappingTemplate(report, name);
+  applyTransform(); renderReport(); renderMaps(); setEnhanced(false);
+  $("empty").hidden = true; ["enhance", "download"].forEach((id) => { $(id).disabled = false; });
+}
+/** Scale and axis are explicit: "auto" uses the analysis; the person can override both. */
+function applyTransform() {
+  const k = settings.scale === "auto" ? (report.unit?.k ?? 1) : SCALE[settings.scale];
+  const up = settings.up === "auto" ? report.up : settings.up;
+  wrapper.scale.setScalar(k); wrapper.rotation.set(up === "z" ? -Math.PI / 2 : 0, 0, 0);
+  wrapper.updateMatrixWorld(true);
+  const b = new THREE.Box3().setFromObject(wrapper), s = b.getSize(new THREE.Vector3());
+  $("normsize").textContent = `${s.x.toFixed(2)} × ${s.z.toFixed(2)} м, өндөр ${s.y.toFixed(2)} м (${settings.scale === "auto" ? `авто: ${report.unit?.unit ?? "?"}` : settings.scale}, дээд ${up.toUpperCase()})`;
+  frame();
+}
+function frame() {
+  const b = new THREE.Box3().setFromObject(wrapper), c = b.getCenter(new THREE.Vector3()), s = b.getSize(new THREE.Vector3()), r = Math.max(s.x, s.y, s.z);
+  controls.target.copy(c); camera.position.copy(c).add(new THREE.Vector3(r * 0.55, r * 0.75, r * 0.7)); camera.near = r / 500; camera.far = r * 20; camera.updateProjectionMatrix();
+  sun.position.copy(c).add(new THREE.Vector3(-r, r * 1.4, r * 0.6)); sun.target.position.copy(c);
+  Object.assign(sun.shadow.camera, { left: -r, right: r, top: r, bottom: -r, near: r * 0.05, far: r * 5 }); sun.shadow.camera.updateProjectionMatrix();
+  controls.update(); render();
+}
+function renderReport() {
+  const s = report.size;
+  $("summary").innerHTML = [["Файл", sourceName], ["SHA-256", sourceHash.slice(0, 16) + "…"], ["Хэмжээ (эх нэгж)", s.map((v) => v.toFixed(2)).join(" × ")], ["Нэгжийн таамаг", report.unit ? `${report.unit.unit} → ${report.unit.span.toFixed(2)} м` : "тодорхойгүй"], ["Дээд тэнхлэг (таамаг)", report.up.toUpperCase()], ["Mesh", report.meshes], ["Гурвалжин", report.triangles.toLocaleString()], ["Материал", report.materials.length], ["Өрөөний мэдээлэл", "Загварт алга — өрөөг автоматаар танихгүй"]]
+    .map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+  $("issues").innerHTML = report.issues.map((i) => `<li class="${i.level}">${esc(i.message)}</li>`).join("") || `<li style="background:var(--sunk);color:var(--muted)">Ноцтой асуудал илрээгүй</li>`;
+}
+function renderMaps() {
+  const counts = new Map(); meshes.forEach((m) => counts.set(m.material, (counts.get(m.material) ?? 0) + 1));
+  $("maps").innerHTML = mapping.rules.map((r, i) => {
+    const mat = report.materials[i] ?? r.match;
+    return `<tr><td class="m">${esc(mat)}</td><td>${counts.get(mat) ?? "—"}</td><td><select data-i="${i}" aria-label="${esc(mat)} үүрэг"><option value="">— оноогоогүй —</option>${ROLES.map((x) => `<option value="${x}" ${r.role === x ? "selected" : ""}>${x} · ${esc(PRESETS[x].label)}</option>`).join("")}</select></td></tr>`;
+  }).join("");
+  $("maps").querySelectorAll("select").forEach((s) => s.addEventListener("change", () => { mapping.rules[+s.dataset.i].role = s.value || null; if (enhanced) apply(); renderNote(); render(); }));
+  renderNote();
+}
+function renderNote() {
+  const r = applyMapping(meshes, mapping);
+  $("mapnote").textContent = `${meshes.length - r.unclassified}/${meshes.length} mesh гараар оноогдсон (баталгаажаагүй), ${r.unclassified} тодорхойгүй.${r.problems.length ? " " + r.problems.join("; ") : ""}`;
+}
+function apply() {
+  const r = applyMapping(meshes, mapping);
+  meshes.forEach((m, i) => {
+    const role = r.meshes[i].role, P = role && PRESETS[role];
+    m.ref.visible = !(P?.hide);
+    // a curated PBR material only where the mesh has UVs; otherwise its parameters without textures
+    const mat = role && ROLE_MAT[role];
+    if (!mat || P?.keep) { m.ref.material = original.get(m.ref); return; }
+    m.ref.material = m.hasUV ? mat : new THREE.MeshStandardMaterial({ color: mat.color, roughness: mat.roughness, metalness: mat.metalness, transparent: mat.transparent, opacity: mat.opacity });
+  });
+}
+function setEnhanced(on) {
+  enhanced = on; $("enhance").setAttribute("aria-pressed", on);
+  scene.environment = on ? env : null; scene.environmentIntensity = 0.7;
+  hemi.intensity = on ? 0.3 : 0.9; sun.intensity = on ? 2.4 : 1.2;
+  scene.background = new THREE.Color(on ? "#ECE8E2" : "#E4E4E4");
+  model?.traverse((o) => { if (o.isMesh) { o.castShadow = o.receiveShadow = on; } });
+  if (on) apply(); else meshes.forEach((m) => { m.ref.material = original.get(m.ref); m.ref.visible = true; });
+  render();
+}
+$("scale").onchange = (e) => { settings.scale = e.target.value; if (report) applyTransform(); };
+$("up").onchange = (e) => { settings.up = e.target.value; if (report) applyTransform(); };
+$("enhance").onclick = () => setEnhanced(!enhanced);
+$("file").onchange = (e) => { const f = e.target.files[0]; if (f) load(URL.createObjectURL(f), f.name); };
+$("sample").onclick = () => load("assets/test/b0301-raw-cm-zup.glb", "landing/units/assets/test/b0301-raw-cm-zup.glb");
+// settings are a separate file: scale, axis and material roles — the source model is never written
+$("mapfile").onchange = async (e) => {
+  const f = e.target.files[0]; if (!f || !report) return;
+  try {
+    const m = JSON.parse(await f.text()); if (!["e-property.model-enhancement", "e-property.model-mapping"].includes(m.schema)) throw new Error("schema");
+    if (m.scale) { settings.scale = m.scale; $("scale").value = m.scale; } if (m.up) { settings.up = m.up; $("up").value = m.up; }
+    mapping = { ...mapping, rules: report.materials.map((mat, i) => { const hit = m.rules.find((r) => new RegExp(r.match, "i").test(mat)); return hit ? { ...mapping.rules[i], role: hit.role } : mapping.rules[i]; }) };
+    applyTransform(); renderMaps(); if (enhanced) apply(); render();
+    if (m.source_sha256 && m.source_sha256 !== sourceHash) $("mapnote").textContent += " Анхааруулга: тохиргоо өөр эх файлд зориулагдсан (SHA-256 таарахгүй).";
+  } catch { $("mapnote").textContent = "Тохиргооны файл уншигдсангүй (schema: e-property.model-enhancement)"; }
+};
+$("download").onclick = () => {
+  const data = { schema: "e-property.model-enhancement", version: 1, source: sourceName, source_sha256: sourceHash, scale: settings.scale, scale_resolved: settings.scale === "auto" ? report.unit?.unit ?? null : settings.scale, up: settings.up, rules: mapping.rules.filter((r) => r.role), materials: "assets/materials (CC0, CREDITS.json)", lighting: "RoomEnvironment + directional sun", status: "manual-unverified", savedAt: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 1)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${sourceName.split("/").pop().replace(/\.glb$/i, "")}.enhancement.json`; a.click(); URL.revokeObjectURL(a.href);
+};
+if (new URLSearchParams(location.search).get("sample") === "1") $("sample").click();
+</script>
+</body>
+</html>

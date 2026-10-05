@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<title>E-Property share image</title>
+<!-- Render: serve landing/ at the site root, open this file from there, screenshot 1200x630, then store as landing/3d/og.webp (nginx serves static files only under /3d/, /units/, /scan/). -->
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;600;700&family=IBM+Plex+Mono:wght@400;500&display=block" rel="stylesheet">
+<style>
+/* Visual philosophy «Нэгжийн хэмжүүр» (docs/landing-design/visual-philosophy.md). 1200×630. */
+:root{--paper:#F3F6F9;--sheet:#fff;--ink:#192635;--navy:#142D4E;--teal:#087F8C;--rule:#D5DEE7;--muted:#556375;
+  --av:#00939F;--rs:#B97400;--sd:#8296B0}
+*{margin:0;box-sizing:border-box}
+html,body{width:1200px;height:630px;overflow:hidden;background:var(--paper)}
+.frame{position:absolute;inset:28px;border:1.5px solid var(--navy);background:
+  linear-gradient(var(--rule) 1px,transparent 1px) 0 0/100% 24px,
+  linear-gradient(90deg,var(--rule) 1px,transparent 1px) 0 0/24px 100%,var(--paper)}
+.frame::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--paper) 46%,rgba(243,246,249,.55) 60%,rgba(243,246,249,.2))}
+.left{position:absolute;left:64px;top:62px;width:560px}
+.brand{display:flex;align-items:center;gap:12px;font:700 26px/1 Geologica;color:var(--navy)}
+.brand svg{width:40px;height:40px}
+h1{margin-top:52px;font:700 64px/1.02 Geologica;letter-spacing:-.025em;color:var(--navy)}
+h1 em{font-style:normal;color:var(--teal)}
+.sub{margin-top:26px;font:400 15px/1.5 "IBM Plex Mono";letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+svg#el{position:absolute;right:58px;top:52px;width:470px;height:440px}
+svg#el text{font-family:"IBM Plex Mono";fill:var(--muted)}
+.tb{position:absolute;left:28px;right:28px;bottom:28px;height:62px;border-top:1.5px solid var(--navy);display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;background:var(--sheet)}
+.tb div{padding:10px 18px;border-left:1px solid var(--rule);display:grid;gap:3px}
+.tb div:first-child{border-left:0}
+.tb span{font:500 10px/1 "IBM Plex Mono";letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tb b{font:500 15px/1.1 "IBM Plex Mono";color:var(--ink)}
+.sw{display:inline-block;width:11px;height:11px;margin-right:6px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<div class="frame"></div>
+<div class="left">
+  <div class="brand"><svg viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#142D4E"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#fff"/><path d="M48 29h5v20h-5z" fill="#087F8C"/></svg>E-Property</div>
+  <h1>Үл хөдлөх хөрөнгө <em>үүсэхээс</em> өмчлөх хүртэл.</h1>
+  <p class="sub">Үл хөдлөх хөрөнгийн цахим платформ</p>
+</div>
+<svg id="el" viewBox="0 0 470 440"><defs>
+  <pattern id="r" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#B97400"/><line x1="0" y1="0" x2="0" y2="6" stroke="#fff" stroke-opacity=".5" stroke-width="2"/></pattern>
+  <pattern id="s" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="4" height="4" fill="#8296B0"/><line x1="0" y1="0" x2="0" y2="4" stroke="#5f7290" stroke-width="1"/></pattern>
+</defs><g id="g"></g></svg>
+<div class="tb">
+  <div><span>Төсөл</span><b id="t-p">—</b></div>
+  <div><span><i class="sw" style="background:#00939F"></i>Сул</span><b id="t-a">—</b></div>
+  <div><span><i class="sw" style="background:repeating-linear-gradient(135deg,#B97400 0 3px,#E3B866 3px 5px)"></i>Захиалгатай</span><b id="t-r">—</b></div>
+  <div><span><i class="sw" style="background:repeating-linear-gradient(45deg,#8296B0 0 2px,#5f7290 2px 3px)"></i>Зарагдсан</span><b id="t-s">—</b></div>
+  <div><span>Домэйн</span><b>e-property.mn</b></div>
+</div>
+<script>
+const NS="http://www.w3.org/2000/svg",g=document.getElementById("g");
+const el=(t,a)=>{const n=document.createElementNS(NS,t);for(const k in a)n.setAttribute(k,a[k]);g.append(n);return n};
+Promise.all([fetch("/3d/data/central-tower/units.json").then(r=>r.json()),fetch("/3d/data/projects.json").then(r=>r.json())]).then(([u,ps])=>{
+  const p=ps.find(x=>x.slug==="central-tower");
+  const fl=[...new Set(u.map(x=>x.floor))].sort((a,b)=>b-a);
+  const L=36,W=390,T=8,fh=Math.min(26,(380)/fl.length);
+  el("line",{x1:L-4,y1:T-3,x2:L+W+4,y2:T-3,stroke:"#142D4E","stroke-width":2});
+  fl.forEach((f,i)=>{const row=u.filter(x=>x.floor===f).sort((a,b)=>a.unit_id.localeCompare(b.unit_id));const tot=row.reduce((s,x)=>s+x.area_declared,0);let x=L;const y=T+i*fh;
+    if(i%2===0)el("text",{x:L-8,y:y+fh/2+3,"text-anchor":"end","font-size":9}).textContent=f;
+    row.forEach(r=>{const w=r.area_declared/tot*W;el("rect",{x:x+1,y:y+1,width:w-2,height:fh-2,fill:r.status==="available"?"#00939F":r.status==="reserved"?"url(#r)":"url(#s)"});x+=w})});
+  const gy=T+fh*fl.length+4;el("line",{x1:0,y1:gy,x2:470,y2:gy,stroke:"#142D4E","stroke-width":2});
+  for(let x=4;x<470;x+=9)el("line",{x1:x,y1:gy+2,x2:x-7,y2:gy+9,stroke:"#9FB0C2"});
+  const c={available:0,reserved:0,sold:0};u.forEach(x=>c[x.status]++);
+  document.getElementById("t-p").textContent=`${p.name} · ${p.block} блок · жишээ`;
+  document.getElementById("t-a").textContent=c.available;document.getElementById("t-r").textContent=c.reserved;document.getElementById("t-s").textContent=c.sold;
+  document.title="ready";
+});
+</script>
+</body>
+</html>

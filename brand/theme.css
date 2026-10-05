@@ -1,0 +1,15 @@
+/* E-Property brand accent (docs/brand-and-landing.mn.md): teal #087F8C, lightened for dark mode. */
+:root {
+  --accent: #087F8C;
+  --accent-foreground: #FFFFFF;
+  --accent-subtle: #E3F2F3;
+  --accent-subtle-foreground: #06656F;
+  --ring: #087F8C;
+}
+.dark {
+  --accent: #4CC3CF;
+  --accent-foreground: #0E1622;
+  --accent-subtle: #10363B;
+  --accent-subtle-foreground: #A9E3E8;
+  --ring: #4CC3CF;
+}

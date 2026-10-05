@@ -1,0 +1,34 @@
+{
+  "website.view.hero_eyebrow": {
+    "mn": "Үл хөдлөх хөрөнгийн цахим платформ",
+    "en": "Digital Property Platform for Mongolia"
+  },
+  "website.view.hero_title_lead": {
+    "mn": "Үл хөдлөх хөрөнгө",
+    "en": "One property. One identity."
+  },
+  "website.view.hero_title_highlight": {
+    "mn": "үүсэхээс",
+    "en": "One"
+  },
+  "website.view.hero_title_tail": {
+    "mn": "өмчлөх хүртэл.",
+    "en": "history."
+  },
+  "website.view.hero_lede": {
+    "mn": "Төсөл, нэгж, захиалга, гэрээ болон өмчлөлд хүрэх явцыг холбох платформ. Одоогоор платформын суурь хувилбар ажиллаж байна; үл хөдлөх хөрөнгийн модулиудыг үе шаттай нэвтрүүлнэ.",
+    "en": "A platform connecting projects, units, reservations and the journey to ownership. The platform foundation is available; property modules will follow in stages."
+  },
+  "website.message.footer_note": {
+    "mn": "E-Property · Үл хөдлөх хөрөнгийн цахим платформ",
+    "en": "E-Property · Digital Property Platform for Mongolia"
+  },
+  "website.apps.title": {
+    "mn": "Үл хөдлөх хөрөнгийн платформын суурь",
+    "en": "The foundation for a property platform"
+  },
+  "website.apps.lede": {
+    "mn": "Нэвтрэлт, байгууллага, эрхийн удирдлагын суурь бэлэн. Төсөл, нэгж, гэрээ, төлбөрийн модулиуд хөгжүүлэлтийн дараагийн шатанд орно.",
+    "en": "Identity, organizations and access management form the foundation. Project, unit, contract and payment modules are planned for the next stage."
+  }
+}

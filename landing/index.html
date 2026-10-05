@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Property</title>
+<meta name="description" content="Шинэ орон сууц, төслүүдийг байршил, үнэ, өрөөгөөр нь хайж харьцуулах үл хөдлөх хөрөнгийн цахим платформ.">
+<meta name="theme-color" content="#0E2240">
+<meta property="og:title" content="E-Property — Орон сууцаа эндээс хай">
+<meta property="og:description" content="Шинэ орон сууц, төслүүдийг байршил, үнэ, өрөөгөөр нь хайж харьцуулах платформ.">
+<meta property="og:image" content="/units/assets/site/exterior-1.webp">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{const t=localStorage.getItem("ep-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="icon" href="/brand/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/units/assets/site/exterior-1.webp">
+<style>
+/* Portal layout after the Property Finder pattern: search first, then discovery rails. Imagery is the
+   owner's photo set in /units/assets/site (illustrative, labelled as such on every card). */
+:root{
+  --bg:#FFFFFF; --soft:#F5F6F8; --card:#FFFFFF; --ink:#1B2130; --navy:#0E2240; --muted:#5F6B7A; --line:#E4E8EE;
+  --primary:#0E2240; --primary-ink:#FFFFFF; --accent:#0A8492; --accent-soft:#E3F2F3; --gold:#B8893E;
+  --band:#0E2240; --band-2:#0A1A31;
+  --shadow:0 8px 24px -12px rgba(14,34,64,.18); --shadow-lg:0 30px 60px -24px rgba(14,34,64,.45);
+  --r:16px; --max:1280px; --gut:clamp(16px,3.4vw,32px);
+  --f:"Manrope","Noto Sans",system-ui,sans-serif; --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1218;--soft:#131A22;--card:#161F29;--ink:#E7EBF0;--navy:#F2F5F8;--muted:#98A5B3;--line:#24303C;--primary:#E9EEF3;--primary-ink:#0D1218;--accent:#4CC3CF;--accent-soft:#12333A;--band:#0A1626;--band-2:#070F1B;--shadow:0 8px 24px -12px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1218;--soft:#131A22;--card:#161F29;--ink:#E7EBF0;--navy:#F2F5F8;--muted:#98A5B3;--line:#24303C;--primary:#E9EEF3;--primary-ink:#0D1218;--accent:#4CC3CF;--accent-soft:#12333A;--band:#0A1626;--band-2:#070F1B;--shadow:0 8px 24px -12px rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f);overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;color:var(--navy);letter-spacing:-.02em;line-height:1.15;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+[hidden]{display:none!important}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gut)}
+.sec{padding-block:clamp(56px,7vw,104px)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px}
+.sec-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px 28px;margin-bottom:32px}
+.sec-h h2{font-size:clamp(1.65rem,1.1rem + 1.8vw,2.6rem);font-weight:800;margin-top:10px}
+.sec-h p{color:var(--muted);margin-top:10px;max-width:60ch}
+.more{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--accent);padding-bottom:2px;white-space:nowrap}
+.more:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;border:1px solid var(--primary);background:var(--primary);color:var(--primary-ink);font-weight:700;cursor:pointer;white-space:nowrap;transition:transform .2s var(--ease),filter .2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--navy);border-color:var(--line)}
+.btn.light{background:#fff;border-color:#fff;color:#0E2240}
+.btn.accent{background:#0A8492;border-color:#0A8492;color:#fff}
+.btn[aria-disabled=true]{opacity:.6;cursor:not-allowed;transform:none;filter:none}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);line-height:1.2}
+.pill.ok::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.glass{background:rgba(10,20,34,.55);color:#fff;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.pill.white{background:rgba(255,255,255,.92);color:#0E2240}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px;font-weight:700;font-size:.875rem;cursor:pointer;color:var(--muted);transition:all .2s}
+.tabs button:hover{color:var(--navy);border-color:var(--navy)}
+.tabs button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:var(--bg)}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* header: transparent over the hero, solid after scroll */
+.site-head{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s,color .3s;color:#fff}
+.site-head.solid{background:var(--bg);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.site-head .in{display:flex;align-items:center;gap:26px;height:76px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;letter-spacing:-.01em;flex:none}
+.logo svg{width:36px;height:36px}
+.logo .m{fill:#fff}.solid .logo .m{fill:#0E2240}.is-dark .solid .logo .m{fill:#fff}
+.logo .m2{fill:#0E2240}.solid .logo .m2{fill:#fff}.is-dark .solid .logo .m2{fill:#0E2240}
+.nav{display:flex;gap:2px;margin-right:auto}
+.nav a{white-space:nowrap;font-weight:600;font-size:.9375rem;padding:8px 12px;border-radius:10px;opacity:.92}
+.nav a:hover{opacity:1;background:rgba(127,140,160,.16)}
+.acts{display:flex;align-items:center;gap:10px}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;cursor:pointer;display:grid;place-items:center;color:inherit}
+.solid .icon-btn{border-color:var(--line)}
+.icon-btn .i-sun{display:none}.is-dark .icon-btn .i-sun{display:block}.is-dark .icon-btn .i-moon{display:none}
+.site-head .btn.ghost{color:inherit;border-color:rgba(255,255,255,.4)}
+.site-head.solid .btn.ghost{border-color:var(--line)}
+.site-head .btn.cta-h{background:#fff;border-color:#fff;color:#0E2240}
+.site-head.solid .btn.cta-h{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)}
+.menu-btn{display:none}
+.mnav{background:var(--bg);color:var(--ink);border-top:1px solid var(--line);padding:8px var(--gut) 18px;display:grid;box-shadow:var(--shadow)}
+.mnav a{padding:13px 4px;border-bottom:1px solid var(--line);font-weight:600}
+
+/* hero */
+.hero{position:relative;min-height:min(100svh,900px);display:flex;align-items:flex-end;color:#fff;background:#0A1A31;overflow:hidden}
+.hero .slides{position:absolute;inset:0}
+.hero .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease,transform 9s linear}
+.hero .slides img.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,26,.62) 0%,rgba(6,14,26,.18) 34%,rgba(6,14,26,.35) 60%,rgba(6,14,26,.86) 100%)}
+.hero .wrap{position:relative;z-index:1;width:100%;padding-block:150px clamp(36px,6vw,64px)}
+.hero h1{color:#fff;font-size:clamp(2.3rem,1.2rem + 4.4vw,4.8rem);font-weight:800;max-width:15ch;letter-spacing:-.03em}
+.hero .sub{margin-top:14px;font-size:clamp(1rem,.95rem + .3vw,1.2rem);color:#DCE4EE;max-width:52ch}
+.search{max-width:1000px;margin-top:34px}
+.stabs{display:inline-flex;gap:2px;padding:5px;border-radius:14px 14px 0 0;background:rgba(255,255,255,.96)}
+.stabs button{border:0;background:none;padding:10px 18px;border-radius:10px;font-weight:700;color:#5A6676;cursor:pointer}
+.stabs button[aria-selected=true]{background:#0E2240;color:#fff}
+.sbox{background:#fff;color:#1B2130;border-radius:0 18px 18px 18px;padding:14px;box-shadow:var(--shadow-lg)}
+.srow{display:flex;gap:10px;align-items:stretch}
+.sinput{flex:1;display:flex;align-items:center;gap:12px;min-height:58px;padding:0 16px;border:1px solid #E4E8EE;border-radius:12px;background:#F7F9FB;transition:border-color .2s,background .2s}
+.sinput:focus-within{border-color:#0A8492;background:#fff}
+.sinput svg{flex:none;color:#7A8796}
+.sinput input{border:0;outline:0;width:100%;font-size:1.0625rem;background:transparent;color:#1B2130}
+.sbox .btn{min-height:58px;padding:0 34px;background:#0A8492;border-color:#0A8492;color:#fff;font-size:1rem}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.filters select{appearance:none;-webkit-appearance:none;border:1px solid #E4E8EE;border-radius:999px;padding:9px 34px 9px 15px;font-weight:600;font-size:.875rem;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A8796' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") right 13px center no-repeat;cursor:pointer;color:#1B2130}
+.filters select:hover{border-color:#0E2240}
+.smsg{margin-top:10px;font-size:.875rem;color:#5F6B7A}
+.quick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;font-size:.875rem;color:#DCE4EE}
+.quick a{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.quick a:hover{background:rgba(255,255,255,.26)}
+.hero-dots{position:absolute;z-index:1;right:var(--gut);bottom:24px;display:flex;gap:8px}
+.hero-dots button{width:28px;height:4px;border-radius:2px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0}
+.hero-dots button[aria-current=true]{background:#fff}
+.hero-note{position:absolute;z-index:1;left:var(--gut);bottom:8px;font-size:.68rem;color:rgba(255,255,255,.6)}
+
+/* stats strip */
+.stats{background:var(--band);color:#C9D4E2}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-block:28px}
+.stats b{display:block;font-size:clamp(1.5rem,1.1rem + 1.4vw,2.2rem);font-weight:800;color:#fff;letter-spacing:-.02em}
+.stats span{font-size:.875rem}
+
+/* results + unit cards */
+.results{background:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:22px}
+.unit{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:box-shadow .3s var(--ease),transform .3s var(--ease)}
+.unit:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.unit .ph{position:relative;aspect-ratio:4/3;background:var(--soft);overflow:hidden}
+.unit .ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.unit:hover .ph img{transform:scale(1.05)}
+.unit .ph .tl{position:absolute;left:12px;top:12px;display:flex;gap:6px}
+.unit .ph .br{position:absolute;right:12px;bottom:12px}
+.unit .bd{padding:16px 18px 18px;display:grid;gap:10px}
+.unit .price{font-size:1.35rem;font-weight:800;color:var(--navy);letter-spacing:-.01em}
+.unit .ppm{font-size:.8125rem;color:var(--muted);font-weight:500;margin-left:6px}
+.unit .specs{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.875rem;color:var(--muted);padding-top:10px;border-top:1px solid var(--line)}
+.unit .specs span{display:inline-flex;align-items:center;gap:6px}
+.unit .specs svg{color:var(--accent)}
+.unit h3{font-size:1rem;font-weight:700}
+.unit .loc{font-size:.8125rem;color:var(--muted);display:flex;gap:6px;align-items:center}
+
+/* lifestyle categories */
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.cat{position:relative;display:block;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;background:#0A1A31;color:#fff}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.cat:hover img{transform:scale(1.06)}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,26,0) 45%,rgba(6,14,26,.85))}
+.cat .tx{position:absolute;z-index:1;left:18px;right:18px;bottom:18px;display:grid;gap:4px}
+.cat b{font-size:1.25rem;font-weight:800;letter-spacing:-.01em}
+.cat span{font-size:.875rem;color:#D4DDE8}
+.cat .go{position:absolute;z-index:1;right:16px;top:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);color:#0E2240;display:grid;place-items:center;transform:scale(.85);opacity:0;transition:all .3s var(--ease)}
+.cat:hover .go{transform:none;opacity:1}
+
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:22px}
+.proj{position:relative;display:block;border-radius:20px;overflow:hidden;min-height:480px;color:#fff;background:#0A1A31;isolation:isolate}
+.proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease);z-index:-2}
+.proj:hover img{transform:scale(1.05)}
+.proj::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(6,14,26,.25) 0%,rgba(6,14,26,0) 30%,rgba(6,14,26,.92) 78%)}
+.proj .top{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:6px}
+.proj .info{position:absolute;left:20px;right:20px;bottom:20px;display:grid;gap:6px}
+.proj .dev{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9FD9DF}
+.proj h3{color:#fff;font-size:1.55rem;font-weight:800}
+.proj .loc{font-size:.875rem;color:#D5DEE8}
+.proj .kv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18)}
+.proj .kv small{display:block;font-size:.72rem;color:#AFC0D2}
+.proj .kv strong{font-size:1rem;font-weight:800}
+.proj .bar{height:4px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden;margin-top:10px}.proj .bar i{display:block;height:100%;background:linear-gradient(90deg,#4CC3CF,#9FE3E9)}
+.proj .row{display:flex;gap:8px;margin-top:12px}
+.proj .row span{flex:1;text-align:center;padding:11px;border-radius:12px;background:#fff;color:#0E2240;font-weight:700;font-size:.875rem}
+.proj .row span.alt{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}
+
+/* 2D / 3D showcase card: one real project, its building model and a unit plan from the same data */
+.show{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.stage{position:relative;min-height:520px;background:#DCE4EC}
+.stage .seg{position:absolute;z-index:3;left:16px;top:16px;display:flex;gap:2px;padding:4px;border-radius:12px;background:rgba(255,255,255,.94);box-shadow:var(--shadow)}
+.stage .seg button{border:0;background:none;padding:8px 14px;border-radius:9px;font-weight:700;font-size:.875rem;color:#5A6676;cursor:pointer}
+.stage .seg button[aria-selected=true]{background:#0E2240;color:#fff}
+.stage .pane{position:absolute;inset:0}
+.stage .pane>img,.stage iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.stage .play{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 24px;border-radius:999px;border:0;background:#fff;color:#0E2240;font-weight:800;cursor:pointer;box-shadow:var(--shadow-lg);white-space:nowrap}
+.stage .hint{position:absolute;z-index:2;left:16px;bottom:14px}
+.stage .src{position:absolute;z-index:2;right:16px;bottom:14px}
+.pane.plan{background:#fff;display:grid;place-items:center;padding:64px 20px 44px}
+.pane.plan svg{width:100%;height:100%}
+#sc-plan{--room:#F4F1EC;--room-hi:#D9EDEE;--wall:#23262B;--accent:#0A8492;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+#sc-plan .rm{fill:var(--room);cursor:pointer;transition:fill .15s}#sc-plan .rm:hover{fill:#ECE7DF}#sc-plan .rm.on{fill:var(--room-hi)}
+#sc-plan .rm-bathroom,#sc-plan .rm-wc{fill:#EEF1F2}#sc-plan .rm-hall,#sc-plan .rm-storage{fill:#F1EEE9}
+#sc-plan .zone{fill:none;stroke:#B9B2A7;stroke-width:.012;stroke-dasharray:.08 .05}
+#sc-plan .wall{fill:var(--wall)}#sc-plan .win-o{fill:#fff;stroke:var(--wall);stroke-width:.02}#sc-plan .win-l{stroke:var(--wall);stroke-width:.016}
+#sc-plan .door{stroke:var(--wall);stroke-width:.025}#sc-plan .door.main{stroke-width:.04}#sc-plan .door-arc{fill:none;stroke:#7A7F87;stroke-width:.012;stroke-dasharray:.06 .05}
+#sc-plan .pass{stroke:#7A7F87;stroke-width:.012;stroke-dasharray:.1 .06}#sc-plan .fp{fill:rgba(35,38,43,.05);stroke:#8C8F95;stroke-width:.012}
+#sc-plan .rn{fill:#23262B;font:600 .26px "Manrope",sans-serif;pointer-events:none}#sc-plan .rn.sm{font-size:.2px}
+#sc-plan .ra{fill:#5F646C;font:500 .22px var(--mono);pointer-events:none}
+#sc-plan .dl{stroke:#7A7F87;stroke-width:.012}#sc-plan .dt{fill:#5F646C;font:500 .22px var(--mono)}#sc-plan .north{fill:#23262B}
+.show .side{padding:clamp(22px,3vw,36px);display:grid;gap:18px;align-content:start}
+.show .dev{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.show h3{font-size:1.6rem;font-weight:800;margin-top:6px}
+.show .loc{color:var(--muted);font-size:.9375rem;margin-top:4px}
+.ucard{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:8px;background:var(--soft)}
+.ucard .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ucard .id{font-weight:800;font-size:1.1rem;color:var(--navy)}
+.ucard .pr{font-size:1.35rem;font-weight:800;color:var(--navy)}
+.ucard .sp{font-size:.875rem;color:var(--muted)}
+.rooms{display:grid;font-size:.9375rem}
+.rooms li{display:flex;justify-content:space-between;gap:10px;padding:8px 6px;border-top:1px solid var(--line);cursor:pointer;border-radius:6px}
+.rooms li:hover,.rooms li.on{background:var(--accent-soft)}
+.rooms li b{font-variant-numeric:tabular-nums}
+.show .acts2{display:flex;flex-wrap:wrap;gap:10px}
+
+/* interior inspiration mosaic */
+.mosaic{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:260px 260px;gap:14px}
+.mosaic figure{margin:0;position:relative;border-radius:var(--r);overflow:hidden;background:var(--soft)}
+.mosaic figure:first-child{grid-row:span 2}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.mosaic figure:hover img{transform:scale(1.05)}
+.mosaic figcaption{position:absolute;left:12px;bottom:12px}
+.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:clamp(24px,4vw,56px);align-items:center}
+.checks{display:grid;gap:12px;margin:22px 0 26px}
+.checks li{display:flex;gap:12px;align-items:flex-start;color:var(--muted)}
+.checks li b{color:var(--ink)}
+.checks svg{flex:none;color:var(--accent);margin-top:3px}
+
+/* lister banner */
+.lister{position:relative;border-radius:24px;overflow:hidden;color:#DCE5F0;isolation:isolate}
+.lister>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.lister::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,26,49,.96) 0%,rgba(10,26,49,.88) 45%,rgba(10,26,49,.35) 100%)}
+.lister .in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center;padding:clamp(28px,5vw,64px)}
+.lister h2{color:#fff;font-size:clamp(1.6rem,1.1rem + 1.6vw,2.4rem);font-weight:800}
+.lister p{margin-top:12px;color:#B9C7D8;max-width:48ch}
+.steps3{display:grid;gap:12px}
+.steps3 li{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:16px 18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.steps3 b{color:#fff;display:block}
+.steps3 span{font-size:.875rem;color:#B9C7D8}
+.steps3 .n{flex:none;width:36px;height:36px;border-radius:10px;background:#0A8492;color:#fff;display:grid;place-items:center;font-weight:800}
+
+/* prices */
+.pricebox{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ptable .hd,.ptable .rw{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) 64px;gap:12px;padding:14px 20px;align-items:center}
+.ptable .hd{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.ptable .rw{border-top:1px solid var(--line);font-size:.9375rem}
+.ptable .rw b{font-weight:700}
+.barw{display:block;height:6px;border-radius:3px;background:var(--soft);overflow:hidden;margin-top:8px}.barw i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.budget{padding:22px}
+.budget input{width:100%;accent-color:#0A8492;margin-top:14px}
+.budget .v{font-weight:800;font-size:1.6rem;color:var(--navy);letter-spacing:-.02em}
+.budget li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:.9375rem}
+.budget li b{text-align:right}
+.note{font-size:.8125rem;color:var(--muted)}
+
+/* developers + how */
+.devs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:16px}
+.devc{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);transition:border-color .2s,box-shadow .2s}
+.devc:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.devc .lg{width:52px;height:52px;border-radius:14px;background:var(--navy);display:grid;place-items:center;font-weight:800;font-size:1.2rem;color:var(--bg);flex:none}
+.devc b{display:block}
+.devc span{font-size:.8125rem;color:var(--muted)}
+.how{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:s;border:1px solid var(--line);border-radius:var(--r);background:var(--card);overflow:hidden}
+.how li{padding:26px 22px;display:grid;gap:8px;align-content:start;border-left:1px solid var(--line)}
+.how li:first-child{border-left:0}
+.how .n{font-weight:800;font-size:.8125rem;color:var(--accent);letter-spacing:.1em}
+.how b{font-size:1.1rem;color:var(--navy)}
+.how span{font-size:.875rem;color:var(--muted)}
+
+/* cta, explore, footer */
+.cta{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);border-radius:24px;overflow:hidden;background:var(--soft);border:1px solid var(--line)}
+.cta .tx{padding:clamp(28px,5vw,60px);display:grid;gap:14px;align-content:center}
+.cta h2{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);font-weight:800}
+.cta figure{margin:0;position:relative;min-height:320px}
+.cta figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta figcaption{position:absolute;right:12px;bottom:12px}
+.explore{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:4px 32px}
+.explore h3{font-size:.9375rem;margin:20px 0 8px}
+.explore a{display:block;padding:5px 0;color:var(--muted);font-size:.9375rem}
+.explore a:hover{color:var(--accent)}
+.advert{background:linear-gradient(90deg,#0A8492,#0E6A86);color:#fff}
+.advert .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-block:24px}
+.advert b{font-size:1.15rem}
+footer{background:var(--band-2);color:#AFBDCD}
+.foot{display:grid;grid-template-columns:1.5fr repeat(3,minmax(0,1fr));gap:32px;padding-block:56px 32px}
+.foot h4{margin:0 0 14px;color:#fff;font-size:.9375rem}
+.foot ul{display:grid;gap:9px;font-size:.9375rem}
+.foot a:hover{color:#fff}
+.foot .logo{color:#fff}
+.base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;padding-block:18px 26px;border-top:1px solid rgba(255,255,255,.1);font-size:.8125rem}
+
+@media (max-width:1180px){.nav{display:none}.menu-btn{display:grid}}
+@media (max-width:1100px){.cats{grid-template-columns:repeat(2,minmax(0,1fr))}.how{grid-template-columns:repeat(2,minmax(0,1fr))}.how li{border-left:0;border-top:1px solid var(--line)}.foot{grid-template-columns:1fr 1fr}.split{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:960px){.show{grid-template-columns:minmax(0,1fr)}.stage{min-height:min(110vw,520px)}.pane.plan{padding:60px 6px 40px}#pane-3d .src{display:none}}
+@media (max-width:860px){.lister .in,.pricebox,.cta{grid-template-columns:minmax(0,1fr)}.acts .login{display:none}.stats .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:220px 160px 160px}.mosaic figure:first-child{grid-row:auto;grid-column:span 2}.mosaic figure:nth-child(5){display:none}}
+@media (max-width:600px){.srow{flex-direction:column}.stabs{display:flex;width:100%}.stabs button{flex:1;padding:9px 6px;font-size:.8125rem}.sbox{border-radius:0 0 18px 18px}.hero::after{background:linear-gradient(180deg,rgba(6,14,26,.7),rgba(6,14,26,.55) 40%,rgba(6,14,26,.88))}.hero .wrap{padding-top:110px}.how{grid-template-columns:minmax(0,1fr)}.foot{grid-template-columns:minmax(0,1fr)}.ptable .hd,.ptable .rw{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 48px;padding:12px 14px}.ptable .hide-s{display:none}.acts .cta-h{display:none}.cats{gap:12px}.cat b{font-size:1.05rem}.proj{min-height:440px}.hero-dots{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="site-head" id="header">
+  <div class="wrap in">
+    <a class="logo" href="/" aria-label="E-Property нүүр"><svg viewBox="0 0 64 64" aria-hidden="true"><rect class="m" width="64" height="64" rx="15"/><path class="m2" d="M17 16h31v8H25v5h18v7H25v5h23v8H17z"/><path d="M48 29h5v20h-5z" fill="#0A8492"/></svg>E-Property</a>
+    <nav class="nav" aria-label="Үндсэн цэс">
+      <a href="#search">Орон сууц хайх</a>
+      <a href="#projects">Шинэ төслүүд</a>
+      <a href="#showcase">2D · 3D</a>
+      <a href="#prices">Үнийн мэдээлэл</a>
+      <a href="#developers">Хэрэгжүүлэгчид</a>
+    </nav>
+    <div class="acts">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="Харанхуй горим"><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      <a class="btn ghost login" href="/login">Нэвтрэх</a>
+      <a class="btn cta-h" href="#list">Төслөө байршуулах</a>
+      <button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mnav" aria-label="Цэс"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" hidden aria-label="Гар утасны цэс">
+    <a href="#search">Орон сууц хайх</a><a href="#projects">Шинэ төслүүд</a><a href="#showcase">2D · 3D</a><a href="#prices">Үнийн мэдээлэл</a><a href="#developers">Хэрэгжүүлэгчид</a><a href="#how">Хэрхэн ажилладаг</a><a href="#list">Төслөө байршуулах</a><a href="/login">Нэвтрэх</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="search">
+  <div class="slides" id="slides" aria-hidden="true">
+    <img class="on" src="/units/assets/site/exterior-1.webp" alt="" width="1500" height="1000" fetchpriority="high">
+    <img src="/units/assets/site/exterior-3.webp" alt="" width="1500" height="841" loading="lazy">
+    <img src="/units/assets/site/exterior-2.webp" alt="" width="1500" height="1200" loading="lazy">
+  </div>
+  <div class="wrap">
+    <span class="eyebrow" style="color:#9FE3E9">Шинэ орон сууцны платформ</span>
+    <h1 style="margin-top:14px">Таны дараагийн гэр эндээс эхэлнэ</h1>
+    <p class="sub">Шинэ төслүүдийн сул нэгжийг байршил, үнэ, өрөөгөөр нь хайж, 2D зураг, 3D болон интерьерээр нь шалгаарай.</p>
+    <div class="search">
+      <div class="stabs" role="tablist" aria-label="Хайлтын төрөл">
+        <button type="button" role="tab" aria-selected="true" data-mode="buy">Худалдан авах</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="projects">Шинэ төслүүд</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="unit">Дугаараар</button>
+      </div>
+      <form class="sbox" id="sform" novalidate>
+        <div class="srow">
+          <label class="sinput"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m17.5 17.5-4.33-4.33m0 0a6.25 6.25 0 1 0-8.84-8.84 6.25 6.25 0 0 0 8.84 8.84Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input id="q" list="q-list" autocomplete="off" placeholder="Дүүрэг, төсөл эсвэл нэгжийн дугаар" aria-label="Хайх"><datalist id="q-list"></datalist></label>
+          <button class="btn" type="submit">Хайх</button>
+        </div>
+        <div class="filters" id="filters">
+          <select id="f-rooms" aria-label="Өрөө"><option value="">Өрөө: бүгд</option><option value="1">1 өрөө</option><option value="2">2 өрөө</option><option value="3">3 өрөө</option><option value="4">4+ өрөө</option></select>
+          <select id="f-price" aria-label="Үнэ"><option value="">Үнэ: бүгд</option><option value="300000000">300 сая ₮ хүртэл</option><option value="500000000">500 сая ₮ хүртэл</option><option value="800000000">800 сая ₮ хүртэл</option><option value="1200000000">1.2 тэрбум ₮ хүртэл</option></select>
+          <select id="f-area" aria-label="Талбай"><option value="">Талбай: бүгд</option><option value="50">50 м²-аас дээш</option><option value="70">70 м²-аас дээш</option><option value="90">90 м²-аас дээш</option></select>
+          <select id="f-year" aria-label="Ашиглалтад орох"><option value="">Ашиглалт: бүгд</option></select>
+        </div>
+        <p class="smsg" id="smsg" hidden></p>
+      </form>
+    </div>
+    <div class="quick" id="quick"></div>
+  </div>
+  <div class="hero-dots" id="dots"></div>
+  <span class="hero-note">Зураг: санаа авах зориулалттай, жишээ төслүүдийн бодит зураг биш</span>
+</section>
+
+<div class="stats" aria-label="Платформын тойм"><div class="wrap" id="stats">
+  <div><b>—</b><span>Төсөл</span></div><div><b>—</b><span>Сул нэгж</span></div><div><b>—</b><span>Дүүрэг</span></div><div><b>—</b><span>Эхлэх үнэ</span></div>
+</div></div>
+
+<section class="sec results" id="results" hidden>
+  <div class="wrap">
+    <div class="sec-h"><div><span class="eyebrow">Хайлт</span><h2 id="r-title">Хайлтын үр дүн</h2><p id="r-sub"></p></div><button class="btn ghost" type="button" id="r-clear">Хайлт цэвэрлэх</button></div>
+    <ul class="grid" id="r-grid"></ul>
+  </div>
+</section>
+
+<section class="sec" id="cats">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">Хэрэгцээгээр</span><h2>Өөрт тохирохоор нь хайх</h2><p>Амьдралын хэв маягаасаа эхлээд сонголтоо нарийсга.</p></div></div>
+    <div class="cats" id="cat-grid">
+      <a class="cat rv" href="#" data-rooms="3"><img src="/units/assets/site/interior-1-s.webp" alt="" loading="lazy" width="720" height="540"><span class="go" aria-hidden="true">→</span><span class="tx"><b>Гэр бүлд</b><span>3 өрөө, том зочны өрөө</span></span></a>
+      <a class="cat rv" href="#" data-rooms="1"><img src="/units/assets/site/interior-3-s.webp" alt="" loading="lazy" width="720" height="480"><span class="go" aria-hidden="true">→</span><span class="tx"><b>Анхны гэр</b><span>1 өрөө, эхлэх үнэ бага</span></span></a>
+      <a class="cat rv" href="#" data-q="Сүхбаатар"><img src="/units/assets/site/interior-2-s.webp" alt="" loading="lazy" width="720" height="411"><span class="go" aria-hidden="true">→</span><span class="tx"><b>Хотын төвд</b><span>Сүхбаатар дүүрэг</span></span></a>
+      <a class="cat rv" href="#" data-area="90"><img src="/units/assets/site/interior-5-s.webp" alt="" loading="lazy" width="720" height="480"><span class="go" aria-hidden="true">→</span><span class="tx"><b>Өргөн талбайтай</b><span>90 м²-аас дээш</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="projects" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <div><span class="eyebrow">Шинэ төслүүд</span><h2>Барьж буй төслүүд</h2><p>Ашиглалтад орох хугацаа, эхлэх үнэ, барилгын явцтай. Бүгд жишээ төсөл, зураг нь санаа авах зориулалттай.</p></div>
+      <div class="tabs" id="p-tabs" role="group" aria-label="Дүүргээр шүүх"><button type="button" data-d="" aria-pressed="true">Бүгд</button></div>
+    </div>
+    <div class="projects" id="p-grid"></div>
+  </div>
+</section>
+
+<section class="sec" id="showcase" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">2D · 3D</span><h2>Барилгаа 3D-ээр, байраа 2D-ээр</h2><p>Нэг төслийн жишээ: барилгын 3D загвар, давхрын план, интерьер нэг өгөгдлөөс. Барилга дээрх байр бүрийг дарж сонгоно.</p></div></div>
+    <article class="show rv" id="show" aria-label="Төслийн 2D, 3D жишээ">
+      <div class="stage">
+        <div class="seg" role="tablist" aria-label="Харагдац">
+          <button type="button" role="tab" aria-selected="true" aria-controls="pane-3d" data-pane="3d">3D барилга</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="pane-2d" data-pane="2d">2D план</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="pane-in" data-pane="in">Интерьер</button>
+        </div>
+        <div class="pane" id="pane-3d" role="tabpanel">
+          <img id="sc-poster" src="/3d/data/tuul-river/renders/aerial.webp" alt="Төслийн 3D загвар, агаараас" loading="lazy" width="1600" height="1000">
+          <button class="play" type="button" id="sc-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5ZM3 8v8l9 5 9-5V8M12 13v8" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>3D-ээр эргүүлж үзэх</button>
+          <span class="pill glass hint" id="sc-hint" hidden>Чирж эргүүлнэ · байран дээр дарж сонгоно</span>
+          <span class="pill glass src" style="top:16px;bottom:auto">3D загвар, бодит зураг биш</span>
+        </div>
+        <div class="pane plan" id="pane-2d" role="tabpanel" hidden><svg id="sc-plan" role="img" aria-label="Нэгжийн давхрын план"></svg><span class="pill src" style="background:#F1F4F7;color:#5F6B7A">DXF зургаас · хэмжээ м</span></div>
+        <div class="pane" id="pane-in" role="tabpanel" hidden><img src="/units/assets/renders/b0301-living.webp" alt="Нэгжийн зочны өрөөний 3D интерьер" loading="lazy" width="884" height="580"><span class="pill glass src">3D интерьерээс буулгасан</span></div>
+      </div>
+      <div class="side">
+        <div><span class="dev" id="sc-dev"></span><h3 id="sc-name"></h3><p class="loc" id="sc-loc"></p></div>
+        <div class="ucard" id="sc-unit" aria-live="polite"></div>
+        <div id="sc-rooms-box"><b style="font-size:.875rem">Өрөөнүүд</b><ul class="rooms" id="sc-rooms" style="margin-top:8px"></ul></div>
+        <div class="acts2"><a class="btn" id="sc-pass" href="#">Нэгжийн паспорт</a><a class="btn ghost" id="sc-full" href="/3d/?project=tuul-river">Бүтэн дэлгэцээр</a></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="featured" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">Онцлох</span><h2>Одоо захиалж болох орон сууц</h2><p>Төсөл бүрээс сонгосон сул нэгжүүд. Дээр нь дарж нэгжийн паспортыг үзнэ.</p></div><a class="more" href="/units/">Бүх нэгж →</a></div>
+    <ul class="grid" id="f-grid"></ul>
+  </div>
+</section>
+
+<section class="sec" id="interior">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="eyebrow">Интерьер</span>
+      <h2 style="font-size:clamp(1.65rem,1.1rem + 1.8vw,2.6rem);margin-top:10px">Орохоосоо өмнө гэрээ төсөөл</h2>
+      <p style="color:var(--muted);margin-top:12px">Дотор төлөвлөлттэй нэгжийн паспортод өрөө бүрийг нүдний түвшнээс харж, хэв маяг, гэрэлтүүлгийг сольж үзнэ.</p>
+      <ul class="checks">
+        <li><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10.5 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>2D зураг ба 3D</b> — нэг геометрээс, хэмжээ нь таарна</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10.5 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Хэв маяг</b> — Модерн, Скандинав материал, тавилга</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m4 10.5 4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Өдөр, орой</b> — цонхны гэрэл, дотор гэрэлтүүлэг</span></li>
+      </ul>
+      <a class="btn" href="/units/?project=tuul-river&amp;unit=B-0301&amp;tab=interior">Жишээ нэгжийн интерьер үзэх</a>
+    </div>
+    <div class="mosaic rv">
+      <figure><img src="/units/assets/site/interior-1.webp" alt="Зочны өрөө, хоолны ширээ, нуман хаалга бүхий интерьерийн санаа" loading="lazy" width="1600" height="1200"><figcaption class="pill white">Санаа авах зураг</figcaption></figure>
+      <figure><img src="/units/assets/site/interior-2-s.webp" alt="Саарал буйдантай зочны өрөө" loading="lazy" width="720" height="411"></figure>
+      <figure><img src="/units/assets/site/interior-4-s.webp" alt="Дугуй ширээтэй хоолны хэсэг" loading="lazy" width="720" height="480"></figure>
+      <figure><img src="/units/assets/site/interior-3-s.webp" alt="Цайвар өнгийн зочны өрөө" loading="lazy" width="720" height="480"></figure>
+      <figure><img src="/units/assets/site/interior-5-s.webp" alt="Гал тогоо, хоолны ширээ" loading="lazy" width="720" height="480"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="list" style="padding-top:0">
+  <div class="wrap">
+    <div class="lister rv">
+      <img src="/units/assets/site/exterior-2.webp" alt="" loading="lazy" width="1500" height="1200">
+      <div class="in">
+        <div>
+          <span class="eyebrow" style="color:#9FE3E9">Төсөл хэрэгжүүлэгчдэд</span>
+          <h2 style="margin-top:10px">Төслөө E-Property-д байршуулах</h2>
+          <p>Нэгжийн сан, үнэ, төлөвөө нэг дор удирдана. Давхрын CAD зургаас нэгжийн паспорт автоматаар үүснэ.</p>
+          <p style="margin-top:22px"><a class="btn light" aria-disabled="true" role="link">Хүсэлт илгээх — удахгүй</a></p>
+          <p style="margin-top:10px;font-size:.8125rem">Хүсэлт хүлээн авах суваг хараахан нээгдээгүй.</p>
+        </div>
+        <ol class="steps3">
+          <li><span class="n">1</span><span><b>Зургаа оруулах</b><span>Давхрын DXF зураг, давхаргын дүрмээр</span></span></li>
+          <li><span class="n">2</span><span><b>Нэгжээ холбох</b><span>Үнэ, төлөв, захиалгын нөхцөл</span></span></li>
+          <li><span class="n">3</span><span><b>Нийтлэх</b><span>2D, 3D, интерьертэй паспорт худалдан авагчдад</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="prices" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">Үнийн мэдээлэл</span><h2>Дүүргээр үнэ харьцуулах</h2><p>Таны төсөв аль дүүрэгт ямар орон сууц болохыг харьцуул.</p></div></div>
+    <div class="pricebox">
+      <div class="panel ptable rv" id="ptable" role="table" aria-label="Дүүргээр 1 м²-ийн үнэ"></div>
+      <div class="rv" style="display:grid;gap:12px">
+        <div class="panel budget">
+          <span class="note">Таны төсөв</span>
+          <p class="v" id="budget-v"></p>
+          <input type="range" id="budget" min="200000000" max="1500000000" step="10000000" value="500000000" aria-label="Төсөв">
+          <ul id="budget-r" style="margin-top:14px"></ul>
+        </div>
+        <p class="note">Тооцоо нь платформ дээрх жишээ нэгжүүдийн зарласан үнээс. Бодит зах зээлийн статистик биш.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="developers">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">Хэрэгжүүлэгчид</span><h2>Төсөл хэрэгжүүлэгч компаниуд</h2><p>Платформ дээр төслөө байршуулсан компаниуд (жишээ).</p></div></div>
+    <ul class="devs rv" id="devs"></ul>
+  </div>
+</section>
+
+<section class="sec" id="how" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h rv"><div><span class="eyebrow">Хэрхэн ажилладаг</span><h2>Төсөл сонгохоос түлхүүр авах хүртэл</h2></div><a class="more" href="/units/?project=tuul-river&amp;unit=B-0301&amp;tab=plan">Жишээ нэгжийн паспорт →</a></div>
+    <ol class="how rv">
+      <li><span class="n">01</span><b>Хайх</b><span>Байршил, үнэ, өрөөгөөр төсөл, нэгжээ олно.</span></li>
+      <li><span class="n">02</span><b>Шалгах</b><span>Паспорт: 2D зураг, 3D, интерьер, талбайн тодорхойлолт.</span></li>
+      <li><span class="n">03</span><b>Захиалах</b><span>Түр хадгалалт, захиалгын нөхцөл (удахгүй).</span></li>
+      <li><span class="n">04</span><b>Гэрээлэх</b><span>Гэрээ, төлбөрийн явцаа хувийн хэсгээсээ.</span></li>
+      <li><span class="n">05</span><b>Хүлээн авах</b><span>Барилгын явц, эрхийн бүртгэлээ хянана.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta rv">
+      <div class="tx">
+        <span class="eyebrow">Эхэлцгээе</span>
+        <h2>Өөрт тохирох орон сууцаа олоход бэлэн үү?</h2>
+        <p style="color:var(--muted)">Төслүүдийг харьцуулж, нэгжийн паспортоос өрөө бүрийг нь шалгаарай.</p>
+        <p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px"><a class="btn accent" href="#search">Орон сууц хайх</a><a class="btn ghost" href="/units/">Бүх нэгж</a></p>
+      </div>
+      <figure><img src="/units/assets/site/exterior-3.webp" alt="" loading="lazy" width="1500" height="841"><figcaption class="pill white">Санаа авах зураг</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h"><div><h2 style="font-size:1.4rem">Дэлгэрэнгүй хайх</h2></div></div>
+    <div class="explore" id="explore"></div>
+  </div>
+</section>
+</main>
+
+<div class="advert"><div class="wrap"><b>Төслөө байршуулах уу? Бид тусална.</b><a class="btn light" href="#list">Дэлгэрэнгүй</a></div></div>
+<footer>
+  <div class="wrap foot">
+    <div><a class="logo" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#fff"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#0E2240"/><path d="M48 29h5v20h-5z" fill="#0A8492"/></svg>E-Property</a><p style="margin-top:14px;max-width:34ch">Үл хөдлөх хөрөнгө үүсэхээс өмчлөх хүртэл.</p></div>
+    <div><h4>Хайх</h4><ul><li><a href="#search">Орон сууц хайх</a></li><li><a href="#projects">Шинэ төслүүд</a></li><li><a href="/units/">Бүх нэгж</a></li><li><a href="#prices">Үнийн мэдээлэл</a></li></ul></div>
+    <div><h4>Төслүүд</h4><ul id="foot-projects"></ul></div>
+    <div><h4>Байгууллагад</h4><ul><li><a href="#list">Төслөө байршуулах</a></li><li><a href="#how">Хэрхэн ажилладаг</a></li><li><a href="/login">Нэвтрэх</a></li></ul></div>
+  </div>
+  <div class="wrap base"><span>© E-Property · жишээ мэдээлэл · зургууд санаа авах зориулалттай</span><span>Тавилгын 3D загвар: Wayfair (CC-BY 4.0), Poly Haven (CC0) — <a href="/units/assets/CREDITS.json" style="text-decoration:underline">эх сурвалж</a></span></div>
+</footer>
+
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const mln = (n) => n < 1e9 ? `${(n / 1e6).toFixed(0)} сая ₮` : `${(n / 1e9).toFixed(2)} тэрбум ₮`;
+const STATUS = { available: "Сул", reserved: "Захиалсан", sold: "Зарагдсан" };
+const passport = (p, u, tab) => `/units/?project=${encodeURIComponent(p.slug)}&unit=${encodeURIComponent(u.unit_id)}${tab ? `&tab=${tab}` : ""}`;
+const district = (p) => p.district.split(",")[0];
+const SITE = "/units/assets/site/";
+const INTERIORS = [1, 2, 3, 4, 5].map((n) => `${SITE}interior-${n}-s.webp`);
+const EXTERIORS = [1, 3, 2].map((n) => `${SITE}exterior-${n}.webp`);
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* theme, header, menu */
+const root = document.documentElement, mq = matchMedia("(prefers-color-scheme: dark)");
+const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : mq.matches;
+const sync = () => { root.classList.toggle("is-dark", isDark()); document.querySelectorAll("[data-theme-toggle]").forEach((b) => b.setAttribute("aria-label", isDark() ? "Цайвар горим" : "Харанхуй горим")); };
+document.querySelectorAll("[data-theme-toggle]").forEach((b) => b.addEventListener("click", () => { root.dataset.theme = isDark() ? "light" : "dark"; try { localStorage.setItem("ep-theme", root.dataset.theme); } catch {} sync(); }));
+mq.addEventListener("change", sync); sync();
+const head = $("header"), solid = () => head.classList.toggle("solid", scrollY > 40 || !$("mnav").hidden);
+addEventListener("scroll", solid, { passive: true }); solid();
+$("menu-btn").addEventListener("click", () => { const m = $("mnav"); m.hidden = !m.hidden; $("menu-btn").setAttribute("aria-expanded", String(!m.hidden)); solid(); });
+$("mnav").addEventListener("click", (e) => { if (e.target.closest("a")) { $("mnav").hidden = true; solid(); } });
+
+/* hero slideshow (photos only) */
+const slides = [...$("slides").children];
+let cur = 0, timer;
+const show = (i) => { slides[cur].classList.remove("on"); cur = (i + slides.length) % slides.length; slides[cur].classList.add("on"); [...$("dots").children].forEach((d, k) => d.setAttribute("aria-current", String(k === cur))); };
+slides.forEach((_, i) => { const d = document.createElement("button"); d.type = "button"; d.setAttribute("aria-label", `Зураг ${i + 1}`); d.setAttribute("aria-current", String(i === 0)); d.addEventListener("click", () => { show(i); clearInterval(timer); }); $("dots").append(d); });
+if (!reduced) timer = setInterval(() => { if (!document.hidden) show(cur + 1); }, 6500);
+
+/* reveal on scroll */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+const observe = (el = document) => el.querySelectorAll(".rv:not(.in)").forEach((n) => io.observe(n));
+observe();
+
+const ico = {
+  bed: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2 15V5m0 6h16v4M18 11V9a2 2 0 0 0-2-2H9v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  area: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 8h5V3" stroke="currentColor" stroke-width="1.6"/></svg>`,
+  floor: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 17h4v-4h4V9h4V5h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  pin: `<svg width="14" height="14" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 18s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="8" r="2" stroke="currentColor" stroke-width="1.6"/></svg>`,
+};
+
+try {
+  const projects = await fetch("/3d/data/projects.json").then((r) => r.json());
+  const all = [];
+  for (const p of projects) {
+    const [units, idx] = await Promise.all([fetch(`/3d/data/${encodeURIComponent(p.slug)}/units.json`).then((r) => r.json()), fetch(`/3d/data/${encodeURIComponent(p.slug)}/plans/index.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null)]);
+    const hasPlan = (u) => (idx?.plans ?? []).some((e) => e.match?.suffix ? u.unit_id.endsWith(e.match.suffix) : e.match?.units?.includes(u.unit_id));
+    for (const u of units) all.push({ p, u, plan: hasPlan(u) });
+  }
+  const area = (u) => u.area_declared ?? u.area_measured;
+  // Illustrative interiors rotate by room count so similar units share a look; labelled on every card.
+  const imgFor = (x, i) => INTERIORS[(x.u.rooms + i) % INTERIORS.length];
+  const unitCard = (x, i) => { const href = passport(x.p, x.u, x.plan ? "interior" : "plan"); return `<li class="unit rv"><a class="ph" href="${href}" tabindex="-1" aria-hidden="true"><img src="${imgFor(x, i)}" alt="" loading="lazy" width="720" height="480"><span class="tl"><span class="pill white ok" style="color:${x.u.status === "available" ? "#0A8492" : "#9A6400"}">${STATUS[x.u.status]}</span>${x.plan ? `<span class="pill glass">3D интерьертэй</span>` : ""}</span><span class="pill glass br">Жишээ зураг</span></a>
+    <div class="bd"><span class="price">${x.u.status === "sold" ? "Зарагдсан" : mln(x.u.price)}<span class="ppm">${(x.u.price_per_m2 / 1e6).toFixed(2)} сая/м²</span></span>
+    <h3><a href="${href}">${esc(x.p.name)} · ${esc(x.u.unit_id)}</a></h3><span class="loc">${ico.pin}${esc(x.p.district)}</span>
+    <span class="specs"><span>${ico.bed}${x.u.rooms} өрөө</span><span>${ico.area}${area(x.u).toFixed(1)} м²</span><span>${ico.floor}${x.u.floor}-р давхар</span></span></div></li>`; };
+
+  /* stats */
+  const avail = all.filter((x) => x.u.status === "available");
+  const ds = [...new Set(projects.map(district))];
+  $("stats").innerHTML = [[projects.length, "Жишээ төсөл"], [avail.length, "Сул нэгж"], [ds.length, "Дүүрэг"], [mln(Math.min(...avail.map((x) => x.u.price))), "Эхлэх үнэ"]].map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join("");
+
+  /* search */
+  [...new Set(projects.map((p) => p.completion.slice(0, 4)))].sort().forEach((y) => $("f-year").add(new Option(`${y} он`, y)));
+  $("q-list").innerHTML = [...new Set([...projects.map((p) => p.name), ...ds])].map((v) => `<option value="${esc(v)}">`).join("");
+  $("quick").innerHTML = `<span>Түгээмэл:</span>` + ds.map((d) => `<a href="#" data-q="${esc(d)}">${esc(d)}</a>`).join("") + `<a href="#" data-rooms="3">3 өрөө</a><a href="#" data-price="500000000">500 сая хүртэл</a>`;
+  let mode = "buy";
+  document.querySelectorAll(".stabs button").forEach((b) => b.addEventListener("click", () => {
+    mode = b.dataset.mode; document.querySelectorAll(".stabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+    $("q").placeholder = mode === "unit" ? "Нэгжийн дугаар, жишээ нь B-0301" : mode === "projects" ? "Төсөл эсвэл дүүрэг" : "Дүүрэг, төсөл эсвэл нэгжийн дугаар";
+    $("filters").hidden = mode === "unit"; $("smsg").hidden = true;
+  }));
+  const run = () => {
+    const q = $("q").value.trim().toLowerCase(), rooms = +$("f-rooms").value, price = +$("f-price").value, ar = +$("f-area").value, year = $("f-year").value;
+    if (mode === "unit") {
+      const hit = all.find((x) => x.u.unit_id.toLowerCase() === q);
+      if (!hit) { $("smsg").hidden = false; $("smsg").textContent = q ? `${$("q").value.trim()} дугаартай нэгж олдсонгүй. Жишээ нь B-0301.` : "Нэгжийн дугаараа оруулна уу."; return; }
+      location.href = passport(hit.p, hit.u, hit.plan ? "interior" : "plan"); return;
+    }
+    if (mode === "projects") { renderProjects(projects.filter((p) => !q || (p.name + " " + p.district).toLowerCase().includes(q))); $("projects").scrollIntoView(); return; }
+    const res = avail.filter((x) => (!q || (x.p.name + " " + x.p.district + " " + x.u.unit_id).toLowerCase().includes(q))
+      && (!rooms || (rooms === 4 ? x.u.rooms >= 4 : x.u.rooms === rooms))
+      && (!price || x.u.price <= price) && (!ar || area(x.u) >= ar)
+      && (!year || x.p.completion.startsWith(year)))
+      .sort((a, b) => (b.plan - a.plan) || a.u.price - b.u.price);
+    $("results").hidden = false;
+    $("r-title").textContent = res.length ? `${res.length} сул нэгж олдлоо` : "Тохирох сул нэгж олдсонгүй";
+    $("r-sub").textContent = res.length ? `Үнээр өсөхөөр${res.length > 24 ? ", эхний 24" : ""}. Зураг нь санаа авах зориулалттай.` : "Шүүлтүүрээ сулруулж дахин хайна уу.";
+    $("r-grid").innerHTML = res.slice(0, 24).map(unitCard).join("");
+    observe($("r-grid"));
+    $("results").scrollIntoView();
+  };
+  const preset = (el) => { $("sform").reset(); mode = "buy"; document.querySelector('.stabs [data-mode="buy"]').click(); if (el.dataset.q) $("q").value = el.dataset.q; if (el.dataset.rooms) $("f-rooms").value = el.dataset.rooms; if (el.dataset.price) $("f-price").value = el.dataset.price; if (el.dataset.area) $("f-area").value = el.dataset.area; run(); };
+  $("sform").addEventListener("submit", (e) => { e.preventDefault(); run(); });
+  for (const box of [$("quick"), $("cat-grid"), $("explore")]) box.addEventListener("click", (e) => { const a = e.target.closest("a[data-q],a[data-rooms],a[data-price],a[data-area]"); if (!a) return; e.preventDefault(); preset(a); });
+  $("r-clear").addEventListener("click", () => { $("sform").reset(); $("results").hidden = true; $("search").scrollIntoView(); });
+
+  /* new projects */
+  function renderProjects(list) {
+    $("p-grid").innerHTML = list.map((p) => {
+      const i = projects.indexOf(p), units = all.filter((x) => x.p === p), rooms = [...new Set(units.map((x) => x.u.rooms))].sort();
+      return `<a class="proj rv" href="/units/project.html?project=${encodeURIComponent(p.slug)}">
+        <img src="${EXTERIORS[i % EXTERIORS.length]}" alt="" loading="lazy" width="1500" height="1000">
+        <div class="top"><span class="pill white ok" style="color:#0A8492">Барьж буй</span><span class="pill glass">Ашиглалт: ${esc(p.completion)}</span></div>
+        <div class="info"><span class="dev">${esc(p.developer)}</span><h3>${esc(p.name)}</h3><span class="loc">${esc(p.block)} блок · ${esc(p.district)}</span>
+          <div class="kv"><span><small>Эхлэх үнэ</small><strong>${mln(p.price_from)}</strong></span><span><small>Өрөө</small><strong>${rooms.join(", ")}</strong></span><span><small>Сул нэгж</small><strong>${p.available} / ${p.units}</strong></span></div>
+          <span class="bar" title="Барилгын явц ${p.progress}%"><i style="width:${Math.max(0, Math.min(100, p.progress))}%"></i></span>
+          <span class="row"><span>Төсөл үзэх</span><span class="alt">Барилгын явц ${p.progress}%</span></span></div></a>`;
+    }).join("") || `<p class="note">Тохирох төсөл алга.</p>`;
+    observe($("p-grid"));
+  }
+  ds.forEach((d) => { const b = document.createElement("button"); b.type = "button"; b.dataset.d = d; b.textContent = d; b.setAttribute("aria-pressed", "false"); $("p-tabs").append(b); });
+  $("p-tabs").addEventListener("click", (e) => { const b = e.target.closest("button[data-d]"); if (!b) return; $("p-tabs").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); renderProjects(projects.filter((p) => !b.dataset.d || district(p) === b.dataset.d)); });
+  renderProjects(projects);
+
+  /* 2D / 3D showcase: the project that has a structured plan */
+  {
+    const sp = projects.find((p) => p.slug === "tuul-river") ?? projects[0], su = all.filter((x) => x.p === sp);
+    const planEntry = await fetch(`/3d/data/${sp.slug}/plans/index.json`).then((r) => r.json()).then((i) => i.plans[0]);
+    const plan = await fetch(`/3d/data/${sp.slug}/plans/${planEntry.file}`).then((r) => r.json());
+    const ofPlan = (x) => x.u.unit_id.endsWith(planEntry.match.suffix);
+    // default unit: the highest available unit with this plan, else B-0301
+    const first = su.filter((x) => ofPlan(x) && x.u.status === "available").sort((a, b) => b.u.floor - a.u.floor)[0] ?? su.find((x) => x.u.unit_id === "B-0301");
+    $("sc-dev").textContent = sp.developer; $("sc-name").textContent = `${sp.name}, ${sp.block} блок`; $("sc-loc").textContent = `${sp.district} · ашиглалт ${sp.completion}`;
+    $("sc-full").href = `/3d/?project=${encodeURIComponent(sp.slug)}`;
+    const showUnit = (x) => {
+      const hasPlan = ofPlan(x), free = x.u.status === "available";
+      $("sc-unit").innerHTML = `<div class="top"><span class="id">${esc(x.u.unit_id)}</span><span class="pill${free ? " ok" : ""}"${free ? "" : ' style="background:#FFF1D6;color:#7A4F00"'}>${STATUS[x.u.status]}</span></div>
+        ${x.u.status === "sold" ? "" : `<span class="pr">${mln(x.u.price)}</span>`}
+        <span class="sp">${x.u.rooms} өрөө · ${area(x.u).toFixed(1)} м² · ${x.u.floor}-р давхар</span>
+        ${hasPlan ? "" : '<span class="note">Энэ байрны дотор төлөвлөлт хараахан ороогүй. Паспортод 2D хэлбэрээр харагдана.</span>'}`;
+      $("sc-pass").href = passport(sp, x.u, hasPlan ? "interior" : "plan");
+      $("sc-rooms-box").hidden = !hasPlan;
+    };
+    showUnit(first);
+    const roomArea = (poly) => Math.abs(poly.reduce((s, p, i) => { const q = poly[(i + 1) % poly.length]; return s + p[0] * q[1] - q[0] * p[1]; }, 0) / 2);
+    $("sc-rooms").innerHTML = plan.rooms.map((r) => `<li data-room="${esc(r.id)}" tabindex="0"><span>${esc(r.name)}</span><b>${roomArea(r.polygon).toFixed(1)} м²</b></li>`).join("");
+    let drawn = false;
+    const pickRoom = (id) => {
+      $("sc-rooms").querySelectorAll("li").forEach((li) => li.classList.toggle("on", li.dataset.room === id));
+      $("sc-plan").querySelectorAll(".rm").forEach((p) => p.classList.toggle("on", p.dataset.room === id));
+    };
+    const tab = async (k) => {
+      document.querySelectorAll("#show .seg button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.pane === k)));
+      $("pane-3d").hidden = k !== "3d"; $("pane-2d").hidden = k !== "2d"; $("pane-in").hidden = k !== "in";
+      if (k === "2d" && !drawn) { drawn = true; const { drawPlan } = await import("/units/lib/plan2d.js"); drawPlan($("sc-plan"), plan, { onRoom: pickRoom }); }
+    };
+    document.querySelectorAll("#show .seg button").forEach((b) => b.addEventListener("click", () => tab(b.dataset.pane)));
+    $("sc-rooms").addEventListener("click", (e) => { const li = e.target.closest("li"); if (li) tab("2d").then(() => pickRoom(li.dataset.room)); });
+    $("sc-rooms").addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.dataset.room) { e.preventDefault(); e.target.click(); } });
+    // The live model loads only on request, so three.js and the GLB stay off the initial page load.
+    $("sc-play").addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = `/3d/?project=${encodeURIComponent(sp.slug)}&embed=1`; f.title = `${sp.name} — 3D барилга`;
+      $("pane-3d").prepend(f); $("sc-poster").remove(); $("sc-play").remove(); $("sc-hint").hidden = false;
+    });
+    addEventListener("message", (e) => {
+      if (e.origin !== location.origin || e.data?.type !== "ep-unit" || e.data.project !== sp.slug) return;
+      const x = su.find((y) => y.u.unit_id === e.data.unit); if (x) showUnit(x);
+    });
+  }
+
+  /* featured: interior-planned first, then one per layout type, three per project */
+  const feat = []; for (const p of projects) { const seen = new Set(); for (const x of avail.filter((y) => y.p === p).sort((a, b) => (b.plan - a.plan) || (b.u.floor - a.u.floor))) { const k = x.u.unit_id.slice(-2); if (seen.has(k)) continue; seen.add(k); feat.push(x); if (seen.size >= 3) break; } }
+  $("f-grid").innerHTML = feat.sort((a, b) => b.plan - a.plan).slice(0, 8).map(unitCard).join("");
+  observe($("f-grid"));
+
+  /* prices by district from declared unit prices */
+  const byD = {}; for (const x of all) (byD[district(x.p)] ??= []).push(x.u);
+  const rows = Object.entries(byD).map(([d, us]) => ({ d, ppm: us.reduce((s, u) => s + u.price_per_m2, 0) / us.length, min: Math.min(...us.map((u) => u.price)), free: us.filter((u) => u.status === "available").length })).sort((a, b) => b.ppm - a.ppm);
+  const maxP = Math.max(...rows.map((r) => r.ppm));
+  $("ptable").innerHTML = `<div class="hd" role="row"><span>Дүүрэг</span><span>1 м² дундаж</span><span class="hide-s">Эхлэх үнэ</span><span>Сул</span></div>` + rows.map((r) => `<div class="rw" role="row"><span><b>${esc(r.d)}</b><span class="barw"><i style="width:${(r.ppm / maxP * 100).toFixed(0)}%"></i></span></span><span>${(r.ppm / 1e6).toFixed(2)} сая ₮</span><span class="hide-s">${mln(r.min)}</span><span>${r.free}</span></div>`).join("");
+  const budget = () => {
+    const b = +$("budget").value; $("budget-v").textContent = `${mln(b)} хүртэл`;
+    $("budget-r").innerHTML = rows.map((r) => { const n = avail.filter((x) => district(x.p) === r.d && x.u.price <= b).length; return `<li><span>${esc(r.d)}</span><b>${n} сул нэгж · ≈${Math.floor(b / r.ppm)} м²</b></li>`; }).join("");
+  };
+  $("budget").addEventListener("input", budget); budget();
+
+  /* developers */
+  const devs = {}; for (const p of projects) (devs[p.developer] ??= []).push(p);
+  $("devs").innerHTML = Object.entries(devs).map(([d, ps]) => `<li><a class="devc" href="/units/project.html?project=${encodeURIComponent(ps[0].slug)}"><span class="lg">${esc(d.replace(/^Жишээ\s*/, "").charAt(0))}</span><span><b>${esc(d)}</b><span>${ps.length} төсөл · ${ps.reduce((s, p) => s + p.available, 0)} сул нэгж</span></span></a></li>`).join("");
+
+  /* explore links + footer */
+  $("explore").innerHTML = projects.map((p) => `<div><h3>${esc(p.name)}</h3>${[...new Set(avail.filter((x) => x.p === p).map((x) => x.u.rooms))].sort().map((r) => `<a href="/units/?project=${encodeURIComponent(p.slug)}&status=available">${r} өрөө орон сууц — ${esc(district(p))}</a>`).join("")}<a href="/units/project.html?project=${encodeURIComponent(p.slug)}">Төслийн мэдээлэл</a></div>`).join("")
+    + `<div><h3>Дүүргээр</h3>${ds.map((d) => `<a href="#" data-q="${esc(d)}">${esc(d)}-ийн шинэ орон сууц</a>`).join("")}</div>`;
+  $("foot-projects").innerHTML = projects.map((p) => `<li><a href="/units/project.html?project=${encodeURIComponent(p.slug)}">${esc(p.name)}</a></li>`).join("");
+} catch (e) {
+  console.error(e);
+  $("p-grid").innerHTML = `<p class="note">Мэдээлэл ачаалж чадсангүй. Хуудсаа дахин ачаална уу.</p>`;
+}
+</script>
+</body>
+</html>

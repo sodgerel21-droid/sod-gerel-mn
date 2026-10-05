@@ -1,0 +1,91 @@
+name: e-property-mn
+x-api-env: &api-env
+  DATABASE_URL: postgres://eproperty:${POSTGRES_PASSWORD:?required}@postgres:5432/eproperty?sslmode=disable
+  ENVIRONMENT: production
+  PUBLIC_ORIGIN: https://e-property.mn
+  ALLOWED_ORIGINS: https://e-property.mn
+  # Phone app work area (mobile-brand/): its own origin, same backend.
+  DEVICE_LINE_ORIGINS: https://mobile.e-property.mn
+  # App2App return of the phone app; eID RP callback_hosts must list eproperty://.
+  EID_APP_CALLBACKS: eproperty://auth
+  BRAND_NAME: E-Property
+  SEED_DEMO_DATA: "false"
+  SSO_DEFAULT_CLIENT_SECRET: ${SSO_DEFAULT_CLIENT_SECRET:?required}
+  INTEGRATION_ENCRYPTION_KEY: ${INTEGRATION_ENCRYPTION_KEY:?required}
+  PUSH_TOKEN_ENCRYPTION_KEY: ${PUSH_TOKEN_ENCRYPTION_KEY:?required}
+  # Operator console at admin.e-property.mn (deploy/nginx.conf); open to every address
+  # by decision, guarded by the operator's password + TOTP.
+  CONTROL_PLANE_HOST: admin.e-property.mn
+  CONTROL_PLANE_ALLOW_ALL: "true"
+  REDIS_URL: redis://redis:6379/0
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: eproperty
+      POSTGRES_USER: eproperty
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?required}
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U eproperty -d eproperty"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: [redis-server, --save, "", --appendonly, "no"]
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  migrate:
+    image: ghcr.io/gerege-systems/e-property-mn/backend:${IMAGE_TAG:?required}
+    environment: *api-env
+    command: [/app/migrate, up]
+    depends_on:
+      postgres: {condition: service_healthy}
+  backend:
+    image: ghcr.io/gerege-systems/e-property-mn/backend:${IMAGE_TAG:?required}
+    restart: unless-stopped
+    environment: *api-env
+    ports: ["127.0.0.1:8180:8080"]
+    volumes: ["catalog_cache:/var/lib/nexus"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO- http://127.0.0.1:8080/ready || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+  frontend:
+    image: ghcr.io/gerege-systems/e-property-mn/frontend:${IMAGE_TAG:?required}
+    restart: unless-stopped
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+      API_INTERNAL_URL: http://backend:8080/api/v1
+      CONTROL_PLANE_HOST: admin.e-property.mn
+      BRAND_NAME: E-Property
+      BRAND_SHORT_NAME: E-Property
+      BRAND_DESCRIPTION: Үл хөдлөх хөрөнгийн цахим платформ
+      BRAND_LOGO_URL: /brand/logo.svg
+      BRAND_ICON_URL: /brand/icon.svg
+      BRAND_THEME_COLOR: "#142D4E"
+      BRAND_COPY_FILE: /brand/copy.json
+      BRAND_THEME_CSS_FILE: /brand/theme.css
+    volumes: ["./brand:/brand:ro"]
+    ports: ["127.0.0.1:3180:3000"]
+    depends_on:
+      backend: {condition: service_healthy}
+    healthcheck:
+      test: [CMD-SHELL, "wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+volumes:
+  postgres_data:
+  catalog_cache:

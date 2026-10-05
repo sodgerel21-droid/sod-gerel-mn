@@ -1,0 +1,347 @@
+{
+ "models": {
+  "sofa-velvet": {
+   "source": "https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/GlamVelvetSofa",
+   "license": "CC-BY-4.0",
+   "authors": [
+    "Eric Chadwick / Wayfair, LLC (2021, Everything)"
+   ],
+   "attribution_required": true,
+   "file": "models/sofa-velvet.glb",
+   "original": "GlamVelvetSofa",
+   "size_m": {
+    "x": 2.1884,
+    "y": 0.7875,
+    "z": 1.0228
+   },
+   "min_m": [
+    -1.114,
+    0,
+    -0.6277
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 546176,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "coffee-table-modern": {
+   "source": "https://polyhaven.com/a/modern_coffee_table_01",
+   "license": "CC0-1.0",
+   "authors": [
+    "Amin"
+   ],
+   "attribution_required": false,
+   "file": "models/coffee-table-modern.glb",
+   "original": "modern_coffee_table_01",
+   "size_m": {
+    "x": 0.6,
+    "y": 0.39,
+    "z": 1.2018
+   },
+   "min_m": [
+    -0.3,
+    -0.0001,
+    -0.6007
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 302488,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "media-cabinet-oak": {
+   "source": "https://polyhaven.com/a/modern_wooden_cabinet",
+   "license": "CC0-1.0",
+   "authors": [
+    "Patrik Pangerl"
+   ],
+   "attribution_required": false,
+   "file": "models/media-cabinet-oak.glb",
+   "original": "modern_wooden_cabinet",
+   "size_m": {
+    "x": 2.44,
+    "y": 0.6801,
+    "z": 0.52
+   },
+   "min_m": [
+    -1.22,
+    0,
+    -0.27
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 1367364,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "dining-chair": {
+   "source": "https://polyhaven.com/a/dining_chair_02",
+   "license": "CC0-1.0",
+   "authors": [
+    "James Ray Cock"
+   ],
+   "attribution_required": false,
+   "file": "models/dining-chair.glb",
+   "original": "dining_chair_02",
+   "size_m": {
+    "x": 0.4336,
+    "y": 0.9734,
+    "z": 0.5764
+   },
+   "min_m": [
+    -0.2168,
+    0.0013,
+    -0.331
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 713180,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "side-table-oak": {
+   "source": "https://polyhaven.com/a/side_table_01",
+   "license": "CC0-1.0",
+   "authors": [
+    "James Ray Cock"
+   ],
+   "attribution_required": false,
+   "file": "models/side-table-oak.glb",
+   "original": "side_table_01",
+   "size_m": {
+    "x": 0.55,
+    "y": 0.5507,
+    "z": 0.45
+   },
+   "min_m": [
+    -0.275,
+    -0.0024,
+    -0.225
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 293940,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "pendant-light": {
+   "source": "https://polyhaven.com/a/modern_ceiling_lamp_01",
+   "license": "CC0-1.0",
+   "authors": [
+    "James Ray Cock"
+   ],
+   "attribution_required": false,
+   "file": "models/pendant-light.glb",
+   "original": "modern_ceiling_lamp_01",
+   "size_m": {
+    "x": 0.4316,
+    "y": 0.9516,
+    "z": 0.4317
+   },
+   "min_m": [
+    -0.2158,
+    0.2211,
+    -0.2143
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 277140,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  },
+  "plant-floor": {
+   "source": "https://polyhaven.com/a/potted_plant_02",
+   "license": "CC0-1.0",
+   "authors": [
+    "Rico Cilliers"
+   ],
+   "attribution_required": false,
+   "file": "models/plant-floor.glb",
+   "original": "potted_plant_02",
+   "size_m": {
+    "x": 0.7012,
+    "y": 0.8412,
+    "z": 0.6574
+   },
+   "min_m": [
+    -0.3967,
+    0.0001,
+    -0.4203
+   ],
+   "up": "+Y (glTF)",
+   "bytes": 2265580,
+   "optimisation": "dedup, prune, textures → WebP ≤1024 px (q82)"
+  }
+ },
+ "materials": {
+  "oak-floor": {
+   "source": "https://polyhaven.com/a/laminate_floor_02",
+   "license": "CC0-1.0",
+   "authors": [
+    "Dario Barresi",
+    "Charlotte Baglioni"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    1.6999999284744263,
+    1.7000000476837158
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "2k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "plaster-warm": {
+   "source": "https://polyhaven.com/a/beige_wall_001",
+   "license": "CC0-1.0",
+   "authors": [
+    "Dimitrios Savva",
+    "Rico Cilliers"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    3,
+    3.000000238418579
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "stone-tile": {
+   "source": "https://polyhaven.com/a/marble_01",
+   "license": "CC0-1.0",
+   "authors": [
+    "Rob Tuytel"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    1.5,
+    1.5
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "wall-tile": {
+   "source": "https://polyhaven.com/a/long_white_tiles",
+   "license": "CC0-1.0",
+   "authors": [
+    "Jenelle van Heerden",
+    "Sergej Majboroda"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    1.2699999809265137,
+    1.2699999809265137
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "oak-veneer": {
+   "source": "https://polyhaven.com/a/oak_veneer_02",
+   "license": "CC0-1.0",
+   "authors": [
+    "Jenelle van Heerden"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    1,
+    1
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "linen": {
+   "source": "https://polyhaven.com/a/rough_linen",
+   "license": "CC0-1.0",
+   "authors": [
+    "colormass",
+    "Rico Cilliers"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    0.2707081392676629,
+    0.27129998803138733
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  },
+  "wool": {
+   "source": "https://polyhaven.com/a/poly_wool_herringbone",
+   "license": "CC0-1.0",
+   "authors": [
+    "colormass",
+    "Rico Cilliers"
+   ],
+   "attribution_required": false,
+   "size_m": [
+    0.2700788548673393,
+    0.27570000290870667
+   ],
+   "maps": [
+    "diff",
+    "nor",
+    "rough",
+    "ao"
+   ],
+   "resolution": "1k",
+   "colour_space": {
+    "diff": "sRGB",
+    "nor": "linear (OpenGL +Y)",
+    "rough": "linear",
+    "ao": "linear"
+   }
+  }
+ }
+}

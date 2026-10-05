@@ -1,0 +1,197 @@
+[
+ {
+  "slug": "tuul-river",
+  "lat": 47.8935,
+  "lon": 106.915,
+  "name": "Туулын Эрэг",
+  "block": "B",
+  "district": "Хан-Уул дүүрэг, 11-р хороо",
+  "developer": "Жишээ Девелопмент ХХК",
+  "floors": "3-16",
+  "height": 3.0,
+  "progress": 62,
+  "completion": "2027 оны III улирал",
+  "units": 84,
+  "available": 32,
+  "reserved": 12,
+  "sold": 40,
+  "price_from": 361900000.0,
+  "price_to": 480200000.0,
+  "updated": "2026-09-30",
+  "renders": [
+   {
+    "file": "renders/aerial.webp",
+    "title": "Агаараас",
+    "view": "aerial"
+   },
+   {
+    "file": "renders/close.webp",
+    "title": "Ойроос",
+    "view": "close"
+   },
+   {
+    "file": "renders/top.webp",
+    "title": "Дээрээс",
+    "view": "top"
+   },
+   {
+    "file": "renders/night.webp",
+    "title": "Оройн гэрэлтэй",
+    "view": "night"
+   }
+  ],
+  "panoramas": [
+   {
+    "file": "pano/street.webp",
+    "title": "Орцны өмнөөс",
+    "stop": "street"
+   },
+   {
+    "file": "pano/yard.webp",
+    "title": "Хашаанаас",
+    "stop": "yard"
+   },
+   {
+    "file": "pano/roof.webp",
+    "title": "Дээврээс",
+    "stop": "roof"
+   },
+   {
+    "file": "pano/window.webp",
+    "title": "10-р давхрын цонхноос (B-1001)",
+    "stop": "window",
+    "unit": "B-1001"
+   }
+  ]
+ },
+ {
+  "slug": "central-tower",
+  "lat": 47.91888,
+  "lon": 106.91756,
+  "name": "Төв Цамхаг",
+  "block": "A",
+  "district": "Сүхбаатар дүүрэг, 1-р хороо",
+  "developer": "Жишээ Барилга ХХК",
+  "floors": "3-22",
+  "height": 3.3,
+  "progress": 35,
+  "completion": "2028 оны II улирал",
+  "units": 120,
+  "available": 67,
+  "reserved": 13,
+  "sold": 40,
+  "price_from": 250000000.0,
+  "price_to": 1002600000.0,
+  "updated": "2026-09-30",
+  "renders": [
+   {
+    "file": "renders/aerial.webp",
+    "title": "Агаараас",
+    "view": "aerial"
+   },
+   {
+    "file": "renders/close.webp",
+    "title": "Ойроос",
+    "view": "close"
+   },
+   {
+    "file": "renders/top.webp",
+    "title": "Дээрээс",
+    "view": "top"
+   },
+   {
+    "file": "renders/night.webp",
+    "title": "Оройн гэрэлтэй",
+    "view": "night"
+   }
+  ],
+  "panoramas": [
+   {
+    "file": "pano/street.webp",
+    "title": "Орцны өмнөөс",
+    "stop": "street"
+   },
+   {
+    "file": "pano/yard.webp",
+    "title": "Хашаанаас",
+    "stop": "yard"
+   },
+   {
+    "file": "pano/roof.webp",
+    "title": "Дээврээс",
+    "stop": "roof"
+   },
+   {
+    "file": "pano/window.webp",
+    "title": "13-р давхрын цонхноос (A-1301)",
+    "stop": "window",
+    "unit": "A-1301"
+   }
+  ]
+ },
+ {
+  "slug": "morning-light",
+  "lat": 47.9095,
+  "lon": 106.989,
+  "name": "Өглөөний Гэгээ",
+  "block": "C",
+  "district": "Баянзүрх дүүрэг, 26-р хороо",
+  "developer": "Жишээ Хотхон ХХК",
+  "floors": "2-9",
+  "height": 3.0,
+  "progress": 88,
+  "completion": "2026 оны IV улирал",
+  "units": 88,
+  "available": 40,
+  "reserved": 8,
+  "sold": 40,
+  "price_from": 231800000.0,
+  "price_to": 448800000.0,
+  "updated": "2026-09-30",
+  "renders": [
+   {
+    "file": "renders/aerial.webp",
+    "title": "Агаараас",
+    "view": "aerial"
+   },
+   {
+    "file": "renders/close.webp",
+    "title": "Ойроос",
+    "view": "close"
+   },
+   {
+    "file": "renders/top.webp",
+    "title": "Дээрээс",
+    "view": "top"
+   },
+   {
+    "file": "renders/night.webp",
+    "title": "Оройн гэрэлтэй",
+    "view": "night"
+   }
+  ],
+  "panoramas": [
+   {
+    "file": "pano/street.webp",
+    "title": "Орцны өмнөөс",
+    "stop": "street"
+   },
+   {
+    "file": "pano/yard.webp",
+    "title": "Хашаанаас",
+    "stop": "yard"
+   },
+   {
+    "file": "pano/roof.webp",
+    "title": "Дээврээс",
+    "stop": "roof"
+   },
+   {
+    "file": "pano/window.webp",
+    "title": "6-р давхрын цонхноос (C-0601)",
+    "stop": "window",
+    "unit": "C-0601"
+   }
+  ]
+ }
+]

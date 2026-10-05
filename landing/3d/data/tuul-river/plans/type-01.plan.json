@@ -1,0 +1,78 @@
+{
+  "schema": "e-property.apartment-plan",
+  "version": 1,
+  "id": "tuul-river/type-01",
+  "revision": "demo-2026-10-05",
+  "title": "3 өрөө, 01 төрөл",
+  "units": "m",
+  "coordinates": {
+    "frame": "building plan of landing/3d/data/tuul-river/plan.dxf",
+    "x": "DXF X, metres",
+    "y": "DXF Y, metres (counter-clockwise positive)",
+    "rooms": "finished wall faces",
+    "walls": "centrelines"
+  },
+  "north_deg": null,
+  "ceiling_height": 2.7,
+  "status": {
+    "verification": "demonstration",
+    "note": "Хөгжүүлэлтийн жишээ. Нэгжийн гадна хил нь plan.dxf-ийн B-xx01 нэгжийнх; дотор хана, хаалга, цонх, өрөөг шинэ pipeline-ийг турших зорилгоор зохиосон. Архитекторын зураг биш."
+  },
+  "source": {
+    "file": "landing/3d/data/tuul-river/plans/type-01.dxf",
+    "revision": "demo-2026-10-05",
+    "authoring": "Гараар зурсан бүтэцтэй төлөвлөлт (structured plan authoring), DXF нь tools/cad/plan-dxf.mjs-ээр үүссэн"
+  },
+  "area": {
+    "declared": 96,
+    "declared_definition": "Төсөл хэрэгжүүлэгчийн зарласан талбай (units.json area_declared). Үнэ үүгээр тооцогдоно.",
+    "boundary_definition": "plan.dxf дахь нэгжийн гадна хилийн полигоноос тооцсон.",
+    "internal_definition": "Өрөө бүрийн хананы дотор нүүрээр тооцсон полигоны нийлбэр.",
+    "sales_area": "declared"
+  },
+  "boundary": [[0, 10], [12, 10], [12, 18], [0, 18]],
+  "walls": [
+    { "id": "W-S", "kind": "corridor", "a": [0.15, 10.15], "b": [11.85, 10.15], "thickness": 0.3, "height": 2.7 },
+    { "id": "W-E", "kind": "party", "a": [11.85, 10.15], "b": [11.85, 17.85], "thickness": 0.3, "height": 2.7 },
+    { "id": "W-N", "kind": "exterior", "a": [11.85, 17.85], "b": [0.15, 17.85], "thickness": 0.3, "height": 2.7 },
+    { "id": "W-W", "kind": "exterior", "a": [0.15, 17.85], "b": [0.15, 10.15], "thickness": 0.3, "height": 2.7 },
+    { "id": "W-a", "kind": "interior", "a": [0.3, 13.6], "b": [7.9, 13.6], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-b", "kind": "interior", "a": [3.9, 13.6], "b": [3.9, 17.7], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-c", "kind": "interior", "a": [7.2, 13.6], "b": [7.2, 17.7], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-d", "kind": "interior", "a": [2.7, 10.3], "b": [2.7, 13.6], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-e1", "kind": "interior", "a": [2.7, 12.0], "b": [4.2, 12.0], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-e2", "kind": "interior", "a": [4.2, 10.3], "b": [4.2, 12.0], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-f", "kind": "interior", "a": [8.6, 10.3], "b": [8.6, 12.9], "thickness": 0.12, "height": 2.7 },
+    { "id": "W-g", "kind": "interior", "a": [8.6, 12.9], "b": [7.9, 13.6], "thickness": 0.12, "height": 2.7 }
+  ],
+  "openings": [
+    { "id": "D-entry", "type": "entrance", "wall": "W-S", "offset": 5.45, "width": 1.0, "height": 2.1, "sill": 0, "swing": { "side": "left", "hinge": "start" } },
+    { "id": "D-bed1", "type": "door", "wall": "W-a", "offset": 2.55, "width": 0.8, "height": 2.1, "sill": 0, "swing": { "side": "left", "hinge": "end" } },
+    { "id": "D-bed2", "type": "door", "wall": "W-a", "offset": 5.8, "width": 0.8, "height": 2.1, "sill": 0, "swing": { "side": "left", "hinge": "start" } },
+    { "id": "D-bath", "type": "door", "wall": "W-d", "offset": 2.1, "width": 0.8, "height": 2.1, "sill": 0, "swing": { "side": "left", "hinge": "end" } },
+    { "id": "D-store", "type": "door", "wall": "W-e2", "offset": 0.4, "width": 0.7, "height": 2.1, "sill": 0, "swing": { "side": "right", "hinge": "start" } },
+    { "id": "O-living", "type": "opening", "wall": "W-g", "offset": 0.045, "width": 0.9, "height": 2.2, "sill": 0 },
+    { "id": "WN-living", "type": "window", "wall": "W-N", "offset": 1.25, "width": 2.4, "height": 1.8, "sill": 0.6 },
+    { "id": "WN-bed2", "type": "window", "wall": "W-N", "offset": 5.45, "width": 1.6, "height": 1.5, "sill": 0.85 },
+    { "id": "WN-bed1", "type": "window", "wall": "W-N", "offset": 8.95, "width": 1.6, "height": 1.5, "sill": 0.85 },
+    { "id": "WW-bath", "type": "window", "wall": "W-W", "offset": 5.65, "width": 0.8, "height": 0.7, "sill": 1.5 }
+  ],
+  "rooms": [
+    { "id": "R-living", "type": "living", "name": "Зочны өрөө, гал тогоо", "floor_finish": "wood",
+      "polygon": [[8.66, 10.3], [11.7, 10.3], [11.7, 17.7], [7.26, 17.7], [7.26, 13.66], [7.9248528137423855, 13.66], [8.66, 12.924852813742386]] },
+    { "id": "R-bed1", "type": "bedroom", "name": "Унтлагын өрөө", "floor_finish": "wood",
+      "polygon": [[0.3, 13.66], [3.84, 13.66], [3.84, 17.7], [0.3, 17.7]] },
+    { "id": "R-bed2", "type": "bedroom", "name": "Унтлагын өрөө", "floor_finish": "wood",
+      "polygon": [[3.96, 13.66], [7.14, 13.66], [7.14, 17.7], [3.96, 17.7]] },
+    { "id": "R-hall", "type": "hall", "name": "Үүдний өрөө", "floor_finish": "tile",
+      "polygon": [[4.26, 10.3], [8.54, 10.3], [8.54, 12.875147186257615], [7.875147186257615, 13.54], [2.76, 13.54], [2.76, 12.06], [4.26, 12.06]] },
+    { "id": "R-store", "type": "storage", "name": "Агуулах", "floor_finish": "tile",
+      "polygon": [[2.76, 10.3], [4.14, 10.3], [4.14, 11.94], [2.76, 11.94]] },
+    { "id": "R-bath", "type": "bathroom", "name": "Угаалгын өрөө", "floor_finish": "tile",
+      "polygon": [[0.3, 10.3], [2.64, 10.3], [2.64, 13.54], [0.3, 13.54]] }
+  ],
+  "fixed_zones": [
+    { "id": "Z-kitchen", "type": "kitchen", "room": "R-living", "polygon": [[11.05, 10.3], [11.7, 10.3], [11.7, 13.9], [11.05, 13.9]] },
+    { "id": "Z-wet", "type": "plumbing", "room": "R-bath", "polygon": [[0.3, 10.3], [2.64, 10.3], [2.64, 13.54], [0.3, 13.54]] }
+  ]
+}

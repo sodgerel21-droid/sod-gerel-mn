@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "rules": [
+    { "prefix": "/saved", "open": "native:dashboard" },
+    { "prefix": "/3d/data/", "open": "external" }
+  ]
+}

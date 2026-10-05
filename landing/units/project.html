@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Property төсөл</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23142D4E'/%3E%3Cpath d='M17 16h31v8H25v5h18v7H25v5h23v8H17z' fill='%23fff'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>try { const t = localStorage.getItem("ep-theme"); if (t === "dark" || t === "light") document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+/* Project detail: the development, its location, real renders, unit choice and progress — only facts
+   present in the project data; nothing invented (no amenities, testimonials or partner logos). */
+:root{--bg:#F6F4F0;--surface:#fff;--sunk:#EFEBE5;--ink:#1B2130;--navy:#142D4E;--muted:#5F646C;--line:#E3DED6;--accent:#087F8C;--ok:#0B6B45;--held:#9A5B00;--sold:#6B7280;--warn-bg:#FFF2D9;--warn-ink:#7A4F00;--mono:"IBM Plex Mono",ui-monospace,monospace;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1114;--surface:#161A1F;--sunk:#1D2228;--ink:#E7E9EC;--navy:#F1F3F5;--muted:#9AA1AA;--line:#272D35;--accent:#4CC3CF;--ok:#4FC28C;--held:#E2A84A;--sold:#9AA1AA;--warn-bg:#3A2A0A;--warn-ink:#F2C979;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1114;--surface:#161A1F;--sunk:#1D2228;--ink:#E7E9EC;--navy:#F1F3F5;--muted:#9AA1AA;--line:#272D35;--accent:#4CC3CF;--ok:#4FC28C;--held:#E2A84A;--sold:#9AA1AA;--warn-bg:#3A2A0A;--warn-ink:#F2C979;color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Manrope",system-ui,sans-serif}
+a{color:var(--accent)}
+h1,h2{color:var(--navy);text-wrap:balance;margin:0;letter-spacing:-.015em}
+header.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;padding:10px max(16px,calc((100vw - 1280px)/2));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .brand{display:flex;align-items:center;gap:10px;color:var(--navy);font-weight:800;text-decoration:none}
+header.top nav{margin-left:auto;display:flex;gap:4px}header.top nav a{color:var(--ink);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px}
+.tag{font:500 .75rem var(--mono);padding:4px 9px;border-radius:999px;background:var(--warn-bg);color:var(--warn-ink)}
+@media (max-width:560px){header.top .tag{display:none}header.top nav a{padding:8px 7px}}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px}
+.hero{position:relative;min-height:min(72vh,640px);display:grid;align-items:end;color:#fff;background:#0E1B27 center/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,22,32,.15) 30%,rgba(12,22,32,.85))}
+.hero .wrap{position:relative;padding-block:48px}
+.hero h1{color:#fff;font-size:clamp(2.2rem,1.4rem + 3.4vw,4rem);line-height:1.04}
+.hero p{margin:10px 0 0;color:#D8DEE5;font-size:1.125rem}
+.hero .facts{display:flex;flex-wrap:wrap;gap:12px 40px;margin-top:28px}
+.hero .facts b{display:block;font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+.hero .facts span{color:#C5CED8;font-size:.875rem}
+section.block{padding-block:clamp(48px,6vw,84px)}
+.label{font:500 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px);align-items:start}
+.lede{color:var(--muted);font-size:1.0625rem;max-width:58ch;margin:12px 0 0}
+.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+.gallery figure{margin:0;position:relative;border-radius:14px;overflow:hidden;background:var(--sunk)}
+.gallery figure:first-child{grid-row:span 2}
+.gallery img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/10}
+.gallery figcaption{position:absolute;left:10px;bottom:10px;font-size:.75rem;font-weight:600;padding:4px 8px;border-radius:6px;background:rgba(12,22,32,.6);color:#fff}
+dl.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 24px;margin:20px 0 0}
+dl.kv dt{color:var(--muted)}dl.kv dd{margin:0;font-weight:600}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--accent)}
+.stack{display:flex;gap:2px;height:12px;border-radius:4px;overflow:hidden;margin-top:10px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.875rem;margin-top:8px}
+.st::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:currentColor;vertical-align:0}
+.available{color:var(--ok)}.reserved{color:var(--held)}.sold{color:var(--sold)}
+.reserved::before{border-radius:1px;transform:rotate(45deg)}.sold::before{background:none;border:1.5px solid currentColor}
+.floors{display:grid;gap:3px;margin-top:20px}
+.floor{display:grid;grid-template-columns:42px minmax(0,1fr);gap:8px;align-items:center}
+.floor .n{font:500 .75rem var(--mono);color:var(--muted);text-align:right}
+.floor .u{display:flex;gap:3px}
+.floor a{flex:1;min-width:0;height:26px;border-radius:4px;display:grid;place-items:center;font:500 .6875rem var(--mono);text-decoration:none;color:#fff}
+.floor a.available{background:#00939F}.floor a.reserved{background:repeating-linear-gradient(135deg,#B97400 0 4px,#D79A3A 4px 7px)}.floor a.sold{background:repeating-linear-gradient(45deg,#8296B0 0 3px,#6E819B 3px 4px)}
+.floor a:hover,.floor a:focus-visible{outline:2px solid var(--navy);outline-offset:1px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.filters button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font:inherit;font-weight:700;font-size:.875rem;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:var(--surface)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 22px;border-radius:999px;border:1px solid var(--navy);background:var(--navy);color:var(--surface);font-weight:700;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--navy)}
+.btn[aria-disabled=true]{background:var(--sunk);border-color:var(--line);color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.note{font-size:.875rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+@media (max-width:900px){.two{grid-template-columns:minmax(0,1fr)}.gallery{grid-template-columns:1fr 1fr}.gallery figure:first-child{grid-column:span 2;grid-row:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#142D4E"/><path d="M17 16h31v8H25v5h18v7H25v5h23v8H17z" fill="#fff"/><path d="M48 29h5v20h-5z" fill="#087F8C"/></svg>E-Property</a>
+  <span class="tag">Жишээ мэдээлэл</span>
+  <nav><a href="/">Нүүр</a><a href="./">Нэгжүүд</a><a href="/3d/">3D</a></nav>
+</header>
+<main id="main"><p class="wrap" style="padding-block:40px">Төслийг ачаалж байна…</p></main>
+<script type="module">
+const $ = (id) => document.getElementById(id), esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+const money = (n) => `${Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ₮`;
+const mln = (n) => n < 1e9 ? `${(n / 1e6).toFixed(1)} сая ₮` : `${(n / 1e9).toFixed(2)} тэрбум ₮`;
+const STATUS = { available: "Сул", reserved: "Захиалсан", sold: "Зарагдсан" };
+const params = new URLSearchParams(location.search);
+try {
+  const projects = await fetch("/3d/data/projects.json").then((r) => r.json());
+  const p = projects.find((x) => x.slug === params.get("project")) ?? projects[0];
+  const D = `/3d/data/${encodeURIComponent(p.slug)}`;
+  const [units, index] = await Promise.all([fetch(`${D}/units.json`).then((r) => r.json()), fetch(`${D}/plans/index.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null)]);
+  document.title = `${p.name}, ${p.block} блок — E-Property`;
+  const floors = [...new Set(units.map((u) => u.floor))].sort((a, b) => b - a);
+  const pct = (n) => (n / p.units) * 100;
+  const typed = (u) => index?.plans?.some((e) => e.match?.suffix ? u.unit_id.endsWith(e.match.suffix) : e.match?.units?.includes(u.unit_id));
+  const hero = p.renders?.find((r) => r.view === "aerial") ?? p.renders?.[0];
+  $("main").innerHTML = `
+  <section class="hero" style="background-image:url('${D}/${esc(hero?.file)}')">
+    <div class="wrap">
+      <span class="tag">Жишээ төсөл</span>
+      <h1>${esc(p.name)}, ${esc(p.block)} блок</h1>
+      <p>${esc(p.district)} · ${esc(p.developer)}</p>
+      <div class="facts">
+        <div><b>${p.available}</b><span>сул нэгж / нийт ${p.units}</span></div>
+        <div><b>${mln(p.price_from)}</b><span>хамгийн бага үнэ</span></div>
+        <div><b>${esc(p.floors)}</b><span>давхар</span></div>
+        <div><b>${p.progress}%</b><span>барилгын явц</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="block"><div class="wrap two">
+    <div>
+      <span class="label">Архитектур</span>
+      <h2 style="font-size:clamp(1.6rem,1.2rem+1.6vw,2.4rem);margin-top:8px">Барилга</h2>
+      <p class="lede">Зургууд нь төслийн 3D загвараас гаргасан дүрслэл (бодит гэрэл зураг биш). Хиймэл дагуулын зураг © Esri, Maxar.</p>
+      <dl class="kv">
+        <dt>Байршил</dt><dd>${esc(p.district)}<br><a href="https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lon}#map=17/${p.lat}/${p.lon}" rel="noopener" target="_blank">Газрын зураг дээр үзэх ↗</a> <span class="note">(жишээ байршил)</span></dd>
+        <dt>Хэрэгжүүлэгч</dt><dd>${esc(p.developer)}</dd>
+        <dt>Давхар</dt><dd>${esc(p.floors)}</dd>
+        <dt>Ашиглалтад</dt><dd>${esc(p.completion)}</dd>
+        <dt>Тохижилт, үйлчилгээ</dt><dd class="note" style="font-weight:400">Баталгаажсан мэдээлэл ороогүй. Төсөл хэрэгжүүлэгч эх сурвалжтай нь оруулсны дараа харагдана.</dd>
+        <dt>Шинэчилсэн</dt><dd>${esc(p.updated.replace(/-/g, "."))}</dd>
+      </dl>
+    </div>
+    <div class="gallery">${(p.renders ?? []).slice(0, 3).map((r) => `<figure><img src="${D}/${esc(r.file)}" alt="${esc(p.name)} — ${esc(r.title)}, 3D дүрслэл" loading="lazy" width="1600" height="1000"><figcaption>${esc(r.title)} · дүрслэл</figcaption></figure>`).join("")}</div>
+  </div></section>
+  <section class="block" style="background:var(--surface);border-block:1px solid var(--line)"><div class="wrap two">
+    <div>
+      <span class="label">Нэгж сонгох</span>
+      <h2 style="font-size:clamp(1.6rem,1.2rem+1.6vw,2.4rem);margin-top:8px">Давхар бүрийн нэгжүүд</h2>
+      <p class="lede">Нүд бүр нэг нэгж. Дарахад нэгжийн паспорт — 2D зураг, 3D, интерьер — нээгдэнэ.${index ? " «Д» тэмдэгтэй нэгжүүд бүтэцтэй дотор төлөвлөлттэй (жишээ); бусад нь гадна хилээс таамагласан хуваалттай." : " Энэ төслийн нэгжүүдэд бүтэцтэй дотор төлөвлөлт хараахан ороогүй — паспорт нь гадна хилээс таамагласан хуваалтыг шошготой харуулна."}</p>
+      <div class="stack" role="img" aria-label="Сул ${p.available}, захиалсан ${p.reserved}, зарагдсан ${p.sold}"><i style="flex:${pct(p.available)};background:#00939F"></i><i style="flex:${pct(p.reserved)};background:#B97400"></i><i style="flex:${pct(p.sold)};background:#8296B0"></i></div>
+      <div class="legend"><span class="st available">Сул ${p.available}</span><span class="st reserved">Захиалсан ${p.reserved}</span><span class="st sold">Зарагдсан ${p.sold}</span></div>
+      <div class="filters" id="filters"><button type="button" data-s="" aria-pressed="true">Бүгд</button><button type="button" data-s="available" aria-pressed="false">Зөвхөн сул</button></div>
+      ${index ? `<p class="note" style="margin-top:18px">Дотор төлөвлөлттэй жишээ нэгжүүд: ${units.filter(typed).slice(0, 4).map((u) => `<a href="./?project=${encodeURIComponent(p.slug)}&unit=${encodeURIComponent(u.unit_id)}&tab=interior">${esc(u.unit_id)}</a>`).join(" · ")}</p>` : ""}
+      <div class="row"><a class="btn" href="/3d/?project=${encodeURIComponent(p.slug)}">Барилгыг 3D-ээр үзэх</a><a class="btn ghost" href="./?project=${encodeURIComponent(p.slug)}">Нэгжүүдийн жагсаалт</a></div>
+    </div>
+    <div class="floors" id="floors"></div>
+  </div></section>
+  <section class="block"><div class="wrap two">
+    <div>
+      <span class="label">Явц</span>
+      <h2 style="font-size:clamp(1.6rem,1.2rem+1.6vw,2.4rem);margin-top:8px">Барилгын явц ${p.progress}%</h2>
+      <div class="bar" role="img" aria-label="${p.progress} хувь"><i style="width:${Math.max(0, Math.min(100, p.progress))}%"></i></div>
+      <p class="lede">Ашиглалтад орох төлөвлөсөн хугацаа: ${esc(p.completion)}. Явцын баталгаажуулалт (зураг, хяналтын тайлан) платформын дараагийн шатанд холбогдоно.</p>
+    </div>
+    <div class="card">
+      <span class="label">Холбогдох</span>
+      <h2 style="font-size:1.4rem;margin:8px 0 12px">Энэ төслийн талаар асуух</h2>
+      <a class="btn" aria-disabled="true" role="link">Хүсэлт илгээх</a>
+      <p class="note">Хүсэлт хүлээн авах суваг удахгүй нээгдэнэ. Одоогоор хүсэлт хаашаа ч илгээгдэхгүй.</p>
+    </div>
+  </div></section>`;
+  const drawFloors = (only) => {
+    $("floors").innerHTML = floors.map((f) => `<div class="floor"><span class="n">${f}</span><span class="u">${units.filter((u) => u.floor === f).sort((a, b) => a.unit_id.localeCompare(b.unit_id)).map((u) => {
+      const dim = only && u.status !== only;
+      return `<a class="${u.status}" style="${dim ? "opacity:.18" : ""}" href="./?project=${encodeURIComponent(p.slug)}&unit=${encodeURIComponent(u.unit_id)}" title="${esc(u.unit_id)} · ${STATUS[u.status]} · ${u.rooms} өрөө · ${u.area_declared ?? u.area_measured} м²${u.status === "sold" ? "" : " · " + money(u.price)}" aria-label="${esc(u.unit_id)}, ${STATUS[u.status]}">${typed(u) ? "Д" : ""}</a>`;
+    }).join("")}</span></div>`).join("");
+  };
+  drawFloors("");
+  $("filters").addEventListener("click", (e) => { const b = e.target.closest("button[data-s]"); if (!b) return; $("filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); drawFloors(b.dataset.s); });
+} catch (e) { console.error(e); $("main").innerHTML = `<p class="wrap" style="padding-block:40px;color:#B42318">Төслийг ачаалж чадсангүй. Хуудсаа дахин ачаална уу.</p>`; }
+</script>
+</body>
+</html>

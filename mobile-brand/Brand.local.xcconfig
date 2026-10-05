@@ -1,0 +1,10 @@
+// E-Property — iOS брэнд. Цөмийн native-apps/mobile/ios/Brand.xcconfig-ийг дарна;
+// prepare-core.sh үүнийг тэр хавтас руу хуулна.
+BRAND_NAME = E-Property
+BRAND_DISPLAY_NAME = E-Property
+BRAND_BUNDLE_ID = mn.eproperty.app
+BRAND_URL_SCHEME = eproperty
+BRAND_HOST = mobile.e-property.mn
+BRAND_APPLINKS_HOST = e-property.mn
+BRAND_COLOR = 087F8C
+BRAND_DEEP_COLOR = 142D4E

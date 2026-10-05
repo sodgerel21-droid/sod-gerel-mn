@@ -1,0 +1,1 @@
+{ "type": "module", "private": true, "description": "Apartment plan modules (ES modules) shared by the browser viewer and the Node checks." }

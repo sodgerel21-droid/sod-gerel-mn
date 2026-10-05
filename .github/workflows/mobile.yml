@@ -1,0 +1,69 @@
+# E-Property phone apps: the locked core's native-apps built with mobile-brand/.
+# Needs a core release that carries the brand overlay (nexus-gerege-private#138);
+# against an older core the package-name checks fail, which is the right signal.
+name: Mobile
+on:
+  push:
+    branches: [main]
+    paths: ["mobile-brand/**", "core.lock", "deploy/prepare-core.sh", ".github/workflows/mobile.yml"]
+  pull_request:
+    branches: [main]
+    paths: ["mobile-brand/**", "core.lock", "deploy/prepare-core.sh", ".github/workflows/mobile.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mobile-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: core
+        run: source core.lock && echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v7
+        with:
+          repository: gerege-systems/nexus-gerege-private
+          ref: ${{ steps.core.outputs.sha }}
+          token: ${{ secrets.PRIVATE_NEXUS_TOKEN }}
+          path: .build/core
+      - run: bash deploy/prepare-core.sh
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v6
+      - uses: android-actions/setup-android@v4
+      - run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - working-directory: .build/core/native-apps/mobile/android
+        run: |
+          ./gradlew -PbrandFile="$GITHUB_WORKSPACE/mobile-brand/brand.properties" test assembleDebug
+          badging=$("$ANDROID_HOME/build-tools/36.0.0/aapt2" dump badging app/build/outputs/apk/debug/app-debug.apk)
+          grep -q "^package: name='mn.eproperty.app'" <<<"$badging"
+          grep -q "^application-label:'E-Property'" <<<"$badging"
+          # Unit links (https://e-property.mn/units/…) open the app.
+          manifest=$("$ANDROID_HOME/build-tools/36.0.0/aapt2" dump xmltree --file AndroidManifest.xml app/build/outputs/apk/debug/app-debug.apk)
+          grep -q '"e-property.mn"' <<<"$manifest"
+          grep -q '"/units/"' <<<"$manifest"
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: core
+        run: source core.lock && echo "sha=$sha" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v7
+        with:
+          repository: gerege-systems/nexus-gerege-private
+          ref: ${{ steps.core.outputs.sha }}
+          token: ${{ secrets.PRIVATE_NEXUS_TOKEN }}
+          path: .build/core
+      - run: bash deploy/prepare-core.sh
+      - run: brew install xcodegen
+      - working-directory: .build/core/native-apps/mobile/ios
+        run: |
+          ./build.sh
+          app=$(xcodebuild -project NexusGeregeMobile.xcodeproj -scheme NexusGeregeMobile -configuration Debug \
+            -destination 'generic/platform=iOS Simulator' -showBuildSettings | awk -F' = ' '/ CODESIGNING_FOLDER_PATH /{print $2}')
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app/Info.plist")" = mn.eproperty.app
+          test "$(/usr/libexec/PlistBuddy -c 'Print :BrandURLScheme' "$app/Info.plist")" = eproperty

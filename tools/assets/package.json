@@ -1,0 +1,13 @@
+{
+  "name": "e-property-asset-tools",
+  "private": true,
+  "type": "module",
+  "description": "Downloads and normalises licensed furniture models and PBR materials for landing/units/assets (see fetch-assets.mjs).",
+  "scripts": { "fetch": "node fetch-assets.mjs" },
+  "dependencies": {
+    "@gltf-transform/core": "^4.0.0",
+    "@gltf-transform/extensions": "^4.0.0",
+    "@gltf-transform/functions": "^4.0.0",
+    "sharp": "^0.35.0"
+  }
+}
